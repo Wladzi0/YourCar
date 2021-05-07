@@ -18,19 +18,9 @@ class Car
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $make;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $model;
-
-    /**
      * @ORM\Column(type="integer")
      */
-    private $year;
+    private $startYear;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -40,7 +30,7 @@ class Car
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $transmition;
+    private $transmission;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -107,43 +97,25 @@ class Car
      */
     private $tuning;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $finishYear;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getMake(): ?string
+
+    public function getStartYear(): ?int
     {
-        return $this->make;
+        return $this->startYear;
     }
 
-    public function setMake(string $make): self
+    public function setYear(int $startYear): self
     {
-        $this->make = $make;
-
-        return $this;
-    }
-
-    public function getModel(): ?string
-    {
-        return $this->model;
-    }
-
-    public function setModel(string $model): self
-    {
-        $this->model = $model;
-
-        return $this;
-    }
-
-    public function getYear(): ?int
-    {
-        return $this->year;
-    }
-
-    public function setYear(int $year): self
-    {
-        $this->year = $year;
+        $this->startYear = $startYear;
 
         return $this;
     }
@@ -160,14 +132,14 @@ class Car
         return $this;
     }
 
-    public function getTransmition(): ?string
+    public function getTransmission(): ?string
     {
-        return $this->transmition;
+        return $this->transmission;
     }
 
-    public function setTransmition(string $transmition): self
+    public function setTransmission(string $transmission): self
     {
-        $this->transmition = $transmition;
+        $this->transmission = $transmission;
 
         return $this;
     }
@@ -324,6 +296,18 @@ class Car
     public function setTuning(string $tuning): self
     {
         $this->tuning = $tuning;
+
+        return $this;
+    }
+
+    public function getFinishYear(): ?int
+    {
+        return $this->finishYear;
+    }
+
+    public function setFinishYear(?int $finishYear): self
+    {
+        $this->finishYear = $finishYear;
 
         return $this;
     }

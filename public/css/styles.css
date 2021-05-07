@@ -6,7 +6,25 @@ body {
     margin: 0;
     background-color: #24252A;
     color: white;
+    font-size: 17px;
 }
 .top{
     margin-top: 100px;
+}
+.link {
+    color: #FFFFFF;
+    margin-top: 20px;
+}
+.logo {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 35px;
+    margin-left: 10%;
+    text-decoration: none;
+}
+.sign-in{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 30px;
+    margin-right: 100px;
 }

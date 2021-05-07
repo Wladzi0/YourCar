@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'List of makes'|trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="container col-4 top">
+        {% if makes %}
+            {% for make in makes %}
+                <div class="d-flex flex-column ">
+                    <a  class="link" href="{{ path('models_list', {'make': make.id}) }}">
+                        {{ make.name }}
+                        {{ make.icon }}
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -35,6 +36,12 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @Assert\Length(max = 4096)
+     */
+    private $plainPassword;
+
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $firstName;
@@ -58,6 +65,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $preferLanguage;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = false;
 
     public function getId(): ?int
     {
@@ -119,6 +131,21 @@ class User implements UserInterface
 
         return $this;
     }
+    /**
+     * @return mixed
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param mixed $plainPassword
+     */
+    public function setPlainPassword($plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
+    }
 
     /**
      * Returning a salt is only needed, if you are not using a modern
@@ -131,13 +158,9 @@ class User implements UserInterface
         return null;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials()
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 
     public function getFirstName(): ?string
@@ -196,6 +219,24 @@ class User implements UserInterface
     public function setPreferLanguage(string $preferLanguage): self
     {
         $this->preferLanguage = $preferLanguage;
+
+        return $this;
+    }
+
+
+    public function __toString(): string
+    {
+        return $this->firstName;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

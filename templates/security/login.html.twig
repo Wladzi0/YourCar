@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ 'Log in'|trans }}
+{% endblock %}
+{% block body %}
+    <div class="mt-3 container col-3">
+        <br>
+        <form class="form " method="post">
+            <br>
+            {% if error %}
+                <div class="alert-danger">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+            <h1>
+                {{ 'Please sign in'|trans }}
+            </h1>
+            <label for="inputEmail" class="sr-only">
+                {{ 'Email address'|trans }}
+            </label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
+                   placeholder={{ 'Email address'|trans }} required="required" autofocus="autofocus">
+            <br>
+            <label for="inputPassword" class="sr-only">
+                {{ 'Password'|trans }}
+            </label>
+            <input type="password" name="password" id="inputPassword" class="form-control"
+                   placeholder={{ 'Password'|trans }} required="required">
+            <br>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="remember_me" name="_remember_me">
+                    {{ 'Remember me'|trans }}
+                </label>
+            </div>
+            <br>
+            <button class="mb-3 btn btn-success " type="submit">
+                {{ 'Sign in'|trans }}
+            </button>
+
+        </form>
+        <button class="btn registration" onclick="window.location.href='/register'">
+              {{ 'Create new account'|trans }}
+        </button>
+    </div>
+{% endblock %}
