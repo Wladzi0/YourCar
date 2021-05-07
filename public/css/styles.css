@@ -9,7 +9,7 @@ body {
     font-size: 17px;
 }
 .top{
-    margin-top: 100px;
+    margin-top: 50px;
 }
 .link {
     color: #FFFFFF;
@@ -26,5 +26,14 @@ body {
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 30px;
-    margin-right: 100px;
+    margin-right: 50px;
+}
+.dropdown-content{
+    display:none;
+}
+.show{
+    display:block;
+    position: fixed;
+    top:70px;
+    right: 30px;
 }

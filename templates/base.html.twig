@@ -25,6 +25,8 @@
                 integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
                 crossorigin="anonymous">
         </script>
+        <script src="{{ asset('js/dropdown.js') }}">
+        </script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
                 integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
                 crossorigin="anonymous">
@@ -37,10 +39,25 @@
         <a class="logo text-light " href="{{ path('main') }}">
             YourCar
         </a>
-        <a class="sign-in text-light " href="{{ path('app_login') }}">
-            <i class="fa fa-sign-in">
-            </i>
-        </a>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a id="account" class="sign-in text-light ">
+                <i class="fa fa-user">
+                </i>
+            </a>
+            <div id="dropdown" class="dropdown-content bg-dark">
+                {# <a href="{{ path('settings') }}">Personal data</a> #}
+                {# <a href="{{ path('my_advertisements') }}">My advertisements</a> #}
+                {# <a href="{{ path('favourite_advertisements') }}">Favourites</a> #}
+                <a href="{{ path('app_logout') }}">
+                    Logout
+                </a>
+            </div>
+        {% else %}
+            <a class="sign-in text-light " href="{{ path('app_login') }}">
+                <i class="fa fa-sign-in">
+                </i>
+            </a>
+        {% endif %}
     </div>
 {% endblock %}
 {% block messages %}

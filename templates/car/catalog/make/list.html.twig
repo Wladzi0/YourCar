@@ -5,11 +5,15 @@
 {% endblock %}
 
 {% block body %}
+    <h2 class="d-flex ml-5 mt-3 text-secondary">
+        {{ 'Available makes'|trans }}
+        ({{ makes|length }})
+    </h2>
     <div class="container col-4 top">
         {% if makes %}
             {% for make in makes %}
                 <div class="d-flex flex-column ">
-                    <a  class="link" href="{{ path('models_list', {'make': make.id}) }}">
+                    <a class="link" href="{{ path('models_list', {'make': make.id}) }}">
                         {{ make.name }}
                         {{ make.icon }}
                     </a>
