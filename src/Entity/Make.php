@@ -6,9 +6,12 @@ use App\Repository\MakeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=MakeRepository::class)
+ * @Vich\Uploadable
  */
 class Make
 {
@@ -25,14 +28,21 @@ class Make
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $icon;
+
+    /**
+     * @Vich\UploadableField(mapping="makes_icons", fileNameProperty="icon")
+     * @var File
+     */
+    private $iconFile;
 
     /**
      * @ORM\OneToMany(targetEntity=Model::class, mappedBy="make", orphanRemoval=true)
      */
     private $models;
+
 
     public function __construct()
     {
@@ -61,11 +71,25 @@ class Make
         return $this->icon;
     }
 
-    public function setIcon(string $icon): self
+    public function setIcon(?string $icon): self
     {
         $this->icon = $icon;
 
         return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getIconFile(): ?File
+    {
+        return $this->iconFile;
+    }
+
+    public function setIconFile(?File $iconFile = null)
+    {
+        $this->iconFile = $iconFile;
+
     }
 
     /**
@@ -89,7 +113,6 @@ class Make
     public function removeModel(Model $model): self
     {
         if ($this->models->removeElement($model)) {
-            // set the owning side to null (unless already changed)
             if ($model->getMake() === $this) {
                 $model->setMake(null);
             }
@@ -97,4 +120,10 @@ class Make
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
 }

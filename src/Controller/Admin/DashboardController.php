@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Make;
+use App\Entity\Model;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -28,9 +29,8 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linktoCrud('Users','fa fa-user', User::class)
-//        ->setAction('edit');
-//        ->setAction('delete');
-//        yield MenuItem::linktoCrud('Model','fa fa-brand', Make::class);
+        yield MenuItem::linktoCrud('Users','fa fa-user', User::class);
+        yield MenuItem::linktoCrud('Makes','fas fa-car', Make::class);
+        yield MenuItem::linktoCrud('Models','fa fa-make', Model::class);
     }
 }

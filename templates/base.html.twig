@@ -40,6 +40,12 @@
             YourCar
         </a>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('admin') }}"  class="sign-in text-light ">
+                    <i class="fa fa-user-cog">
+                    </i>
+                </a>
+                {% endif %}
             <a id="account" class="sign-in text-light ">
                 <i class="fa fa-user">
                 </i>

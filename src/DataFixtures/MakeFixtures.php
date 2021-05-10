@@ -27,8 +27,6 @@ class MakeFixtures extends Fixture
 
         $ar= new Make();
         $ar->setName('Alfa Romeo');
-        $file = new File('path/images/alfa.jpeg');
-        $ar->setIcon($file);
         $arGiu=new Model();
         $arGiu->setName('Giulietta');
         $arGiu->setMake($ar);
@@ -39,7 +37,6 @@ class MakeFixtures extends Fixture
 
         $am= new Make();
         $am->setName('Aston Martin');
-        $am->setIcon('asdf');
         $amRap= new Model();
         $amRap->setName('Rapide');
         $amRap->setMake($am);
@@ -50,50 +47,36 @@ class MakeFixtures extends Fixture
 
         $alpine= new Make();
         $alpine->setName('Alpine');
-        $alpine->setIcon('asdf');
 
         $audi= new Make();
         $audi->setName('Audi');
-        $audi->setIcon('asdf');
 
         $bentley= new Make();
         $bentley->setName('Bentley');
-        $bentley->setIcon('asdf');
-
         $bmw= new Make();
         $bmw->setName('BMW');
-        $bmw->setIcon('asdf');
 
         $chevrolet= new Make();
         $chevrolet->setName('Chevrolet');
-        $chevrolet->setIcon('asdf');
 
 
         $ford= new Make();
         $ford->setName('Ford');
-        $ford->setIcon('asdf');
 
         $kia= new Make();
         $kia->setName('Kia');
-        $kia->setIcon('asdf');
 
         $mitsubishi= new Make();
         $mitsubishi->setName('Mitsubishi');
-        $mitsubishi->setIcon('asdf');
 
         $mercedes= new Make();
         $mercedes->setName('Mercedes-Benz');
-        $mercedes->setIcon('asdf');
-
 
         $volkswagen= new Make();
         $volkswagen->setName('Volkswagen');
-        $volkswagen->setIcon('asdf');
 
         $volvo= new Make();
         $volvo->setName('Volvo');
-        $volvo->setIcon('asdf');
-
 
         $manager->persist($ar);
         $manager->persist($arGiu);
