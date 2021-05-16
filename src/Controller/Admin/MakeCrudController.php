@@ -3,13 +3,12 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Make;
+use App\Form\ImageFormType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Vich\UploaderBundle\Form\Type\VichImageType;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 
 class MakeCrudController extends AbstractCrudController
 {
@@ -32,5 +31,6 @@ class MakeCrudController extends AbstractCrudController
 
         ];
     }
+
 
 }

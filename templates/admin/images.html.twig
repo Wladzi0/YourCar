@@ -1,0 +1,11 @@
+{% if field.value is not null %}
+    <div class="">
+        <div class="">
+            {% for image in field.value %}
+                <div id="easyadmin-lightbox-{{ image.id }}" class="easyadmin-lightbox mb-4" >
+                    <img width="350" height="250" src="/images/models/{{ image.image }}">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

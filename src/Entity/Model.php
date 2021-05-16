@@ -6,9 +6,11 @@ use App\Repository\ModelRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=ModelRepository::class)
+ * @Vich\Uploadable()
  */
 class Model
 {
@@ -25,7 +27,7 @@ class Model
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Make::class, inversedBy="models")
+     * @ORM\ManyToOne(targetEntity=Make::class, inversedBy="models", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $make;
@@ -35,10 +37,18 @@ class Model
      */
     private $engines;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="model", cascade={"persist","remove"}, orphanRemoval=true)
+     */
+    private $images;
+
+
     public function __construct()
     {
+        $this->images = new ArrayCollection();
         $this->engines = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -93,6 +103,42 @@ class Model
             $engine->removeModel($this);
         }
 
+        return $this;
+    }
+
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setModel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getModel() === $this) {
+                $image->setModel(null);
+            }
+        }
         return $this;
     }
 }

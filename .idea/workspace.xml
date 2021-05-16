@@ -2,19 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dba42223-c2af-46b5-8311-98c99b923efd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/YourCar.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/YourCar.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/makes/0fdf5096708bae477cfba71fa1557aec6a11eb51.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/makes/120314eec507360655dd3ff425f611fe8bfef0e6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/makes/226abfc561dd5d95dd0d737ccd2d6f7ed047caa3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/makes/2e41924919d1b6fc2b03a056ad461833ce051b23.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/makes/382e07476ec9cc7e62c5a6c39cf7d3612f0df153.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/makes/45447a1d05c011400ec38223ca099b659d09aa5c.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/makes/5b13847ec45938b4e45ac0f271cdc8a08a4c5014.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/makes/6cd912346a4f1ec3d5160a88270ebed9ad1f63d5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/makes/9133c6afd8bdce026a7ebd2e4660f7c68c715116.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/makes/b0f5a6dd418f76caee92c126bf05b0ce55cdd561.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/makes/e205180906e3d69661c1227184f53fcfa27a2218.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/makes/e3cd9b4ec7cc2a17e41992f3d66c1c21edd11556.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/makes/f2f6f154c8d38340cf633c05800d16670e717280.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/Image.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Form/ImageFormType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/ImageRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/images.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/vich_uploader.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/vich_uploader.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20210504180154.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20210504181135.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20210505182311.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20210505183902.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20210506192825.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20210506193226.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20210506203000.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20210506204025.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20210507140955.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20210507174059.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/MakeCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/MakeCrudController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/Admin/ModelCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/ModelCrudController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/UserCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/UserCrudController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/MakeFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/MakeFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Make.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Make.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Model.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +214,9 @@
       <workItem from="1620411843914" duration="7343000" />
       <workItem from="1620419241139" duration="7000" />
       <workItem from="1620480754192" duration="11475000" />
-      <workItem from="1620670723622" duration="1990000" />
+      <workItem from="1620670723622" duration="2732000" />
+      <workItem from="1620838960596" duration="8907000" />
+      <workItem from="1621168237724" duration="17038000" />
     </task>
     <servers />
   </component>
