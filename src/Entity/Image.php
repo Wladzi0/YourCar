@@ -26,7 +26,7 @@ class Image
     private $image;
 
     /**
-     * @Vich\UploadableField(mapping="models_images", fileNameProperty="image")
+     * @Vich\UploadableField(mapping="car_details", fileNameProperty="image")
      * @var File
      */
     private $imageFile;
@@ -35,6 +35,11 @@ class Image
      * @ORM\ManyToOne(targetEntity=Model::class, inversedBy="images",cascade={"persist","remove"})
      */
     private $model;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Engine::class, inversedBy="images", cascade={"persist","remove"})
+     */
+    private $engine;
 
     public function getId(): ?int
     {
@@ -75,5 +80,17 @@ class Image
     public function setImageFile(File $image = null)
     {
         $this->imageFile = $image;
+    }
+
+    public function getEngine(): ?Engine
+    {
+        return $this->engine;
+    }
+
+    public function setEngine(?Engine $engine): self
+    {
+        $this->engine = $engine;
+
+        return $this;
     }
 }

@@ -29,9 +29,35 @@ class Engine
      */
     private $models;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="engine", cascade={"persist","remove"}, orphanRemoval=true)
+     */
+    private $images;
+
+    /**
+     * @ORM\Column(type="string", length=8)
+     */
+    private $capacity;
+
+    /**
+     * @ORM\Column(type="string", length=4)
+     */
+    private $power;
+
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $fuel;
+
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $abbreviation;
+
     public function __construct()
     {
         $this->models = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -71,6 +97,84 @@ class Engine
     public function removeModel(Model $model): self
     {
         $this->models->removeElement($model);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setEngine($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getEngine() === $this) {
+                $image->setEngine(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCapacity(): ?string
+    {
+        return $this->capacity;
+    }
+
+    public function setCapacity(string $capacity): self
+    {
+        $this->capacity = $capacity;
+
+        return $this;
+    }
+
+    public function getPower(): ?string
+    {
+        return $this->power;
+    }
+
+    public function setPower(string $power): self
+    {
+        $this->power = $power;
+
+        return $this;
+    }
+
+    public function getFuel(): ?string
+    {
+        return $this->fuel;
+    }
+
+    public function setFuel(string $fuel): self
+    {
+        $this->fuel = $fuel;
+
+        return $this;
+    }
+
+    public function getAbbreviation(): ?string
+    {
+        return $this->abbreviation;
+    }
+
+    public function setAbbreviation(string $abbreviation): self
+    {
+        $this->abbreviation = $abbreviation;
 
         return $this;
     }

@@ -33,7 +33,7 @@ class Make
     private $icon;
 
     /**
-     * @Vich\UploadableField(mapping="makes_icons", fileNameProperty="icon")
+     * @Vich\UploadableField(mapping="makes", fileNameProperty="icon")
      * @var File
      */
     private $iconFile;

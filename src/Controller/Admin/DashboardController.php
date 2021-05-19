@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Engine;
 use App\Entity\Make;
 use App\Entity\Model;
 use App\Entity\User;
@@ -32,5 +33,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linktoCrud('Users','fa fa-user', User::class);
         yield MenuItem::linktoCrud('Makes','fas fa-car', Make::class);
         yield MenuItem::linktoCrud('Models','fa fa-make', Model::class);
+        yield MenuItem::linktoCrud('Engines','fa fa-cogs', Engine::class);
     }
 }
