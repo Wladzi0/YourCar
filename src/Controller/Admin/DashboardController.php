@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Engine;
 use App\Entity\Make;
 use App\Entity\Model;
+use App\Entity\Rim;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -34,5 +35,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linktoCrud('Makes','fas fa-car', Make::class);
         yield MenuItem::linktoCrud('Models','fa fa-make', Model::class);
         yield MenuItem::linktoCrud('Engines','fa fa-cogs', Engine::class);
+        yield MenuItem::linktoCrud('Rims','fa fa-tyres', Rim::class);
     }
 }

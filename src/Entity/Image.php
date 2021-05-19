@@ -41,6 +41,11 @@ class Image
      */
     private $engine;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Rim::class, inversedBy="images", cascade={"persist","remove"})
+     */
+    private $rim;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +95,18 @@ class Image
     public function setEngine(?Engine $engine): self
     {
         $this->engine = $engine;
+
+        return $this;
+    }
+
+    public function getRim(): ?Rim
+    {
+        return $this->rim;
+    }
+
+    public function setRim(?Rim $rim): self
+    {
+        $this->rim = $rim;
 
         return $this;
     }

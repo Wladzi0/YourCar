@@ -24,7 +24,8 @@ class ModelCrudController extends AbstractCrudController
     {
 
         return [
-            IdField::new('id')->onlyOnDetail(),
+            IdField::new('id')
+                ->onlyOnDetail(),
             AssociationField::new ('make'),
             TextField::new('name'),
             CollectionField::new('images')

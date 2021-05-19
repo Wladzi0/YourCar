@@ -42,6 +42,12 @@ class Model
      */
     private $images;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Rim::class, inversedBy="models", cascade={"persist"})
+     */
+    private $rim;
+
+
 
     public function __construct()
     {
@@ -141,4 +147,18 @@ class Model
         }
         return $this;
     }
+
+    public function getRim(): ?Rim
+    {
+        return $this->rim;
+    }
+
+    public function setRim(?Rim $rim): self
+    {
+        $this->rim = $rim;
+
+        return $this;
+    }
+
+
 }

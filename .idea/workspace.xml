@@ -3,15 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="dba42223-c2af-46b5-8311-98c99b923efd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/vich_uploader.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/vich_uploader.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/MakeCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/MakeCrudController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/EngineCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/EngineCrudController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/Admin/ModelCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/ModelCrudController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/UserCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/UserCrudController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/EngineFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/EngineFixtures.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Engine.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Engine.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Image.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Image.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Make.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Make.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/images.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/images.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Model.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +194,7 @@
       <workItem from="1620838960596" duration="8907000" />
       <workItem from="1621168237724" duration="17203000" />
       <workItem from="1621362390835" duration="6042000" />
-      <workItem from="1621439629100" duration="3987000" />
+      <workItem from="1621439629100" duration="6943000" />
     </task>
     <servers />
   </component>

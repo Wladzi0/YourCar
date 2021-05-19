@@ -2,64 +2,55 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Engine;
-use App\Form\EngineType;
+use App\Entity\Rim;
 use App\Form\ImageFormType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use Symfony\Component\Validator\Constraints as Assert;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class EngineCrudController extends AbstractCrudController
+class RimCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Engine::class;
+        return Rim::class;
     }
+
 
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id')
-                ->hideOnForm(),
-
-            ChoiceField::new('capacity')
+                ->onlyOnDetail(),
+            TextField::new('size')
+                ->setLabel('Size (r)')
+                ->onlyOnIndex(),
+            ChoiceField::new('size')
                 ->onlyOnForms()
                 ->setChoices(
                     function () {
-                        $capacities = range(0.8, 9.1, 0.1);
+                        $capacities = range(12, 22, 1);
                         return array_combine($capacities, $capacities);
                     }
                 ),
-            TextField::new('capacity')
-                ->hideOnForm()
-                ->setLabel('Capacity (l)'),
-            ChoiceField::new('fuel')
-                ->setChoices([
-                        'Petrol' => 'Petrol',
-                        'Diesel' => 'Diesel',
-                        'Gas' => 'Gas',
-                        'Petrol + gas' => 'Petrol + gas',
-                        'Hybrid' => 'Hybrid',
-                        'Electronic' => 'Electronic']
-                ),
-            TextField::new('power')
-                ->hideOnForm()
-                ->setLabel('Power (HP)'),
-            ChoiceField::new('power')
+            TextField::new('weight')
+                ->setLabel('Weight (kg)')
+            ->onlyOnIndex(),
+            ChoiceField::new('weight')
                 ->onlyOnForms()
                 ->setChoices(
                     function () {
-                        $capacities = range(50, 1200, 5);
+                        $capacities = range(5.0, 20.0, 0.2);
                         return array_combine($capacities, $capacities);
                     }
                 ),
-            TextField::new('abbreviation'),
+            TextField::new('departure')
+                ->setLabel('Wheel departure'),
             CollectionField::new('images')
                 ->setFormTypeOption('by_reference', false)
                 ->setTranslationParameters(['form.label.delete' => ' Do your want to delete image?'])
@@ -70,7 +61,6 @@ class EngineCrudController extends AbstractCrudController
                 ->onlyOnDetail(),
             CollectionField::new('images')
                 ->onlyOnIndex()
-
         ];
     }
 
