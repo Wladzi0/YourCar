@@ -49,10 +49,16 @@ class Engine
      */
     private $abbreviation;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Fault::class, mappedBy="engine")
+     */
+    private $faults;
+
     public function __construct()
     {
         $this->models = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->faults = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -160,5 +166,37 @@ class Engine
         $this->abbreviation = $abbreviation;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Fault[]
+     */
+    public function getFaults(): Collection
+    {
+        return $this->faults;
+    }
+
+    public function addFault(Fault $fault): self
+    {
+        if (!$this->faults->contains($fault)) {
+            $this->faults[] = $fault;
+            $fault->addEngine($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFault(Fault $fault): self
+    {
+        if ($this->faults->removeElement($fault)) {
+            $fault->removeEngine($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+      return $this->capacity.' '.$this->abbreviation;
     }
 }

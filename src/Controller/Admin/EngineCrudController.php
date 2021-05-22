@@ -9,9 +9,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints as Assert;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -27,7 +30,6 @@ class EngineCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm(),
-
             ChoiceField::new('capacity')
                 ->onlyOnForms()
                 ->setChoices(
@@ -69,7 +71,16 @@ class EngineCrudController extends AbstractCrudController
                 ->setTemplatePath('admin/images.html.twig')
                 ->onlyOnDetail(),
             CollectionField::new('images')
-                ->onlyOnIndex()
+                ->onlyOnIndex(),
+            AssociationField::new('models')
+                ->hideOnDetail()
+                ->setFormType(EntityType::class)
+                ->setFormTypeOptions([
+                    'multiple' => true,
+                    'by_reference' => false,
+                ]),
+            ArrayField::new('models')
+                ->onlyOnDetail(),
 
         ];
     }

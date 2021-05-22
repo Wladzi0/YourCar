@@ -45,5 +45,17 @@ class MainController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/make/{make}/model/{model}", name="model_details")
+     */
+    public function modelDetails(Request $request,ModelRepository $modelRepository, MakeRepository $makeRepository): Response
+    {
+        $make=$makeRepository->find($request->get('make'));
+        $model=$modelRepository->find($request->get('model'));
+        return $this->render('car/catalog/model/details.html.twig', [
+            'model'=> $model,
+            'make' => $make
+        ]);
+    }
 
 }

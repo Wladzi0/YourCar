@@ -4,12 +4,32 @@
 {% endblock %}
 {% block body %}
     <div class="container">
-        <div class="container col-4 top">
+        <div class="container col-5 top">
             {% if models %}
                 {% for model in models %}
-                    <div class="d-flex flex-column ">
-                        <a  class="link" href="">
-                            {{ model.name }}
+                    <div class="d-flex flex-column mb-5">
+                        {% set firstImage = model.images | first %}
+                        <a class="link" href="{{ path('model_details', {'make':make,'model': model.id}) }}">
+                            {% if firstImage %}
+                                <img style="background-color: white; border-radius: 5px;"
+                                     src="{{ asset('images/car_details/'~firstImage.image) }}" alt="" width="500px"
+                                     height="350px">
+                            {% else %}
+                                <img style="background-color: white; border-radius: 5px;"
+                                     src="{{ asset('images/car_details/default.jpg') }}" alt="" width="500px"
+                                     height="350px">
+                            {% endif %}
+                            <p>
+                                {{ model.name }}
+                                ( {{ 'years'|trans }}:
+                                {{ model.yearStart }}
+                                {% if model.yearFinish %}
+                                    - {{ model.yearFinish }} )
+                                {% else %}
+                                    - {{ 'till now'|trans }} )
+
+                                {% endif %}
+                            </p>
                         </a>
                     </div>
                 {% endfor %}
