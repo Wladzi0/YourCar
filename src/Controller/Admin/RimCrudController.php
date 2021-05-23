@@ -38,9 +38,26 @@ class RimCrudController extends AbstractCrudController
                         return array_combine($capacities, $capacities);
                     }
                 ),
+            ChoiceField::new('pcd')
+                ->setChoices([
+                    '88.8' => '88.8',
+                    '100' => '100',
+                    '110' => '110',
+                    '112' => '112',
+                    '115' => '115',
+                    '120' => '120',
+                    '130' => '130',
+                ])
+                ->setLabel('Pitch circle diameter'),
+            ChoiceField::new('stud')
+                ->setChoices([
+                    '3' => '3',
+                    '4' => '4',
+                    '5' => '5',
+                ]),
             TextField::new('weight')
                 ->setLabel('Weight (kg)')
-            ->onlyOnIndex(),
+                ->onlyOnIndex(),
             ChoiceField::new('weight')
                 ->onlyOnForms()
                 ->setChoices(

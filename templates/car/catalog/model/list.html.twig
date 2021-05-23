@@ -8,11 +8,10 @@
             {% if models %}
                 {% for model in models %}
                     <div class="d-flex flex-column mb-5">
-                        {% set firstImage = model.images | first %}
                         <a class="link" href="{{ path('model_details', {'make':make,'model': model.id}) }}">
-                            {% if firstImage %}
+                            {% if model.icon %}
                                 <img style="background-color: white; border-radius: 5px;"
-                                     src="{{ asset('images/car_details/'~firstImage.image) }}" alt="" width="500px"
+                                     src="{{ asset('images/models/'~model.icon) }}" alt="" width="500px"
                                      height="350px">
                             {% else %}
                                 <img style="background-color: white; border-radius: 5px;"

@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Engine;
-use App\Form\EngineType;
 use App\Form\ImageFormType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -15,7 +14,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Validator\Constraints as Assert;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class EngineCrudController extends AbstractCrudController
@@ -81,7 +79,12 @@ class EngineCrudController extends AbstractCrudController
                 ]),
             ArrayField::new('models')
                 ->onlyOnDetail(),
-
+            AssociationField::new('faults')
+                ->setFormType(EntityType::class)
+                ->setFormTypeOptions([
+                    'multiple' => true,
+                    'by_reference' => false,
+                ]),
         ];
     }
 

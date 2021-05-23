@@ -6,6 +6,7 @@ use App\Repository\ModelRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -37,18 +38,9 @@ class Model
      */
     private $engines;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="model", cascade={"persist","remove"}, orphanRemoval=true)
-     */
-    private $images;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Rim::class, inversedBy="models", cascade={"persist"})
-     */
-    private $rim;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Fault::class, mappedBy="model", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity=Fault::class, mappedBy="model", cascade={"persist","remove"})
      */
     private $faults;
 
@@ -63,17 +55,43 @@ class Model
     private $yearFinish;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Transmission::class, mappedBy="models", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity=Transmission::class, mappedBy="models", cascade={"persist","remove"})
      */
     private $transmissions;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Rim::class, mappedBy="models")
+     */
+    private $rims;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $bodyType = [];
+
+    /**
+     * @ORM\OneToMany(targetEntity=SubModel::class, mappedBy="model")
+     */
+    private $subModels;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $icon;
+
+    /**
+     * @Vich\UploadableField(mapping="commom_models", fileNameProperty="icon")
+     * @var File
+     */
+    private $iconFile;
 
     public function __construct()
     {
-        $this->images = new ArrayCollection();
         $this->engines = new ArrayCollection();
         $this->faults = new ArrayCollection();
         $this->transmissions = new ArrayCollection();
+        $this->rims = new ArrayCollection();
+        $this->subModels = new ArrayCollection();
     }
 
 
@@ -139,47 +157,6 @@ class Model
         return $this->name;
     }
 
-    /**
-     * @return Collection|Image[]
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
-
-    public function addImage(Image $image): self
-    {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setModel($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Image $image): self
-    {
-        if ($this->images->contains($image)) {
-            $this->images->removeElement($image);
-            // set the owning side to null (unless already changed)
-            if ($image->getModel() === $this) {
-                $image->setModel(null);
-            }
-        }
-        return $this;
-    }
-
-    public function getRim(): ?Rim
-    {
-        return $this->rim;
-    }
-
-    public function setRim(?Rim $rim): self
-    {
-        $this->rim = $rim;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Fault[]
@@ -259,6 +236,99 @@ class Model
         return $this;
     }
 
+    /**
+     * @return Collection|Rim[]
+     */
+    public function getRims(): Collection
+    {
+        return $this->rims;
+    }
+
+    public function addRim(Rim $rim): self
+    {
+        if (!$this->rims->contains($rim)) {
+            $this->rims[] = $rim;
+            $rim->addModel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRim(Rim $rim): self
+    {
+        if ($this->rims->removeElement($rim)) {
+            $rim->removeModel($this);
+        }
+
+        return $this;
+    }
+
+    public function getBodyType(): ?array
+    {
+        return $this->bodyType;
+    }
+
+    public function setBodyType(?array $bodyType): self
+    {
+        $this->bodyType = $bodyType;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SubModel[]
+     */
+    public function getSubModels(): Collection
+    {
+        return $this->subModels;
+    }
+
+    public function addSubModel(SubModel $subModel): self
+    {
+        if (!$this->subModels->contains($subModel)) {
+            $this->subModels[] = $subModel;
+            $subModel->setModel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubModel(SubModel $subModel): self
+    {
+        if ($this->subModels->removeElement($subModel)) {
+            // set the owning side to null (unless already changed)
+            if ($subModel->getModel() === $this) {
+                $subModel->setModel(null);
+            }
+        }
+
+        return $this;
+    }
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
+    public function setIcon(?string $icon): self
+    {
+        $this->icon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getIconFile(): ?File
+    {
+        return $this->iconFile;
+    }
+
+    public function setIconFile(?File $iconFile = null)
+    {
+        $this->iconFile = $iconFile;
+
+    }
 
 
 }

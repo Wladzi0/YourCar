@@ -3,17 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="dba42223-c2af-46b5-8311-98c99b923efd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/makes/0fdf5096708bae477cfba71fa1557aec6a11eb51.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/makes/5b13847ec45938b4e45ac0f271cdc8a08a4c5014.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/vich_uploader.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/vich_uploader.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/Admin/EngineCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/EngineCrudController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/FaultCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/FaultCrudController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/MakeCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/MakeCrudController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/Admin/ModelCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/ModelCrudController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/MainController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Engine.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Engine.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/RimCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/RimCrudController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Fault.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Fault.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Image.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Image.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/EngineType.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/images.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/images.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/car/catalog/make/list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car/catalog/make/list.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Rim.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Rim.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/car/catalog/model/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car/catalog/model/details.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/car/catalog/model/list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car/catalog/model/list.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -165,7 +166,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/admin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/car/subModel" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -176,6 +177,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/car/subModel" />
       <recent name="$PROJECT_DIR$/templates/admin" />
       <recent name="$PROJECT_DIR$/templates/car/best" />
       <recent name="$PROJECT_DIR$/templates/car/catalog/model" />
@@ -208,7 +210,8 @@
       <workItem from="1621168237724" duration="17203000" />
       <workItem from="1621362390835" duration="6042000" />
       <workItem from="1621439629100" duration="7291000" />
-      <workItem from="1621686945390" duration="19575000" />
+      <workItem from="1621686945390" duration="33066000" />
+      <workItem from="1621766549375" duration="12633000" />
     </task>
     <servers />
   </component>

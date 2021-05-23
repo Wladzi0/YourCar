@@ -6,6 +6,7 @@ use App\Entity\Fault;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class FaultCrudController extends AbstractCrudController
@@ -23,6 +24,7 @@ class FaultCrudController extends AbstractCrudController
             TextField::new('name'),
             AssociationField::new('model'),
             AssociationField::new('engine'),
+            TextareaField::new('description')
         ];
     }
 }

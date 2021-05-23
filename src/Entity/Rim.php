@@ -35,20 +35,30 @@ class Rim
     private $departure;
 
     /**
-     * @ORM\OneToMany(targetEntity=Model::class, mappedBy="rim", cascade={"persist","remove"}, orphanRemoval=true)
-     */
-    private $models;
-
-    /**
      * @ORM\OneToMany(targetEntity=Image::class, mappedBy="rim", cascade={"persist","remove"}, orphanRemoval=true)
      */
     private $images;
 
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $pcd;
+
+    /**
+     * @ORM\Column(type="string", length=2)
+     */
+    private $stud;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Model::class, inversedBy="rims")
+     */
+    private $models;
+
 
     public function __construct()
     {
-        $this->models = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->models = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -92,35 +102,6 @@ class Rim
         return $this;
     }
 
-    /**
-     * @return Collection|Model[]
-     */
-    public function getModels(): Collection
-    {
-        return $this->models;
-    }
-
-    public function addModel(Model $model): self
-    {
-        if (!$this->models->contains($model)) {
-            $this->models[] = $model;
-            $model->setRim($this);
-        }
-
-        return $this;
-    }
-
-    public function removeModel(Model $model): self
-    {
-        if ($this->models->removeElement($model)) {
-            // set the owning side to null (unless already changed)
-            if ($model->getRim() === $this) {
-                $model->setRim(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Image[]
@@ -152,5 +133,57 @@ class Rim
         return $this;
     }
 
+    public function getPcd(): ?string
+    {
+        return $this->pcd;
+    }
+
+    public function setPcd(string $pcd): self
+    {
+        $this->pcd = $pcd;
+
+        return $this;
+    }
+
+    public function getStud(): ?string
+    {
+        return $this->stud;
+    }
+
+    public function setStud(string $stud): self
+    {
+        $this->stud = $stud;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->size;
+    }
+
+    /**
+     * @return Collection|Model[]
+     */
+    public function getModels(): Collection
+    {
+        return $this->models;
+    }
+
+    public function addModel(Model $model): self
+    {
+        if (!$this->models->contains($model)) {
+            $this->models[] = $model;
+        }
+
+        return $this;
+    }
+
+    public function removeModel(Model $model): self
+    {
+        $this->models->removeElement($model);
+
+        return $this;
+    }
 
 }

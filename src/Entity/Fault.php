@@ -34,6 +34,11 @@ class Fault
      */
     private $model;
 
+    /**
+     * @ORM\Column(type="string", length=9000)
+     */
+    private $description;
+
     public function __construct()
     {
         $this->engine = new ArrayCollection();
@@ -103,5 +108,21 @@ class Fault
         $this->model->removeElement($model);
 
         return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->name;
     }
 }

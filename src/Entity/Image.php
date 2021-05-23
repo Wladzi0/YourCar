@@ -31,10 +31,6 @@ class Image
      */
     private $imageFile;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Model::class, inversedBy="images",cascade={"persist","remove"})
-     */
-    private $model;
 
     /**
      * @ORM\ManyToOne(targetEntity=Engine::class, inversedBy="images", cascade={"persist","remove"})
@@ -46,22 +42,16 @@ class Image
      */
     private $rim;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=SubModel::class, inversedBy="images", cascade={"persist","remove"})
+     */
+    private $subModel;
+
     public function getId(): ?int
     {
         return $this->id;
     }
-
-    public function getModel(): ?Model
-    {
-        return $this->model;
-    }
-
-
-    public function setModel(?Model $model): self
-    {
-        $this->model = $model;
-        return $this;
-    }
+    
 
     public function getImage(): ?string
     {
@@ -107,6 +97,18 @@ class Image
     public function setRim(?Rim $rim): self
     {
         $this->rim = $rim;
+
+        return $this;
+    }
+
+    public function getSubModel(): ?SubModel
+    {
+        return $this->subModel;
+    }
+
+    public function setSubModel(?SubModel $subModel): self
+    {
+        $this->subModel = $subModel;
 
         return $this;
     }
