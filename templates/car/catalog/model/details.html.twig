@@ -4,25 +4,51 @@
 {% endblock %}
 
 {% block body %}
-<div class="  container top">
-    <div class="col">
-        <h2>
-            <a class="" href="{{ path('models_list', {'make': make.id}) }}">
-                {{ make.name }}
-            </a>
-            ->
-            {{ model.name }}
-        </h2>
-        <div class="slider-inner">
-            {% if model.icon %}
-                <img style="background-color: white; border-radius: 5px;"
-                     src="{{ asset('images/models/'~model.icon) }}" alt="" width="500px"
-                     height="350px">
-            {% else %}
-                <img style="background-color: white; border-radius: 5px;"
-                     src="{{ asset('images/car_details/default.jpg') }}" alt="" width="500px"
-                     height="350px">
-            {% endif %}
+    <div class="container top">
+        <div class="col">
+            <h2>
+                <a class="" href="{{ path('models_list', {'make': make.id}) }}">
+                    {{ make.name }}
+                </a>
+                ->
+                {{ model.name }}
+            </h2>
+            <h2>
+                <h4 class="mt-5">
+                    {{ 'List of models'|trans }}
+                </h4>
+                {% for subModel in model.subModels %}
+                    <p>
+                        <a href="
+                        {{ path('sub_model_details',
+                            {'make': make.id,'model':model.id,'subModel':subModel.id }) }}">
+                            <img style="background-color: white; border-radius: 5px;"
+                                 src="{{ asset('images/car_details/'~ subModel.images|first) }}" alt="" width="500px"
+                                 height="350px">
+                            <br>
+                            {{ subModel }}
+                           ({{ subModel.yearStart }}
+                            {% if subModel.yearFinish %}
+                                -{{ subModel.yearFinish }} )
+                            {% else %}
+                                - {{ 'till now'|trans }})
+                            {% endif %}
+                        </a>
+                    </p>
+                {% endfor %}
+
+            </h2>
+
+
+            {# {% if model.icon %} #}
+            {# <img style="background-color: white; border-radius: 5px;" #}
+            {# src="{{ asset('images/models/'~model.icon) }}" alt="" width="500px" #}
+            {# height="350px"> #}
+            {# {% else %} #}
+            {# <img style="background-color: white; border-radius: 5px;" #}
+            {# src="{{ asset('images/car_details/default.jpg') }}" alt="" width="500px" #}
+            {# height="350px"> #}
+            {# {% endif %} #}
             <h4 class="mt-5">
                 {{ 'List of engines which were installed'|trans }}
             </h4>
@@ -30,7 +56,6 @@
                 <div class="col">
                     {{ engine.capacity }}
                     {{ engine.fuel }}
-                    {{ engine.power }}
                     {{ engine.abbreviation }}
                 </div>
             {% endfor %}
@@ -44,23 +69,7 @@
                     </div>
                 {% endfor %}
             </div>
-            {% if model.faults is not empty %}
-            <h4 class="mt-5">
-                {{ 'List of faults'|trans }}
-            </h4>
-            <div class="mb-5">
 
-                {% for fault in model.faults %}
-                    <div class="col">
-                        {{ fault.name }}
-                    </div>
-                {% endfor %}
-                {% else %}
-                    <h4 class="mt-5">
-                        {{ 'List of faults'|trans }} (0)
-                    </h4>
-                {% endif %}
-            </div>
         </div>
     </div>
-    {% endblock %}
+{% endblock %}

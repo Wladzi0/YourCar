@@ -4,7 +4,8 @@
         <div class="">
             {% for image in field.value %}
                 <div id="easyadmin-lightbox-{{ image.id }}" class="easyadmin-lightbox mb-4" >
-                    <img width="350" height="250" src="{{ asset('images/car_details/' ~image.image )}}">
+                    <img width="350" height="250"
+                         src="{{ asset('images/car_details/' ~image.image )}}">
                 </div>
             {% endfor %}
         </div>

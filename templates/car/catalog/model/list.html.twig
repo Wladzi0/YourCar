@@ -8,7 +8,8 @@
             {% if models %}
                 {% for model in models %}
                     <div class="d-flex flex-column mb-5">
-                        <a class="link" href="{{ path('model_details', {'make':make,'model': model.id}) }}">
+                        <a class="link"
+                           href="{{ path('model_details', {'make':make,'model': model.id}) }}">
                             {% if model.icon %}
                                 <img style="background-color: white; border-radius: 5px;"
                                      src="{{ asset('images/models/'~model.icon) }}" alt="" width="500px"
@@ -20,12 +21,12 @@
                             {% endif %}
                             <p>
                                 {{ model.name }}
-                                ( {{ 'years'|trans }}:
+                                ({{ 'years'|trans }}:
                                 {{ model.yearStart }}
                                 {% if model.yearFinish %}
-                                    - {{ model.yearFinish }} )
+                                    - {{ model.yearFinish }})
                                 {% else %}
-                                    - {{ 'till now'|trans }} )
+                                    - {{ 'till now'|trans }})
 
                                 {% endif %}
                             </p>

@@ -87,20 +87,6 @@ class ModelCrudController extends AbstractCrudController
                 ]),
             ArrayField::new('transmissions')
                 ->onlyOnDetail(),
-            AssociationField::new('rims')
-                ->hideOnDetail()
-                ->setFormType(EntityType::class)
-                ->setFormTypeOptions([
-                    'multiple' => true,
-                    'by_reference' => false,
-                ]),
-
-            AssociationField::new('faults')
-                ->setFormType(EntityType::class)
-                ->setFormTypeOptions([
-                    'multiple' => true,
-                    'by_reference' => false,
-                ]),
 
         ];
 

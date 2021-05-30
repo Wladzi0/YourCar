@@ -25,7 +25,17 @@ class Engine
     private $models;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="engine", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity=SubModel::class, inversedBy="engines")
+     */
+    private $subModels;
+
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity=Image::class,
+     *     mappedBy="engine",
+     *     cascade={"persist","remove"},
+     *     orphanRemoval=true
+     *     )
      */
     private $images;
 
@@ -33,11 +43,6 @@ class Engine
      * @ORM\Column(type="string", length=8)
      */
     private $capacity;
-
-    /**
-     * @ORM\Column(type="string", length=4)
-     */
-    private $power;
 
     /**
      * @ORM\Column(type="string", length=20)
@@ -54,8 +59,23 @@ class Engine
      */
     private $faults;
 
+    /**
+     * @ORM\OneToOne(
+     *     targetEntity=CarDetails::class,
+     *     inversedBy="engine",
+     *     cascade={"persist", "remove"}
+     *     )
+     */
+    private $details;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $weight;
+
     public function __construct()
     {
+        $this->subModels = new ArrayCollection();
         $this->models = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->faults = new ArrayCollection();
@@ -90,6 +110,29 @@ class Engine
         return $this;
     }
 
+    /**
+     * @return Collection|SubModel[]
+     */
+    public function getSubModels(): Collection
+    {
+        return $this->subModels;
+    }
+
+    public function addSubModel(SubModel $subModel): self
+    {
+        if (!$this->subModels->contains($subModel)) {
+            $this->subModels[] = $subModel;
+        }
+
+        return $this;
+    }
+
+    public function removeSubModel(SubModel $subModel): self
+    {
+        $this->subModels->removeElement($subModel);
+
+        return $this;
+    }
     /**
      * @return Collection|Image[]
      */
@@ -128,18 +171,6 @@ class Engine
     public function setCapacity(string $capacity): self
     {
         $this->capacity = $capacity;
-
-        return $this;
-    }
-
-    public function getPower(): ?string
-    {
-        return $this->power;
-    }
-
-    public function setPower(string $power): self
-    {
-        $this->power = $power;
 
         return $this;
     }
@@ -198,5 +229,29 @@ class Engine
     public function __toString()
     {
       return $this->capacity.' '.$this->abbreviation;
+    }
+
+    public function getDetails(): ?CarDetails
+    {
+        return $this->details;
+    }
+
+    public function setDetails(?CarDetails $details): self
+    {
+        $this->details = $details;
+
+        return $this;
+    }
+
+    public function getWeight(): ?float
+    {
+        return $this->weight;
+    }
+
+    public function setWeight(?float $weight): self
+    {
+        $this->weight = $weight;
+
+        return $this;
     }
 }

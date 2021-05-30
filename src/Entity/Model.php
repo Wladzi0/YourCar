@@ -38,12 +38,6 @@ class Model
      */
     private $engines;
 
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Fault::class, mappedBy="model", cascade={"persist","remove"})
-     */
-    private $faults;
-
     /**
      * @ORM\Column(type="integer")
      */
@@ -58,11 +52,6 @@ class Model
      * @ORM\ManyToMany(targetEntity=Transmission::class, mappedBy="models", cascade={"persist","remove"})
      */
     private $transmissions;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Rim::class, mappedBy="models")
-     */
-    private $rims;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -88,9 +77,7 @@ class Model
     public function __construct()
     {
         $this->engines = new ArrayCollection();
-        $this->faults = new ArrayCollection();
         $this->transmissions = new ArrayCollection();
-        $this->rims = new ArrayCollection();
         $this->subModels = new ArrayCollection();
     }
 
@@ -157,34 +144,6 @@ class Model
         return $this->name;
     }
 
-
-    /**
-     * @return Collection|Fault[]
-     */
-    public function getFaults(): Collection
-    {
-        return $this->faults;
-    }
-
-    public function addFault(Fault $fault): self
-    {
-        if (!$this->faults->contains($fault)) {
-            $this->faults[] = $fault;
-            $fault->addModel($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFault(Fault $fault): self
-    {
-        if ($this->faults->removeElement($fault)) {
-            $fault->removeModel($this);
-        }
-
-        return $this;
-    }
-
     public function getYearStart(): ?int
     {
         return $this->yearStart;
@@ -231,33 +190,6 @@ class Model
     {
         if ($this->transmissions->removeElement($transmission)) {
             $transmission->removeModel($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Rim[]
-     */
-    public function getRims(): Collection
-    {
-        return $this->rims;
-    }
-
-    public function addRim(Rim $rim): self
-    {
-        if (!$this->rims->contains($rim)) {
-            $this->rims[] = $rim;
-            $rim->addModel($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRim(Rim $rim): self
-    {
-        if ($this->rims->removeElement($rim)) {
-            $rim->removeModel($this);
         }
 
         return $this;

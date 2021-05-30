@@ -2,12 +2,14 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\CarDetails;
 use App\Entity\Engine;
 use App\Entity\Fault;
 use App\Entity\Make;
 use App\Entity\Model;
 use App\Entity\Rim;
 use App\Entity\SubModel;
+use App\Entity\Tire;
 use App\Entity\Transmission;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -36,12 +38,14 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::section('User settings');
         yield MenuItem::linktoCrud('Users','fa fa-user', User::class);
-        yield MenuItem::section('Car details');
+        yield MenuItem::section('Car');
         yield MenuItem::linktoCrud('Makes','fas fa-list-ul', Make::class);
         yield MenuItem::linktoCrud('Models','fa fa-make', Model::class);
         yield MenuItem::linktoCrud('SubModels','fa fa-car', SubModel::class);
         yield MenuItem::linktoCrud('Engines','fa fa-cog', Engine::class);
-        yield MenuItem::linktoCrud('Rims','fa fa-life-ring', Rim::class);
+        yield MenuItem::linktoCrud('Car Details','fas fa-puzzle-piece', CarDetails::class);
+        yield MenuItem::linktoCrud('Rims','fab fa-empire', Rim::class);
+        yield MenuItem::linktoCrud('Tires','fa fa-life-ring', Tire::class);
         yield MenuItem::linktoCrud('Faults','fas fa-exclamation', Fault::class);
         yield MenuItem::linktoCrud('Transmissions','fa fa-cogs', Transmission::class);
     }

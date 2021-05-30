@@ -29,6 +29,11 @@ class Transmission
      */
     private $models;
 
+    /**
+     * @ORM\OneToOne(targetEntity=CarDetails::class, inversedBy="transmission", cascade={"persist", "remove"})
+     */
+    private $details;
+
     public function __construct()
     {
         $this->models = new ArrayCollection();
@@ -78,4 +83,17 @@ class Transmission
     {
         return $this->name;
     }
+
+    public function getDetails(): ?CarDetails
+    {
+        return $this->details;
+    }
+
+    public function setDetails(?CarDetails $details): self
+    {
+        $this->details = $details;
+
+        return $this;
+    }
+
 }

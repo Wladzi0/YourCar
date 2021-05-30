@@ -13,9 +13,10 @@
         {% if makes %}
             {% for make in makes %}
                 <div class="row ">
-                    <a class="col-4 ml-5  mr-4 mb-3 link" href="{{ path('models_list', {'make': make.id}) }}">
-{#                        {{ make.name }}#}
-                        <img style="background-color: white; border-radius: 5px;" src="{{ asset('images/makes/'~make.icon)}}" alt="" width="210px" height="190px">
+                    <a class="col-4 ml-5  mr-4 mb-3 link"
+                       href="{{ path('models_list', {'make': make.id}) }}">
+                        <img style="background-color: white; border-radius: 5px;"
+                             src="{{ asset('images/makes/'~make.icon)}}" alt="" width="210px" height="190px">
                     </a>
                 </div>
             {% endfor %}

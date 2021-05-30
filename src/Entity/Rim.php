@@ -50,15 +50,14 @@ class Rim
     private $stud;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Model::class, inversedBy="rims")
+     * @ORM\ManyToMany(targetEntity=SubModel::class, inversedBy="rims")
      */
-    private $models;
-
+    private $subModels;
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
-        $this->models = new ArrayCollection();
+        $this->subModels = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -159,29 +158,29 @@ class Rim
 
     public function __toString()
     {
-        return $this->size;
+        return  'r'.''.$this->size.' '.$this->stud.'x'.$this->pcd. ' '.$this->departure;
     }
 
     /**
-     * @return Collection|Model[]
+     * @return Collection|SubModel[]
      */
-    public function getModels(): Collection
+    public function getSubModels(): Collection
     {
-        return $this->models;
+        return $this->subModels;
     }
 
-    public function addModel(Model $model): self
+    public function addSubModel(SubModel $subModels): self
     {
-        if (!$this->models->contains($model)) {
-            $this->models[] = $model;
+        if (!$this->subModels->contains($subModels)) {
+            $this->subModels[] = $subModels;
         }
 
         return $this;
     }
 
-    public function removeModel(Model $model): self
+    public function removeSubModel(SubModel $subModels): self
     {
-        $this->models->removeElement($model);
+        $this->subModels->removeElement($subModels);
 
         return $this;
     }

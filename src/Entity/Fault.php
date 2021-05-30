@@ -30,9 +30,9 @@ class Fault
     private $engine;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Model::class, inversedBy="faults")
+     * @ORM\ManyToMany(targetEntity=SubModel::class, inversedBy="faults")
      */
-    private $model;
+    private $subModel;
 
     /**
      * @ORM\Column(type="string", length=9000)
@@ -42,7 +42,7 @@ class Fault
     public function __construct()
     {
         $this->engine = new ArrayCollection();
-        $this->model = new ArrayCollection();
+        $this->subModel = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -87,25 +87,25 @@ class Fault
     }
 
     /**
-     * @return Collection|Model[]
+     * @return Collection|SubModel[]
      */
-    public function getModel(): Collection
+    public function getSubModel(): Collection
     {
-        return $this->model;
+        return $this->subModel;
     }
 
-    public function addModel(Model $model): self
+    public function addSubModel(SubModel $subModel): self
     {
-        if (!$this->model->contains($model)) {
-            $this->model[] = $model;
+        if (!$this->subModel->contains($subModel)) {
+            $this->subModel[] = $subModel;
         }
 
         return $this;
     }
 
-    public function removeModel(Model $model): self
+    public function removeSubModel(SubModel $subModel): self
     {
-        $this->model->removeElement($model);
+        $this->subModel->removeElement($subModel);
 
         return $this;
     }

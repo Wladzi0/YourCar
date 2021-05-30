@@ -17,7 +17,7 @@
                 {{ model.name }}
             </h2>
             <div class="slider-inner">
-                {% for image in model.images %}
+                {% for image in subModel.images %}
 
                     <img src="{{ asset('images/car_details/'~ image.image) }}" alt="">
 
@@ -27,11 +27,10 @@
             <h4 class="mt-5">
                 {{ 'List of engines which were installed'|trans }}
             </h4>
-                {% for engine in model.engines %}
+                {% for engine in subModel.engines %}
             <div class="col">
                     {{ engine.capacity }}
                     {{ engine.fuel }}
-                    {{ engine.power }}
                     {{ engine.abbreviation }}
             </div>
                 {% endfor %}
@@ -39,19 +38,19 @@
                 {{ 'List of transmissions which were installed'|trans }}
             </h4>
             <div class="mb-5">
-            {% for transmission in model.transmissions %}
-                <div class="col">
-                    {{ transmission.name }}
-                </div>
-            {% endfor %}
+{#            {% for transmission in subModel.transmissions %}#}
+{#                <div class="col">#}
+{#                    {{ transmission.name }}#}
+{#                </div>#}
+{#            {% endfor %}#}
             </div>
-            {% if model.faults is not empty %}
+            {% if subModel.faults is not empty %}
             <h4 class="mt-5">
                 {{ 'List of faults'|trans }}
             </h4>
             <div class="mb-5">
 
-                {% for fault in model.faults %}
+                {% for fault in subModel.faults %}
                     <div class="col">
                         {{ fault.name }}
                     </div>

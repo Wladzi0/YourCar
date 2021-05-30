@@ -17,25 +17,6 @@ class Car
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $startYear;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $engine;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $transmission;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $enginePower;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -101,6 +82,7 @@ class Car
      * @ORM\Column(type="integer", nullable=true)
      */
     private $finishYear;
+
 
     public function getId(): ?int
     {
@@ -311,4 +293,6 @@ class Car
 
         return $this;
     }
+
+
 }

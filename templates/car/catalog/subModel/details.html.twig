@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ 'SubModel details'|trans }}
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
+{% endblock %}
+{% block body %}
+    <div class="  container top">
+        <div class="col">
+            <h2>
+                <a class="" href="{{ path('models_list', {'make': make.id}) }}">
+                    {{ make.name }}
+                </a>
+                ->
+                {{ model.name }}
+            </h2>
+            <div class="slider-inner">
+                {% for image in subModel.images %}
+
+                    <img src="{{ asset('images/car_details/'~ image.image) }}" alt="">
+
+                {% endfor %}
+            </div>
+
+            <h4 class="mt-5">
+                {{ 'List of engines which were installed'|trans }}
+            </h4>
+            {% for engine in subModel.engines %}
+                <div class="col">
+                    <a href="{{ path('engine_details', {'engine': engine.id, 'make':make.id, 'model':model.id,'subModel':subModel.id}) }}">
+                        {{ engine.capacity }}
+                        {{ engine.fuel }}
+                        {{ engine.abbreviation }}
+                    </a>
+                </div>
+            {% endfor %}
+            <h4 class="mt-5">
+                {{ 'List of transmissions which were installed'|trans }}
+            </h4>
+            <div class="mb-5">
+            </div>
+            {% if subModel.faults is not empty %}
+            <h4 class="mt-5">
+                {{ 'List of faults'|trans }}
+            </h4>
+            <div class="mb-5">
+
+                {% for fault in subModel.faults %}
+                    <div class="col">
+                        {{ fault.name }}
+                    </div>
+                {% endfor %}
+                {% else %}
+                    <h4 class="mt-5">
+                        {{ 'List of faults'|trans }} (0)
+                    </h4>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% block javasriptsblock %}
+
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="{{ asset('js/slick.js') }}"></script>
+        <script src="{{ asset('js/fade.js') }}"></script>
+
+    {% endblock %}
+{% endblock %}

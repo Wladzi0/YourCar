@@ -13,11 +13,22 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SubModelCrudController extends AbstractCrudController
 {
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
     public static function getEntityFqcn(): string
     {
         return SubModel::class;
@@ -37,9 +48,17 @@ class SubModelCrudController extends AbstractCrudController
             CollectionField::new('images')
                 ->setTemplatePath('admin/images.html.twig')
                 ->onlyOnDetail(),
-            CollectionField::new('images')
+            AssociationField::new('images')
                 ->onlyOnIndex(),
-            ArrayField::new('bodyType')
+            AssociationField::new('model'),
+            ChoiceField::new('yearStart')
+                ->setLabel($this->translator->trans('Production start'))
+                ->autocomplete()
+                ->setChoices($this->getYears(1900)),
+            ChoiceField::new('yearFinish')
+                ->setLabel($this->translator->trans('Production finish'))
+                ->setChoices($this->getYears(1900)),
+            TextField::new('bodyType')
                 ->hideOnForm(),
             ChoiceField::new('bodyType')
                 ->onlyOnForms()
@@ -53,17 +72,51 @@ class SubModelCrudController extends AbstractCrudController
                     'Van' => 'Van',
                     'Jeep' => 'Jeep'
                 ]),
-            AssociationField::new('model')
-                ->hideOnDetail()
-                ,
+
             TextField::new('bodyPlatform'),
+            AssociationField::new('engines')
+                ->hideOnDetail()
+                ->setFormType(EntityType::class)
+                ->setFormTypeOptions([
+                    'multiple' => true,
+                    'by_reference' => false,
+                ]),
+            ArrayField::new('engines')
+                ->onlyOnDetail(),
+            AssociationField::new('rims')
+                ->hideOnDetail()
+                ->setFormType(EntityType::class)
+                ->setFormTypeOptions([
+                    'multiple' => true,
+                    'by_reference' => false,
+                ]),
+            ArrayField::new('rims')
+                ->onlyOnDetail(),
+            AssociationField::new('faults')
+                ->setFormType(EntityType::class)
+                ->setFormTypeOptions([
+                    'multiple' => true,
+                    'by_reference' => false,
+                ]),
+            NumberField::new('tank'),
+            NumberField::new('length')
+            ->setRequired(true),
+            NumberField::new('width'),
         ];
+
     }
     public function configureActions(Actions $actions): Actions
     {
 
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL);
+    }
+
+    private function getYears($min, $max = 'current')
+    {
+        $years = range($min, ($max === 'current' ? date('Y') : $max));
+
+        return array_combine($years, $years);
     }
 
 }

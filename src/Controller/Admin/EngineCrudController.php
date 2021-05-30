@@ -48,18 +48,10 @@ class EngineCrudController extends AbstractCrudController
                         'Hybrid' => 'Hybrid',
                         'Electronic' => 'Electronic']
                 ),
-            TextField::new('power')
-                ->hideOnForm()
-                ->setLabel('Power (HP)'),
-            ChoiceField::new('power')
-                ->onlyOnForms()
-                ->setChoices(
-                    function () {
-                        $capacities = range(50, 1200, 5);
-                        return array_combine($capacities, $capacities);
-                    }
-                ),
             TextField::new('abbreviation'),
+            TextField::new('weight')
+            ->setLabel('Weight (kg)')
+            ->hideOnIndex(),
             CollectionField::new('images')
                 ->setFormTypeOption('by_reference', false)
                 ->setTranslationParameters(['form.label.delete' => ' Do your want to delete image?'])

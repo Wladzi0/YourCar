@@ -22,7 +22,7 @@ class FaultCrudController extends AbstractCrudController
             IdField::new('id')
             ->onlyOnIndex(),
             TextField::new('name'),
-            AssociationField::new('model'),
+            AssociationField::new('subModel'),
             AssociationField::new('engine'),
             TextareaField::new('description')
         ];
