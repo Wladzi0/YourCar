@@ -2,27 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dba42223-c2af-46b5-8311-98c99b923efd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/car/catalog/engine/details.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/CarDetailsCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/CarDetailsCrudController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/Admin/EngineCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/EngineCrudController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/FaultCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/FaultCrudController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/ModelCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/ModelCrudController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/Admin/SubModelCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/SubModelCrudController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/MainController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Car.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Car.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/CarDetails.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/CarDetails.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Engine.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Engine.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Fault.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Fault.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Image.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Image.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Make.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Make.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Model.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Rim.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Rim.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/SubModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/SubModel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Transmission.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Transmission.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/images.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/images.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/car/catalog/make/list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car/catalog/make/list.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/car/catalog/model/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car/catalog/model/details.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/car/catalog/model/list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car/catalog/model/list.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/car/subModel/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car/catalog/subModel/details.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/car/catalog/subModel/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car/catalog/subModel/details.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,7 +218,9 @@
       <workItem from="1622139824070" duration="2539000" />
       <workItem from="1622308823499" duration="11135000" />
       <workItem from="1622373909244" duration="5641000" />
-      <workItem from="1622386052051" duration="22019000" />
+      <workItem from="1622386052051" duration="22438000" />
+      <workItem from="1622444896991" duration="626000" />
+      <workItem from="1622547330446" duration="23715000" />
     </task>
     <servers />
   </component>

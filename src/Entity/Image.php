@@ -33,17 +33,29 @@ class Image
 
 
     /**
-     * @ORM\ManyToOne(targetEntity=Engine::class, inversedBy="images", cascade={"persist","remove"})
+     * @ORM\ManyToOne(
+     *     targetEntity=Engine::class,
+     *     inversedBy="images",
+     *     cascade={"persist","remove"}
+     *     )
      */
     private $engine;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Rim::class, inversedBy="images", cascade={"persist","remove"})
+     * @ORM\ManyToOne(
+     *     targetEntity=Rim::class,
+     *     inversedBy="images",
+     *     cascade={"persist","remove"}
+     *     )
      */
     private $rim;
 
     /**
-     * @ORM\ManyToOne(targetEntity=SubModel::class, inversedBy="images", cascade={"persist","remove"})
+     * @ORM\ManyToOne(
+     *     targetEntity=SubModel::class,
+     *     inversedBy="images",
+     *     cascade={"persist","remove"}
+     *     )
      */
     private $subModel;
 
@@ -59,7 +71,7 @@ class Image
     }
 
 
-    public function setImage(string $image = null): self // "string $image = null" Is very important to delete image during editing
+    public function setImage(string $image = null): self
     {
         $this->image = $image;
         return $this;

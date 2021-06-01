@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\CarDetails;
 use App\Entity\Make;
 use App\Entity\Model;
 use App\Entity\SubModel;
@@ -65,10 +66,25 @@ class MainController extends AbstractController
         } else {
             $subModel = null;
         }
+
+        if ($dataRequest['carDetails'][0] == true ) {
+            $carDetails = $this->getDoctrine()
+                ->getRepository(CarDetails::class)
+                ->findBy(['subModel' => $dataRequest['subModel'],'engine'=>$dataRequest['carDetails']]);
+        }
+        elseif ($dataRequest['carDetails'][0] == false){
+            $carDetails = $this->getDoctrine()
+                ->getRepository(CarDetails::class)
+                ->findBy(['subModel' => $dataRequest['subModel']]);
+        }
+        else {
+            $carDetails = null;
+        }
         return [
             'make' => $make,
             'model' => $model,
-            'subModel' => $subModel
+            'subModel' => $subModel,
+            'carDetails' => $carDetails
         ];
     }
 
@@ -80,7 +96,8 @@ class MainController extends AbstractController
         $dataRequest = [
             'make' => $request->get('make'),
             'model' => $request->get('model'),
-            'subModel' => null
+            'subModel' => null,
+            'carDetails' => [null,null]
         ];
         $foundedData[] = $this->searchByLink($dataRequest);
         return $this->render('car/catalog/model/details.html.twig', [
@@ -93,49 +110,44 @@ class MainController extends AbstractController
     /**
      * @Route("/make/{make}/model/{model}/submodel/{subModel}", name="sub_model_details")
      */
-    public function subModelDetails(Request $request): Response
+    public function subModelDetails(Request $request, CarDetailsRepository $detailsRepository): Response
     {
+        $subModel = $request->get('subModel');
         $dataRequest = [
             'make' => $request->get('make'),
             'model' => $request->get('model'),
-            'subModel' => $request->get('subModel'),
+            'subModel' => $subModel,
+            'carDetails'=> [false,null]
+
         ];
         $foundedData[] = $this->searchByLink($dataRequest);
         return $this->render('car/catalog/subModel/details.html.twig', [
             'make' => $foundedData[0]['make'],
             'model' => $foundedData[0]['model'],
-            'subModel' => $foundedData[0]['subModel']
+            'subModel' => $foundedData[0]['subModel'],
+            'engines' => $foundedData[0]['carDetails']
         ]);
     }
 
     /**
-     * @Route("/make/{make}/model/{model}/submodel/{subModel}/engine/{engine}", name="engine_details")
+     * @Route("/make/{make}/model/{model}/submodel/{subModel}/engine/{engine}/details", name="details_by_engine")
      */
-    public function engineDetails(Request $request, EngineRepository $engineRepository, CarDetailsRepository $carDetailsRepository): Response
+    public function DetailsByEngine(Request $request, EngineRepository $engineRepository, CarDetailsRepository $carDetailsRepository): Response
     {
-        $make=$request->get('make');
         $dataRequest = [
-            'make' => $make,
+            'make' => $request->get('make'),
             'model' => $request->get('model'),
             'subModel' => $request->get('subModel'),
-        ];
-        $foundedData[] = $this->searchByLink($dataRequest);
+            'carDetails'=>[true,$request->get('engine')],
 
-        $engine = $engineRepository
-            ->find(
-                $request->get('engine')
-            );
-        $carDetails = $carDetailsRepository
-            ->findBy(
-            [
-                'subModel' => $make,
-            ]);
-        return $this->render('car/catalog/engine/details.html.twig', [
+        ];
+        dump($dataRequest['carDetails'][1]);
+        $foundedData[] = $this->searchByLink($dataRequest);
+        return $this->render('car/catalog/subModel/details_by_engine.html.twig', [
             'make' => $foundedData[0]['make'],
             'model' => $foundedData[0]['model'],
             'subModel' => $foundedData[0]['subModel'],
-            'engine' => $engine,
-            'carDetails' => $carDetails
+            'carDetails' =>$foundedData[0]['carDetails']
         ]);
     }
 

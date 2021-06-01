@@ -30,13 +30,14 @@ class Transmission
     private $models;
 
     /**
-     * @ORM\OneToOne(targetEntity=CarDetails::class, inversedBy="transmission", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=CarDetails::class, mappedBy="transmission")
      */
-    private $details;
+    private $car_details;
 
     public function __construct()
     {
         $this->models = new ArrayCollection();
+        $this->car_details = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -84,16 +85,34 @@ class Transmission
         return $this->name;
     }
 
-    public function getDetails(): ?CarDetails
+    /**
+     * @return Collection|CarDetails[]
+     */
+    public function getCarDetails(): Collection
     {
-        return $this->details;
+        return $this->car_details;
     }
 
-    public function setDetails(?CarDetails $details): self
+    public function addCarDetail(CarDetails $carDetail): self
     {
-        $this->details = $details;
+        if (!$this->car_details->contains($carDetail)) {
+            $this->car_details[] = $carDetail;
+            $carDetail->setTransmission($this);
+        }
 
         return $this;
     }
 
+    public function removeCarDetail(CarDetails $carDetail): self
+    {
+        if ($this->car_details->removeElement($carDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($carDetail->getTransmission() === $this) {
+                $carDetail->setTransmission(null);
+            }
+        }
+
+        return $this;
+    }
+    
 }

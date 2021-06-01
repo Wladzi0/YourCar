@@ -90,15 +90,9 @@ class SubModel
     private $width;
 
     /**
-     * @ORM\OneToOne(
-     *     targetEntity=CarDetails::class,
-     *     inversedBy="subModel",
-     *     cascade={"persist", "remove"}
-     *     )
+     * @ORM\OneToMany(targetEntity=CarDetails::class, mappedBy="subModel", cascade={"persist"})
      */
     private $details;
-
-
 
     public function __construct()
     {
@@ -107,6 +101,7 @@ class SubModel
         $this->engines = new ArrayCollection();
         $this->rims = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->details = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -325,16 +320,35 @@ class SubModel
         return $this;
     }
 
-    public function getDetails(): ?CarDetails
+    /**
+     * @return Collection|CarDetails[]
+     */
+    public function getDetails(): Collection
     {
         return $this->details;
     }
 
-    public function setDetails(?CarDetails $details): self
+    public function addDetail(CarDetails $detail): self
     {
-        $this->details = $details;
+        if (!$this->details->contains($detail)) {
+            $this->details[] = $detail;
+            $detail->setSubModel($this);
+        }
 
         return $this;
     }
+
+    public function removeDetail(CarDetails $detail): self
+    {
+        if ($this->details->removeElement($detail)) {
+            // set the owning side to null (unless already changed)
+            if ($detail->getSubModel() === $this) {
+                $detail->setSubModel(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 }

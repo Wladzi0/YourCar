@@ -28,7 +28,11 @@ class Model
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Make::class, inversedBy="models", cascade={"persist"})
+     * @ORM\ManyToOne(
+     *     targetEntity=Make::class,
+     *     inversedBy="models",
+     *     cascade={"persist"}
+     *     )
      * @ORM\JoinColumn(nullable=false)
      */
     private $make;
@@ -49,7 +53,11 @@ class Model
     private $yearFinish;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Transmission::class, mappedBy="models", cascade={"persist","remove"})
+     * @ORM\ManyToMany(
+     *     targetEntity=Transmission::class,
+     *     mappedBy="models",
+     *     cascade={"persist","remove"}
+     *     )
      */
     private $transmissions;
 
@@ -69,7 +77,10 @@ class Model
     private $icon;
 
     /**
-     * @Vich\UploadableField(mapping="commom_models", fileNameProperty="icon")
+     * @Vich\UploadableField(
+     *     mapping="commom_models",
+     *     fileNameProperty="icon"
+     *  )
      * @var File
      */
     private $iconFile;

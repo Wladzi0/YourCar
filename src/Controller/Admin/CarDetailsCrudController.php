@@ -13,9 +13,16 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CarDetailsCrudController extends AbstractCrudController
 {
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
     public static function getEntityFqcn(): string
     {
         return CarDetails::class;
@@ -34,6 +41,7 @@ class CarDetailsCrudController extends AbstractCrudController
                 ->onlyOnIndex(),
             AssociationField::new('subModel')
                 ->setLabel('Submodel'),
+
             AssociationField::new('engine'),
             NumberField::new('power')
                 ->setLabel('Power (KM)')
@@ -49,6 +57,13 @@ class CarDetailsCrudController extends AbstractCrudController
                         'Euro VI'=>'Euro VI',
                     ]
                 ),
+            ChoiceField::new('yearStart')
+                ->setLabel($this->translator->trans('Production start'))
+                ->setChoices($this->getYears(1900)),
+            ChoiceField::new('yearFinish')
+                ->setLabel($this->translator->trans('Production finish'))
+                ->setChoices($this->getYears(1900)),
+
             AssociationField::new('transmission'),
             ChoiceField::new('drive')
                 ->setRequired(true)
@@ -86,4 +101,11 @@ class CarDetailsCrudController extends AbstractCrudController
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
+    private function getYears($min, $max = 'current')
+    {
+        $years = range($min, ($max === 'current' ? date('Y') : $max));
+
+        return array_combine($years, $years);
+    }
+
 }

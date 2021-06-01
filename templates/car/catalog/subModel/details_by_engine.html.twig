@@ -1,0 +1,156 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ 'Details by engine'|trans }}
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
+{% endblock %}
+{% block body %}
+    <div class="  container top">
+        <div class="col">
+            <h2>
+                <a class="" href="{{ path('models_list', {'make': make.id}) }}">
+                    {{ make.name }}
+                </a>
+                ->
+                <a class="" href="{{ path('model_details', {'make': make.id,'model': model.id}) }}">
+                    {{ model.name }}
+                </a>
+                ->
+                ({{ subModel.bodyPlatform }})
+            </h2>
+            <div class="slider-inner">
+                {% for image in subModel.images %}
+
+                    <img src="{{ asset('images/car_details/'~ image.image) }}" alt="">
+
+                {% endfor %}
+            </div>
+            <div class="col">
+                <h4 class="mt-5">
+                    {{ 'Technical data of engine '|trans }}
+                </h4>
+                <div class="slider-inner">
+                    {% for image in carDetails[0].engine.images %}
+
+                        <img src="{{ asset('images/car_details/'~ image.image) }}" alt="">
+
+                    {% endfor %}
+                </div>
+                    <p>
+                        {{ 'Engine'|trans }}: {{ carDetails[0].engine }}
+                    </p>
+                <p>
+                    {{ 'Fuel'|trans }}: {{ carDetails[0].engine.fuel }}
+                </p>
+                    <p>
+                        {{ 'Power'|trans }}: {{ carDetails[0].power }} (HP)
+                    </p>
+                    <p>
+                        {{ 'Max. speed'|trans }}: {{ carDetails[0].speed }} (km/h)
+                    </p>
+                    <p>
+                        {{ 'Start year of installing'|trans }}: {{ carDetails[0].yearStart }}
+                    </p>
+                    <p>
+                        {{ 'Finish year of installing'|trans }}: {{ carDetails[0].yearFinish }}
+                    </p>
+                    <p>
+                        {{ 'Ecology standart'|trans }}: {{ carDetails[0].eco }}
+                    </p>
+                    <p>
+                        {{ 'Transmission'|trans }}: {{ carDetails[0].transmission }}
+                    </p>
+                    <p>
+                        {{ 'Drive'|trans }}: {{ carDetails[0].drive }}
+                    </p>
+                    <p>
+                        {{ 'Tank'|trans }}: {{ carDetails[0].subModel.tank }} (l/100km)
+                    </p>
+                    <p>
+                        {{ 'Fuel consumprion'|trans }}: {{ carDetails[0].fuelConsumption }}
+                        (l/100km)
+                    </p>
+                    <p>
+                        {{ 'Fuel consumprion mixed'|trans }}: {{ carDetails[0].fuelConsumptionMixed }}
+                        (l/100km)
+                    </p>
+                    <p>
+                        {{ 'Fuel consumprion extra'|trans }}: {{ carDetails[0].fuelConsumptionExtra }}
+                        (l/100km)
+                    </p>
+            </div>
+            <div class="col">
+                <h4 class="mt-5">
+                    {{ 'Parameters'|trans }}
+                </h4>
+                <p>
+                    {{ 'Start year of production'|trans }}: {{ subModel.yearStart }}
+                </p>
+                <p>
+                    {{ 'Finish year of production'|trans }}: {{ subModel.yearFinish }}
+                </p>
+                <p>
+                    {{ 'Body type '|trans }}: {{ subModel.bodyType }}
+                </p>
+                <p>
+                    {{ 'Length '|trans }}: {{ subModel.length }}
+                </p>
+                <p>
+                    {{ 'Width '|trans }}: {{ subModel.width }}
+                </p>
+            </div>
+            {# {% for engine in subModel.engines %} #}
+            {#
+            {#                    {% if engine.details is null %} #}
+            {# <p> #}
+            {# {{ engine.capacity }} #}
+            {# {{ engine.fuel }} #}
+            {# {{ engine.abbreviation }} #}
+
+            {# </p> #}
+            {# {% else %} #}
+
+            {# <a href="{{ path('engine_details', {'engine': engine.id, 'make':make.id, 'model':model.id,'subModel':subModel.id}) }}"> #}
+            {# {{ engine.capacity }} #}
+            {# {{ engine.fuel }} #}
+            {# {{ engine.abbreviation }} #}
+            {# ({{ engine.details.power }} HP) #}
+
+            {# </a> #}
+            {# {% endif %} #}
+            {#
+            {#            {% endfor %} #}
+            <h4 class="mt-5">
+                {{ 'List of transmissions which were installed'|trans }}
+            </h4>
+            <div class="mb-5">
+            </div>
+            {% if subModel.faults is not empty %}
+            <h4 class="mt-5">
+                {{ 'List of faults'|trans }}
+            </h4>
+            <div class="mb-5">
+
+                {% for fault in subModel.faults %}
+                    <div class="col">
+                        {{ fault.name }}
+                    </div>
+                {% endfor %}
+                {% else %}
+                    <h4 class="mt-5">
+                        {{ 'List of faults'|trans }} (0)
+                    </h4>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% block javasriptsblock %}
+
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="{{ asset('js/slick.js') }}"></script>
+        <script src="{{ asset('js/fade.js') }}"></script>
+
+    {% endblock %}
+{% endblock %}

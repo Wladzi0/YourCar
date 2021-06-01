@@ -2,10 +2,6 @@
 {% block title %}
     {{ 'SubModel details'|trans }}
 {% endblock %}
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
-{% endblock %}
 {% block body %}
     <div class="  container top">
         <div class="col">
@@ -14,57 +10,38 @@
                     {{ make.name }}
                 </a>
                 ->
-                {{ model.name }}
+                <a class="" href="{{ path('model_details', {'make': make.id,'model': model.id}) }}">
+                    {{ model.name }}
+                </a>
+                ->
+                ({{ subModel.bodyPlatform }})
             </h2>
-            <div class="slider-inner">
-                {% for image in subModel.images %}
-
-                    <img src="{{ asset('images/car_details/'~ image.image) }}" alt="">
-
-                {% endfor %}
-            </div>
-
             <h4 class="mt-5">
                 {{ 'List of engines which were installed'|trans }}
             </h4>
-            {% for engine in subModel.engines %}
+            {% for carDetails in engines %}
+
                 <div class="col">
-                    <a href="{{ path('engine_details', {'engine': engine.id, 'make':make.id, 'model':model.id,'subModel':subModel.id}) }}">
-                        {{ engine.capacity }}
-                        {{ engine.fuel }}
-                        {{ engine.abbreviation }}
+{#                {% if engine.details is defined %}#}
+                    <a href="{{ path('details_by_engine', {'engine': carDetails.engine.id, 'make':make.id, 'model':model.id,'subModel':subModel.id}) }}">
+                        {{ carDetails.engine.capacity }}
+                        {{ carDetails.engine.fuel }}
+                        {{ carDetails.engine.abbreviation }}
+                        ({{carDetails.power }} HP)
+                        ({{carDetails.yearStart }}-
+                        {{carDetails.yearFinish }} )
+
                     </a>
+{#                {% else %}#}
+{#                    <p class="alert-danger">#}
+{#                        {{ 'We do not yet have information about it.'|trans }}#}
+{#                    </p>#}
+
+{#                    {% endif %}#}
                 </div>
             {% endfor %}
-            <h4 class="mt-5">
-                {{ 'List of transmissions which were installed'|trans }}
-            </h4>
-            <div class="mb-5">
-            </div>
-            {% if subModel.faults is not empty %}
-            <h4 class="mt-5">
-                {{ 'List of faults'|trans }}
-            </h4>
-            <div class="mb-5">
 
-                {% for fault in subModel.faults %}
-                    <div class="col">
-                        {{ fault.name }}
-                    </div>
-                {% endfor %}
-                {% else %}
-                    <h4 class="mt-5">
-                        {{ 'List of faults'|trans }} (0)
-                    </h4>
-                {% endif %}
-            </div>
         </div>
     </div>
-    {% block javasriptsblock %}
 
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="{{ asset('js/slick.js') }}"></script>
-        <script src="{{ asset('js/fade.js') }}"></script>
-
-    {% endblock %}
 {% endblock %}

@@ -59,19 +59,16 @@ class Engine
      */
     private $faults;
 
-    /**
-     * @ORM\OneToOne(
-     *     targetEntity=CarDetails::class,
-     *     inversedBy="engine",
-     *     cascade={"persist", "remove"}
-     *     )
-     */
-    private $details;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      */
     private $weight;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CarDetails::class, mappedBy="engine", cascade={"persist"})
+     */
+    private $carDetails;
 
     public function __construct()
     {
@@ -79,6 +76,7 @@ class Engine
         $this->models = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->faults = new ArrayCollection();
+        $this->carDetails = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -231,18 +229,6 @@ class Engine
       return $this->capacity.' '.$this->abbreviation;
     }
 
-    public function getDetails(): ?CarDetails
-    {
-        return $this->details;
-    }
-
-    public function setDetails(?CarDetails $details): self
-    {
-        $this->details = $details;
-
-        return $this;
-    }
-
     public function getWeight(): ?float
     {
         return $this->weight;
@@ -251,6 +237,36 @@ class Engine
     public function setWeight(?float $weight): self
     {
         $this->weight = $weight;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CarDetails[]
+     */
+    public function getCarDetails(): Collection
+    {
+        return $this->carDetails;
+    }
+
+    public function addCarDetail(CarDetails $carDetail): self
+    {
+        if (!$this->carDetails->contains($carDetail)) {
+            $this->carDetails[] = $carDetail;
+            $carDetail->setEngine($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCarDetail(CarDetails $carDetail): self
+    {
+        if ($this->carDetails->removeElement($carDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($carDetail->getEngine() === $this) {
+                $carDetail->setEngine(null);
+            }
+        }
 
         return $this;
     }

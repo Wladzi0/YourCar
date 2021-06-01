@@ -39,7 +39,11 @@ class Make
     private $iconFile;
 
     /**
-     * @ORM\OneToMany(targetEntity=Model::class, mappedBy="make", orphanRemoval=true)
+     * @ORM\OneToMany(
+     *     targetEntity=Model::class,
+     *     mappedBy="make",
+     *     orphanRemoval=true
+     *     )
      */
     private $models;
 

@@ -35,7 +35,12 @@ class Rim
     private $departure;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="rim", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(
+     *     targetEntity=Image::class,
+     *     mappedBy="rim",
+     *     cascade={"persist","remove"},
+     *     orphanRemoval=true
+     *     )
      */
     private $images;
 

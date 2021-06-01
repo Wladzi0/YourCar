@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -28,6 +29,16 @@ class EngineCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm(),
+            CollectionField::new('images')
+                ->setFormTypeOption('by_reference', false)
+                ->setTranslationParameters(['form.label.delete' => ' Do your want to delete image?'])
+                ->setEntryType(ImageFormType::class)
+                ->onlyOnForms(),
+            CollectionField::new('images')
+                ->setTemplatePath('admin/images.html.twig')
+                ->onlyOnDetail(),
+            AssociationField::new('images')
+                ->onlyOnIndex(),
             ChoiceField::new('capacity')
                 ->onlyOnForms()
                 ->setChoices(
@@ -49,19 +60,9 @@ class EngineCrudController extends AbstractCrudController
                         'Electronic' => 'Electronic']
                 ),
             TextField::new('abbreviation'),
-            TextField::new('weight')
+            NumberField::new('weight')
             ->setLabel('Weight (kg)')
             ->hideOnIndex(),
-            CollectionField::new('images')
-                ->setFormTypeOption('by_reference', false)
-                ->setTranslationParameters(['form.label.delete' => ' Do your want to delete image?'])
-                ->setEntryType(ImageFormType::class)
-                ->onlyOnForms(),
-            CollectionField::new('images')
-                ->setTemplatePath('admin/images.html.twig')
-                ->onlyOnDetail(),
-            CollectionField::new('images')
-                ->onlyOnIndex(),
             AssociationField::new('models')
                 ->hideOnDetail()
                 ->setFormType(EntityType::class)
@@ -77,6 +78,9 @@ class EngineCrudController extends AbstractCrudController
                     'multiple' => true,
                     'by_reference' => false,
                 ]),
+            AssociationField::new('carDetails')
+                ->onlyOnIndex(),
+
         ];
     }
 

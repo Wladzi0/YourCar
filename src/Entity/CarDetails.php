@@ -17,14 +17,6 @@ class CarDetails
      */
     private $id;
 
-    /**
-     * @ORM\OneToOne(
-     *     targetEntity=Engine::class,
-     *      mappedBy="details",
-     *     cascade={"persist", "remove"}
-     *     )
-     */
-    private $engine;
 
     /**
      * @ORM\Column(type="integer")
@@ -40,28 +32,6 @@ class CarDetails
      * @ORM\Column(type="float")
      */
     private $fuelConsumption;
-
-    /**
-     * @ORM\OneToOne(
-     *     targetEntity=SubModel::class,
-     *     mappedBy="details",
-     *     cascade={"persist", "remove"}
-     *     )
-     * @ORM\JoinColumn(
-     *     nullable=false
-     * )
-     */
-    private $subModel;
-
-    /**
-     * @ORM\OneToOne(
-     *     targetEntity=Transmission::class,
-     *     mappedBy="details",
-     *     cascade={"persist", "remove"}
-     *     )
-     */
-    private $transmission;
-
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -87,31 +57,34 @@ class CarDetails
      */
     private $fuelConsumptionExtra;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=SubModel::class, inversedBy="details",cascade={"persist","remove"})
+     */
+    private $subModel;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $yearStart;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $yearFinish;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Engine::class, inversedBy="carDetails", cascade={"persist"})
+     */
+    private $engine;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Transmission::class, inversedBy="car_details")
+     */
+    private $transmission;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getEngine(): ?Engine
-    {
-        return $this->engine;
-    }
-
-    public function setEngine(?Engine $engine): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($engine === null && $this->engine !== null) {
-            $this->engine->setDetails(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($engine !== null && $engine->getDetails() !== $this) {
-            $engine->setDetails($this);
-        }
-
-        $this->engine = $engine;
-
-        return $this;
     }
 
     public function getSpeed(): ?int
@@ -146,50 +119,6 @@ class CarDetails
     public function setFuelConsumption(float $fuelConsumption): self
     {
         $this->fuelConsumption = $fuelConsumption;
-
-        return $this;
-    }
-
-    public function getSubModel(): ?SubModel
-    {
-        return $this->subModel;
-    }
-
-    public function setSubModel(?SubModel $subModel): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($subModel === null && $this->subModel !== null) {
-            $this->subModel->setDetails(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($subModel !== null && $subModel->getDetails() !== $this) {
-            $subModel->setDetails($this);
-        }
-
-        $this->subModel = $subModel;
-
-        return $this;
-    }
-
-    public function getTransmission(): ?Transmission
-    {
-        return $this->transmission;
-    }
-
-    public function setTransmission(?Transmission $transmission): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($transmission === null && $this->transmission !== null) {
-            $this->transmission->setDetails(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($transmission !== null && $transmission->getDetails() !== $this) {
-            $transmission->setDetails($this);
-        }
-
-        $this->transmission = $transmission;
 
         return $this;
     }
@@ -250,6 +179,66 @@ class CarDetails
     public function setFuelConsumptionExtra(float $fuelConsumptionExtra): self
     {
         $this->fuelConsumptionExtra = $fuelConsumptionExtra;
+
+        return $this;
+    }
+
+    public function getSubModel(): ?SubModel
+    {
+        return $this->subModel;
+    }
+
+    public function setSubModel(?SubModel $subModel): self
+    {
+        $this->subModel = $subModel;
+
+        return $this;
+    }
+
+    public function getYearStart(): ?int
+    {
+        return $this->yearStart;
+    }
+
+    public function setYearStart(int $yearStart): self
+    {
+        $this->yearStart = $yearStart;
+
+        return $this;
+    }
+
+    public function getYearFinish(): ?int
+    {
+        return $this->yearFinish;
+    }
+
+    public function setYearFinish(?int $yearFinish): self
+    {
+        $this->yearFinish = $yearFinish;
+
+        return $this;
+    }
+
+    public function getEngine(): ?Engine
+    {
+        return $this->engine;
+    }
+
+    public function setEngine(?Engine $engine): self
+    {
+        $this->engine = $engine;
+
+        return $this;
+    }
+
+    public function getTransmission(): ?Transmission
+    {
+        return $this->transmission;
+    }
+
+    public function setTransmission(?Transmission $transmission): self
+    {
+        $this->transmission = $transmission;
 
         return $this;
     }

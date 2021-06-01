@@ -102,6 +102,8 @@ class SubModelCrudController extends AbstractCrudController
             NumberField::new('length')
             ->setRequired(true),
             NumberField::new('width'),
+            AssociationField::new('details')
+                ->onlyOnIndex(),
         ];
 
     }
