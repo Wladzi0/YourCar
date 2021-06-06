@@ -18,8 +18,10 @@
             <label for="inputEmail" class="sr-only">
                 {{ 'Email address'|trans }}
             </label>
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
-                   placeholder={{ 'Email address'|trans }} required="required" autofocus="autofocus">
+            <input type="email" value="{{ last_username }}"
+                   name="email" id="inputEmail" class="form-control"
+                   placeholder= {{ 'Email address'|trans }}
+                   required="required" autofocus="autofocus">
             <br>
             <label for="inputPassword" class="sr-only">
                 {{ 'Password'|trans }}
@@ -34,6 +36,9 @@
                     {{ 'Remember me'|trans }}
                 </label>
             </div>
+            <a href="{{ path('app_forgot_password_request') }}"  class="mb-5" type="submit">
+                {{ 'Forgot password?'|trans }}
+            </a>
             <br>
             <button class="mb-3 btn btn-success " type="submit">
                 {{ 'Sign in'|trans }}

@@ -49,6 +49,14 @@ class Image
      *     )
      */
     private $rim;
+    /**
+     * @ORM\ManyToOne(
+     *     targetEntity=Fault::class,
+     *     inversedBy="images",
+     *     cascade={"persist","remove"}
+     *     )
+     */
+    private $fault;
 
     /**
      * @ORM\ManyToOne(
@@ -100,7 +108,17 @@ class Image
 
         return $this;
     }
+    public function getFault(): ?Fault
+    {
+        return $this->fault;
+    }
 
+    public function setFault(?Fault $fault): self
+    {
+        $this->fault = $fault;
+
+        return $this;
+    }
     public function getRim(): ?Rim
     {
         return $this->rim;

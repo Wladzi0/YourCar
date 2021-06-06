@@ -41,6 +41,7 @@ class SubModelCrudController extends AbstractCrudController
             IdField::new('id')
             ->hideOnForm(),
             CollectionField::new('images')
+                ->setRequired(true)
                 ->setFormTypeOption('by_reference', false)
                 ->setTranslationParameters(['form.label.delete' => ' Do your want to delete image?'])
                 ->setEntryType(ImageFormType::class)
@@ -50,7 +51,9 @@ class SubModelCrudController extends AbstractCrudController
                 ->onlyOnDetail(),
             AssociationField::new('images')
                 ->onlyOnIndex(),
-            AssociationField::new('model'),
+            AssociationField::new('model')
+            ->setRequired(true)
+            ->autocomplete(),
             ChoiceField::new('yearStart')
                 ->setLabel($this->translator->trans('Production start'))
                 ->autocomplete()
@@ -74,6 +77,12 @@ class SubModelCrudController extends AbstractCrudController
                 ]),
 
             TextField::new('bodyPlatform'),
+            NumberField::new('tank'),
+            NumberField::new('length')
+                ->setRequired(true),
+            NumberField::new('width'),
+            AssociationField::new('details')
+                ->onlyOnIndex(),
             AssociationField::new('engines')
                 ->hideOnDetail()
                 ->setFormType(EntityType::class)
@@ -98,12 +107,7 @@ class SubModelCrudController extends AbstractCrudController
                     'multiple' => true,
                     'by_reference' => false,
                 ]),
-            NumberField::new('tank'),
-            NumberField::new('length')
-            ->setRequired(true),
-            NumberField::new('width'),
-            AssociationField::new('details')
-                ->onlyOnIndex(),
+
         ];
 
     }

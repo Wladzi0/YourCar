@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\CarDetails;
+use App\Entity\Comment;
 use App\Entity\Engine;
 use App\Entity\Fault;
 use App\Entity\Make;
@@ -38,6 +39,7 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::section('User settings');
         yield MenuItem::linktoCrud('Users','fa fa-user', User::class);
+        yield MenuItem::linktoCrud('Comments','fa fa-comment', Comment::class);
         yield MenuItem::section('Car');
         yield MenuItem::linktoCrud('Makes','fas fa-list-ul', Make::class);
         yield MenuItem::linktoCrud('Models','fa fa-make', Model::class);

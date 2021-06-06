@@ -36,27 +36,51 @@
             {{ form_start(registrationForm, {'attr': {'class': 'form-horizontal'}}) }}
             {{ form_label(registrationForm.firstName) }}
             <br>
-            {{ form_widget(registrationForm.firstName, {'attr': {'class': 'form-control', 'required': 'true'}}) }}
+            {{ form_widget(registrationForm.firstName,
+                {'attr':
+                    {'class': 'form-control', 'required': 'true'}
+                })
+            }}
             <br>
             {{ form_label(registrationForm.lastName) }}
             <br>
-            {{ form_widget(registrationForm.lastName, {'attr': {'class': 'form-control', 'required': 'true'}}) }}
+            {{ form_widget(registrationForm.lastName,
+                {'attr':
+                    {'class': 'form-control', 'required': 'true'}
+                })
+            }}
             <br>
             {{ form_label(registrationForm.email) }}
             <br>
-            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control','required': 'true'}}) }}
+            {{ form_widget(registrationForm.email,
+                {'attr':
+                {'class': 'form-control', 'required': 'true'}
+            })
+            }}
             <br>
             {{ form_label(registrationForm.preferLanguage) }}
             <br>
-            {{ form_widget(registrationForm.preferLanguage, {'attr': {'class': 'form-control','required': 'true'}}) }}
+            {{ form_widget(registrationForm.preferLanguage,
+                {'attr':
+                {'class': 'form-control', 'required': 'true'}
+            })
+            }}
             <br>
             {{ form_label(registrationForm.plainPassword.first) }}
             <br>
-            {{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': 'form-control', 'required': 'true'}}) }}
+            {{ form_widget(registrationForm.plainPassword.first,
+                {'attr':
+                    {'class': 'form-control', 'required': 'true'}
+                })
+            }}
             <br>
             {{ form_label(registrationForm.plainPassword.second) }}
             <br>
-            {{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': 'form-control', 'required': 'true'}}) }}
+            {{ form_widget(registrationForm.plainPassword.second,
+                {'attr':
+                    {'class': 'form-control', 'required': 'true'}
+                })
+            }}
             <br>
             {% if edit is same as (true) %}
                 <button class="btn  btn-success" type="submit">

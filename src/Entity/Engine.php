@@ -26,6 +26,7 @@ class Engine
 
     /**
      * @ORM\ManyToMany(targetEntity=SubModel::class, inversedBy="engines")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $subModels;
 
@@ -69,6 +70,21 @@ class Engine
      * @ORM\OneToMany(targetEntity=CarDetails::class, mappedBy="engine", cascade={"persist"})
      */
     private $carDetails;
+
+    /**
+     * @ORM\Column(type="string", length=80, nullable=true)
+     */
+    private $powerIncrease;
+
+    /**
+     * @ORM\Column(type="float", nullable=false)
+     */
+    private $oil;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $cylinders;
 
     public function __construct()
     {
@@ -267,6 +283,42 @@ class Engine
                 $carDetail->setEngine(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPowerIncrease(): ?string
+    {
+        return $this->powerIncrease;
+    }
+
+    public function setPowerIncrease(string $powerIncrease): self
+    {
+        $this->powerIncrease = $powerIncrease;
+
+        return $this;
+    }
+
+    public function getOil(): ?float
+    {
+        return $this->oil;
+    }
+
+    public function setOil(?float $oil): self
+    {
+        $this->oil = $oil;
+
+        return $this;
+    }
+
+    public function getCylinders(): ?int
+    {
+        return $this->cylinders;
+    }
+
+    public function setCylinders(int $cylinders): self
+    {
+        $this->cylinders = $cylinders;
 
         return $this;
     }

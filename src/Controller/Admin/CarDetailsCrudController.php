@@ -40,12 +40,22 @@ class CarDetailsCrudController extends AbstractCrudController
             IdField::new('id')
                 ->onlyOnIndex(),
             AssociationField::new('subModel')
-                ->setLabel('Submodel'),
-
-            AssociationField::new('engine'),
+                -> setRequired(true)
+                ->autocomplete(),
+            AssociationField::new('engine')
+                -> setRequired(true)
+                ->autocomplete(),
             NumberField::new('power')
                 ->setLabel('Power (KM)')
                 ->setHelp('Must be only numbers'),
+            ChoiceField::new('torque')
+            ->setLabel('Torque (Nm)')
+                ->setChoices(
+                    function () {
+                        $capacities = range(70, 999, 1);
+                        return array_combine($capacities, $capacities);
+                    }
+                ),
             ChoiceField::new('eco')
                 ->setChoices(
                     [
@@ -64,7 +74,9 @@ class CarDetailsCrudController extends AbstractCrudController
                 ->setLabel($this->translator->trans('Production finish'))
                 ->setChoices($this->getYears(1900)),
 
-            AssociationField::new('transmission'),
+            AssociationField::new('transmission')
+                ->setRequired(true)
+                ->autocomplete(),
             ChoiceField::new('drive')
                 ->setRequired(true)
                 ->setChoices([

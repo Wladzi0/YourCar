@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ 'SubModel details'|trans }}
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
+{% endblock %}
+{% block body %}
+    <div class=" border container top">
+        <div class="col">
+            <h2>
+                <a class="" href="{{ path('models_list', {'make': make.id}) }}">
+                    {{ make.name }}
+                </a>
+            </h2>
+            <h3>
+                {{ 'Title'|trans }}
+            </h3>
+            {{ fault.name }}
+            </h3>
+            <div class="slider-inner">
+                {% for image in fault.images %}
+                    <img src="{{ asset('images/car_details/'~ image.image) }}" alt="">
+                {% endfor %}
+            </div>
+            <h3 class="m-3">
+                {{ 'Description'|trans }}
+            </h3>
+            <p class="mb-5">
+                {{ fault.description }}
+            </p>
+            <div class="comments mt-5">
+                <h3 id="commentsCount">
+                    Comments ({{ fault.comments|length }})
+                </h3>
+                {% if is_granted('ROLE_USER') %}
+                <form method="post" class="comment-form" id="comment-form">
+                    <input id="commentContent" placeholder="Add your comment" autocomplete="off">
+                    <input type="hidden" id="fault"  value="{{ fault.id }}">
+                    <button class="comment-btn" name="submit" id="submit" value="Comment" type="button">Comment</button>
+                </form>
+                    {% else %}
+                    <p class="mt-3 text-bold">
+                            <b>
+                                <a href="{{ path('app_login') }}">
+                                    If you want to add comment, please sign in or create account
+                                </a>
+                            </b>
+                    </p>
+                {% endif %}
+
+                <div class="comment pt-5 mb-5" id="commentFields" >
+                {% for comment in fault.comments|reverse %}
+                        <p>
+                            <b>
+                                {{ comment.user.firstName }}
+                                {{ comment.user.lastName }}
+                            </b>
+                            <small class="text-secondary ml-4">
+                                {{ comment.createdAt|date }}
+                            </small>
+                            <br>
+                            {{ comment.content}}
+                        </p>
+
+                {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {% block javasriptsblock %}
+        <script src="{{ asset('js/comment.js') }}"></script>
+        <script src="{{ asset('js/slick.js') }}"></script>
+        <script src="{{ asset('js/fade.js') }}"></script>
+
+    {% endblock %}
+{% endblock %}

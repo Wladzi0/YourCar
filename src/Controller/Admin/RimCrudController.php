@@ -27,6 +27,16 @@ class RimCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->onlyOnDetail(),
+            CollectionField::new('images')
+                ->setFormTypeOption('by_reference', false)
+                ->setTranslationParameters(['form.label.delete' => ' Do your want to delete image?'])
+                ->setEntryType(ImageFormType::class)
+                ->onlyOnForms(),
+            CollectionField::new('images')
+                ->setTemplatePath('admin/images.html.twig')
+                ->onlyOnDetail(),
+            AssociationField::new('images')
+                ->onlyOnIndex(),
             TextField::new('size')
                 ->setLabel('Size (r)')
                 ->onlyOnIndex(),
@@ -68,16 +78,7 @@ class RimCrudController extends AbstractCrudController
                 ),
             TextField::new('departure')
                 ->setLabel('Wheel departure'),
-            CollectionField::new('images')
-                ->setFormTypeOption('by_reference', false)
-                ->setTranslationParameters(['form.label.delete' => ' Do your want to delete image?'])
-                ->setEntryType(ImageFormType::class)
-                ->onlyOnForms(),
-            CollectionField::new('images')
-                ->setTemplatePath('admin/images.html.twig')
-                ->onlyOnDetail(),
-            CollectionField::new('images')
-                ->onlyOnIndex()
+
         ];
     }
 

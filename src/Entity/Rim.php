@@ -30,7 +30,7 @@ class Rim
     private $weight;
 
     /**
-     * @ORM\Column(type="string", length=6, nullable=true)
+     * @ORM\Column(type="string", length=6, nullable=false)
      */
     private $departure;
 

@@ -6,6 +6,7 @@ use App\Repository\FaultRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass=FaultRepository::class)
@@ -38,11 +39,33 @@ class Fault
      * @ORM\Column(type="string", length=9000)
      */
     private $description;
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity=Image::class,
+     *     mappedBy="fault",
+     *     cascade={"persist","remove"},
+     *     orphanRemoval=true
+     *     )
+     */
+    private $images;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="faults")
+     * @ORM\JoinColumn(nullable=false, name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="fault")
+     */
+    private $comments;
 
     public function __construct()
     {
         $this->engine = new ArrayCollection();
+        $this->images = new ArrayCollection();
         $this->subModel = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -62,6 +85,35 @@ class Fault
         return $this;
     }
 
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setFault($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getFault() === $this) {
+                $image->setFault(null);
+            }
+        }
+
+        return $this;
+    }
     /**
      * @return Collection|Engine[]
      */
@@ -125,4 +177,47 @@ class Fault
     {
         return $this->name;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setFault($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getFault() === $this) {
+                $comment->setFault(null);
+            }
+        }
+
+        return $this;
+    }
+    
 }

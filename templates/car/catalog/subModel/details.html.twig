@@ -22,7 +22,6 @@
             {% for carDetails in engines %}
 
                 <div class="col">
-{#                {% if engine.details is defined %}#}
                     <a href="{{ path('details_by_engine', {'engine': carDetails.engine.id, 'make':make.id, 'model':model.id,'subModel':subModel.id}) }}">
                         {{ carDetails.engine.capacity }}
                         {{ carDetails.engine.fuel }}
@@ -30,14 +29,7 @@
                         ({{carDetails.power }} HP)
                         ({{carDetails.yearStart }}-
                         {{carDetails.yearFinish }} )
-
                     </a>
-{#                {% else %}#}
-{#                    <p class="alert-danger">#}
-{#                        {{ 'We do not yet have information about it.'|trans }}#}
-{#                    </p>#}
-
-{#                    {% endif %}#}
                 </div>
             {% endfor %}
 

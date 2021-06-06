@@ -8,6 +8,7 @@ use App\Entity\Model;
 use App\Entity\SubModel;
 use App\Repository\CarDetailsRepository;
 use App\Repository\EngineRepository;
+use App\Repository\FaultRepository;
 use App\Repository\MakeRepository;
 use App\Repository\ModelRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -139,9 +140,7 @@ class MainController extends AbstractController
             'model' => $request->get('model'),
             'subModel' => $request->get('subModel'),
             'carDetails'=>[true,$request->get('engine')],
-
         ];
-        dump($dataRequest['carDetails'][1]);
         $foundedData[] = $this->searchByLink($dataRequest);
         return $this->render('car/catalog/subModel/details_by_engine.html.twig', [
             'make' => $foundedData[0]['make'],
@@ -149,6 +148,20 @@ class MainController extends AbstractController
             'subModel' => $foundedData[0]['subModel'],
             'carDetails' =>$foundedData[0]['carDetails']
         ]);
+    }
+
+    /**
+     * @Route ("/make/{make}/model/{model}/submodel/{subModel}/fault/{fault}", name="subModel_fault")
+     */
+    public function SubModelFault(Request $request,FaultRepository $faultRepository,MakeRepository $makeRepository ): Response
+    {
+        $make=$makeRepository->find($request->get('make'));
+        $fault = $faultRepository->find($request->get('fault'));
+        return $this->render('car/catalog/fault/details.html.twig', [
+            'make'=>$make,
+            'fault'=>$fault,
+
+            ]);
     }
 
 }

@@ -26,6 +26,7 @@ class SubModel
 
     /**
      * @ORM\ManyToOne(targetEntity=Model::class, inversedBy="subModels")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $model;
 
@@ -52,6 +53,7 @@ class SubModel
 
     /**
      * @ORM\ManyToMany(targetEntity=Engine::class, mappedBy="subModels")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $engines;
 

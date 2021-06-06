@@ -63,6 +63,9 @@ class EngineCrudController extends AbstractCrudController
             NumberField::new('weight')
             ->setLabel('Weight (kg)')
             ->hideOnIndex(),
+            TextField::new('powerIncrease')
+            ->setRequired(false)
+            ->setFormTypeOption('empty_data',''),
             AssociationField::new('models')
                 ->hideOnDetail()
                 ->setFormType(EntityType::class)
@@ -72,15 +75,17 @@ class EngineCrudController extends AbstractCrudController
                 ]),
             ArrayField::new('models')
                 ->onlyOnDetail(),
+
+            NumberField::new('oil'),
+            NumberField::new('cylinders'),
+            AssociationField::new('carDetails')
+                ->onlyOnIndex(),
             AssociationField::new('faults')
                 ->setFormType(EntityType::class)
                 ->setFormTypeOptions([
                     'multiple' => true,
                     'by_reference' => false,
                 ]),
-            AssociationField::new('carDetails')
-                ->onlyOnIndex(),
-
         ];
     }
 

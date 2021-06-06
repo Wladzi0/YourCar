@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -70,6 +73,27 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Fault::class, mappedBy="user")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $faults;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user")
+     */
+    private $comments;
+
+
+
+    public function __construct()
+    {
+        $this->roles=['ROLE_USER'];
+        $this->faults = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -226,7 +250,7 @@ class User implements UserInterface
 
     public function __toString(): string
     {
-        return $this->firstName;
+        return $this->firstName.' '.$this->lastName.' (#'.$this->id. ')' ;
     }
 
     public function isVerified(): bool
@@ -240,4 +264,66 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Fault[]
+     */
+    public function getFaults(): Collection
+    {
+        return $this->faults;
+    }
+
+    public function addFault(Fault $fault): self
+    {
+        if (!$this->faults->contains($fault)) {
+            $this->faults[] = $fault;
+            $fault->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFault(Fault $fault): self
+    {
+        if ($this->faults->removeElement($fault)) {
+            // set the owning side to null (unless already changed)
+            if ($fault->getUser() === $this) {
+                $fault->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
 }

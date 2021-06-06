@@ -32,7 +32,7 @@ class MakeCrudController extends AbstractCrudController
                 ->setBasePath('/images/makes')
                 ->setUploadDir('public/images/makes')
                 ->setUploadedFileNamePattern('[randomhash].[extension]')
-                ->setRequired(false),
+                ->setRequired(true),
             AssociationField::new('models')
                 ->hideOnDetail()
                 ->setFormType(EntityType::class)

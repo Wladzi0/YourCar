@@ -72,7 +72,7 @@ class Model
     private $subModels;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $icon;
 

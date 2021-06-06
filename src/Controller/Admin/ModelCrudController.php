@@ -39,14 +39,15 @@ class ModelCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->onlyOnDetail(),
-
             ImageField::new('icon')
                 ->setLabel('Image')
                 ->setBasePath('/images/models')
                 ->setUploadDir('public/images/models')
                 ->setUploadedFileNamePattern('[randomhash].[extension]')
-                ->setRequired(false),
-            AssociationField::new('make'),
+                ->setRequired(true),
+            AssociationField::new('make')
+            ->setRequired(true)
+            ->autocomplete(),
             TextField::new('name'),
             ChoiceField::new('yearStart')
                 ->setLabel($this->translator->trans('Production start'))

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block body %}
+    <h1>Reset your password</h1>
+
+    {{ form_start(resetForm, {'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_row(resetForm.plainPassword,
+        {'attr':
+            {'class': 'form-control', 'required': 'true'}
+        }) }}
+    <button class="btn btn-primary">Reset password</button>
+    {{ form_end(resetForm) }}
+{% endblock %}

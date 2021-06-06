@@ -43,6 +43,11 @@ class CarDetails
     private $power;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $torque;
+
+    /**
      * @ORM\Column(type="string", length=20)
      */
     private $eco;
@@ -59,6 +64,7 @@ class CarDetails
 
     /**
      * @ORM\ManyToOne(targetEntity=SubModel::class, inversedBy="details",cascade={"persist","remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $subModel;
 
@@ -74,11 +80,13 @@ class CarDetails
 
     /**
      * @ORM\ManyToOne(targetEntity=Engine::class, inversedBy="carDetails", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $engine;
 
     /**
      * @ORM\ManyToOne(targetEntity=Transmission::class, inversedBy="car_details")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $transmission;
 
@@ -239,6 +247,18 @@ class CarDetails
     public function setTransmission(?Transmission $transmission): self
     {
         $this->transmission = $transmission;
+
+        return $this;
+    }
+
+    public function getTorque(): ?int
+    {
+        return $this->torque;
+    }
+
+    public function setTorque(int $torque): self
+    {
+        $this->torque = $torque;
 
         return $this;
     }
