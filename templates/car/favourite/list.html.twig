@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ 'Your best cars list'|trans }}
+{% endblock %}
+
+{% block body %}
+
+    {% for best in bests %}
+    <div class="border m-5 row">
+
+        <img src="
+            {{ asset('images/car_details/'~ best.carDetails.subModel.images|first) }}"
+             width="460" height="300" alt="">
+        <p>
+            {{ best.carDetails.engine }}
+        </p>
+
+    </div>
+
+    {% endfor %}
+{% endblock %}

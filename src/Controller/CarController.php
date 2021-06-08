@@ -19,14 +19,4 @@ class CarController extends AbstractController
         ]);
     }
 
-    /**
-     * @IsGranted("ROLE_USER")
-     * @Route("/best/cars/list", name="best_cars_list")
-     */
-    public function bestCar(): Response
-    {
-        return $this->render('car/best/index.html.twig', [
-            'controller_name' => 'CarController',
-        ]);
-    }
 }

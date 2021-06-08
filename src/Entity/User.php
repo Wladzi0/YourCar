@@ -85,6 +85,11 @@ class User implements UserInterface
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Favourite::class, mappedBy="user")
+     */
+    private $favourites;
+
 
 
     public function __construct()
@@ -92,6 +97,7 @@ class User implements UserInterface
         $this->roles=['ROLE_USER'];
         $this->faults = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->favourites = new ArrayCollection();
     }
 
 
@@ -319,6 +325,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($comment->getUser() === $this) {
                 $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Favourite[]
+     */
+    public function getFavourites(): Collection
+    {
+        return $this->favourites;
+    }
+
+    public function addFavourite(Favourite $favourite): self
+    {
+        if (!$this->favourites->contains($favourite)) {
+            $this->favourites[] = $favourite;
+            $favourite->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavourite(Favourite $favourite): self
+    {
+        if ($this->favourites->removeElement($favourite)) {
+            // set the owning side to null (unless already changed)
+            if ($favourite->getUser() === $this) {
+                $favourite->setUser(null);
             }
         }
 

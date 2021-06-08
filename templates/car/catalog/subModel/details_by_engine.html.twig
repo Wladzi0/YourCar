@@ -27,19 +27,25 @@
 
                 {% endfor %}
             </div>
+            <span class="date-like">
+
+                <a href="{{ path('add_favourite',{'id':carDetails[0].id }) }}"
+                   id="js-favourite" class=" like btn-link ">
+                  {% if app.user and carDetails[0].isFavouritedByUser(app.user) %}
+                      <i class=" fas fa-heart"></i>
+                  {% else %}
+                      <i class="far fa-heart"></i>
+                  {% endif %}
+                </a>
+            </span>
             <div class="col">
                 <h4 class="mt-5">
                     {{ 'Technical data of engine '|trans }}
                 </h4>
-{#                <div class="slider-inner">#}
-{#                    {% for image in carDetails[0].engine.images %}#}
-
-{#                        <img src="{{ asset('images/car_details/'~ image.image) }}" alt="">#}
-
-{#                    {% endfor %}#}
-{#                </div>#}
                 <p>
-                    {{ 'Engine'|trans }}: {{ carDetails[0].engine }} ( <i class="fas fa-exclamation-triangle"></i>{{ carDetails[0].engine.faults|length }})
+                    {{ 'Engine'|trans }}: {{ carDetails[0].engine }}
+                    ( <i class="fas fa-exclamation-triangle"></i>
+                    {{ carDetails[0].engine.faults|length }})
                 </p>
                 <p>
                     {{ 'Fuel'|trans }}: {{ carDetails[0].engine.fuel }}
@@ -149,8 +155,8 @@
         </div>
     </div>
     {% block javasriptsblock %}
-
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="{{ asset('js/like.js') }}"></script>
         <script src="{{ asset('js/slick.js') }}"></script>
         <script src="{{ asset('js/fade.js') }}"></script>
 

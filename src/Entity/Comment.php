@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\CommentRepository;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,9 +42,15 @@ class Comment
      */
     private $createdAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Favourite::class, mappedBy="comment")
+     */
+    private $favourites;
+
     public function __construct()
     {
         $this->setCreatedAt(new \DateTime('now'));
+        $this->favourites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -94,6 +102,36 @@ class Comment
     public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Favourite[]
+     */
+    public function getFavourites(): Collection
+    {
+        return $this->favourites;
+    }
+
+    public function addFavourite(Favourite $favourite): self
+    {
+        if (!$this->favourites->contains($favourite)) {
+            $this->favourites[] = $favourite;
+            $favourite->setComment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavourite(Favourite $favourite): self
+    {
+        if ($this->favourites->removeElement($favourite)) {
+            // set the owning side to null (unless already changed)
+            if ($favourite->getComment() === $this) {
+                $favourite->setComment(null);
+            }
+        }
 
         return $this;
     }

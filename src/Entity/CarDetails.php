@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CarDetailsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,7 +18,6 @@ class CarDetails
      * @ORM\Column(type="integer")
      */
     private $id;
-
 
     /**
      * @ORM\Column(type="integer")
@@ -89,6 +90,16 @@ class CarDetails
      * @ORM\JoinColumn(nullable=false)
      */
     private $transmission;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Favourite::class, mappedBy="carDetails")
+     */
+    private $favourites;
+
+    public function __construct()
+    {
+        $this->favourites = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -261,6 +272,46 @@ class CarDetails
         $this->torque = $torque;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Favourite[]
+     */
+    public function getFavourites(): Collection
+    {
+        return $this->favourites;
+    }
+
+    public function addFavourite(Favourite $favourite): self
+    {
+        if (!$this->favourites->contains($favourite)) {
+            $this->favourites[] = $favourite;
+            $favourite->setCarDetail($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavourite(Favourite $favourite): self
+    {
+        if ($this->favourites->removeElement($favourite)) {
+            // set the owning side to null (unless already changed)
+            if ($favourite->getCarDetail() === $this) {
+                $favourite->setCarDetail(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isFavouritedByUser(User $user): bool
+    {
+        foreach ($this->favourites as $favourite) {
+            if ($favourite->getUser() == $user)
+                return true;
+        }
+
+        return false;
     }
 
 }
