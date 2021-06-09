@@ -21,12 +21,12 @@ class CommentCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')
-            ->onlyOnIndex(),
+                ->onlyOnIndex(),
             AssociationField::new('user'),
             AssociationField::new('fault'),
             TextEditorField::new('content'),
             DateTimeField::new('created_at')
-            ->hideOnForm()
+                ->hideOnForm()
         ];
     }
 

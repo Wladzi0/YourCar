@@ -22,10 +22,10 @@ class TireCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')
-            ->onlyOnIndex(),
+                ->onlyOnIndex(),
             NumberField::new('width')
-            ->setLabel('Width (mm)')
-            ->setHelp('Must be ony numbers'),
+                ->setLabel('Width (mm)')
+                ->setHelp('Must be ony numbers'),
             NumberField::new('aspectRatio')
                 ->setLabel('Aspect ratio (mm)')
                 ->setHelp('Must be ony numbers'),

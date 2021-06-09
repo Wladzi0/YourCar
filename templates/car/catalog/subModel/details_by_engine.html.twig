@@ -29,9 +29,9 @@
             </div>
             <span class="date-like">
 
-                <a href="{{ path('add_favourite',{'id':carDetails[0].id }) }}"
+                <a href="{{ path('favourite',{'id':carDetails[0].id }) }}"
                    id="js-favourite" class=" like btn-link ">
-                  {% if app.user and carDetails[0].isFavouritedByUser(app.user) %}
+                  {% if app.user and carDetails[0].isFavouredByUser(app.user) %}
                       <i class=" fas fa-heart"></i>
                   {% else %}
                       <i class="far fa-heart"></i>
@@ -154,11 +154,8 @@
             </div>
         </div>
     </div>
-    {% block javasriptsblock %}
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="{{ asset('js/like.js') }}"></script>
-        <script src="{{ asset('js/slick.js') }}"></script>
-        <script src="{{ asset('js/fade.js') }}"></script>
 
+    {% block javasriptsblock %}
+        {{ include('like_slider_compare.html.twig') }}
     {% endblock %}
 {% endblock %}

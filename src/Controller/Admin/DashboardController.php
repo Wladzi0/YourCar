@@ -38,17 +38,17 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::section('User settings');
-        yield MenuItem::linktoCrud('Users','fa fa-user', User::class);
-        yield MenuItem::linktoCrud('Comments','fa fa-comment', Comment::class);
+        yield MenuItem::linktoCrud('Users', 'fa fa-user', User::class);
+        yield MenuItem::linktoCrud('Comments', 'fa fa-comment', Comment::class);
         yield MenuItem::section('Car');
-        yield MenuItem::linktoCrud('Makes','fas fa-list-ul', Make::class);
-        yield MenuItem::linktoCrud('Models','fa fa-make', Model::class);
-        yield MenuItem::linktoCrud('SubModels','fa fa-car', SubModel::class);
-        yield MenuItem::linktoCrud('Engines','fa fa-cog', Engine::class);
-        yield MenuItem::linktoCrud('Car Details','fas fa-puzzle-piece', CarDetails::class);
-        yield MenuItem::linktoCrud('Rims','fab fa-empire', Rim::class);
-        yield MenuItem::linktoCrud('Tires','fa fa-life-ring', Tire::class);
-        yield MenuItem::linktoCrud('Faults','fas fa-exclamation', Fault::class);
-        yield MenuItem::linktoCrud('Transmissions','fa fa-cogs', Transmission::class);
+        yield MenuItem::linktoCrud('Makes', 'fas fa-list-ul', Make::class);
+        yield MenuItem::linktoCrud('Models', 'fa fa-make', Model::class);
+        yield MenuItem::linktoCrud('SubModels', 'fa fa-car', SubModel::class);
+        yield MenuItem::linktoCrud('Engines', 'fa fa-cog', Engine::class);
+        yield MenuItem::linktoCrud('Car Details', 'fas fa-puzzle-piece', CarDetails::class);
+        yield MenuItem::linktoCrud('Rims', 'fab fa-empire', Rim::class);
+        yield MenuItem::linktoCrud('Tires', 'fa fa-life-ring', Tire::class);
+        yield MenuItem::linktoCrud('Faults', 'fas fa-exclamation', Fault::class);
+        yield MenuItem::linktoCrud('Transmissions', 'fa fa-cogs', Transmission::class);
     }
 }

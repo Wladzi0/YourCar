@@ -29,7 +29,9 @@ class RimCrudController extends AbstractCrudController
                 ->onlyOnDetail(),
             CollectionField::new('images')
                 ->setFormTypeOption('by_reference', false)
-                ->setTranslationParameters(['form.label.delete' => ' Do your want to delete image?'])
+                ->setTranslationParameters([
+                    'form.label.delete' => ' Do your want to delete image?'
+                ])
                 ->setEntryType(ImageFormType::class)
                 ->onlyOnForms(),
             CollectionField::new('images')

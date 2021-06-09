@@ -6,16 +6,58 @@
 {% block body %}
 
     {% for best in bests %}
-    <div class="border m-5 row">
+        <div class="border m-5 row " id="{{ loop.index }}">
+            <a href="{{ path('details_by_engine',
+                {
+                    'engine': best.carDetails.engine.id,
+                    'make': best.carDetails.subModel.model.make.id,
+                    'model': best.carDetails.subModel.model.id,
+                    'subModel': best.carDetails.subModel.id
+                }
+            ) }}" class="row">
 
-        <img src="
+                <img src="
             {{ asset('images/car_details/'~ best.carDetails.subModel.images|first) }}"
-             width="460" height="300" alt="">
-        <p>
-            {{ best.carDetails.engine }}
-        </p>
+                     width="460" height="300" alt="">
+                <h4>
+                    {{ best.carDetails.subModel.model.make }}
+                    {{ best.carDetails.subModel.model }}
+                    ({{ best.carDetails.subModel.bodyPlatform }})
+                </h4>
+            </a>
+            <div class="description col mt-4">
+                <p>
+                    {{ best.carDetails.engine }}
+                    ({{ best.carDetails.power }} HP)
 
-    </div>
+                </p>
+            </div >
+            <div class="d-flex align-items-start flex-column bd-highlight mb-3">
+            <a href="{{ path('comparing',{ 'id': best.carDetails.id }) }}"  id="js-compare"
+               class="text-white mb-auto p-2 bd-highlight">
 
+                {% if app.user and best.carDetails.isScaledByUser(app.user) %}
+                    <i class="fas fa-balance-scale-right "></i>
+                {% else %}
+                    <i class="fas fa-balance-scale"></i>
+                {% endif %}
+            </a>
+
+            <a href="{{ path('favourite',{'id':best.carDetails.id }) }}"
+               id="js-favourite" data-car="{{ loop.index }}" class=" like btn-link ">
+
+                {% if app.user and best.carDetails.isFavouredByUser(app.user) %}
+                    <i class=" fas fa-heart"></i>
+                {% else %}
+                    <i class="far fa-heart"></i>
+                {% endif %}
+            </a>
+        </div>
+        </div>
     {% endfor %}
+
+    {% block javasriptsblock %}
+        {{ include('like_slider_compare.html.twig') }}
+    {% endblock %}
+
 {% endblock %}

@@ -96,9 +96,15 @@ class CarDetails
      */
     private $favourites;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Scale::class, mappedBy="carDetails")
+     */
+    private $scales;
+
     public function __construct()
     {
         $this->favourites = new ArrayCollection();
+        $this->scales = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -304,7 +310,7 @@ class CarDetails
         return $this;
     }
 
-    public function isFavouritedByUser(User $user): bool
+    public function isFavouredByUser(User $user): bool
     {
         foreach ($this->favourites as $favourite) {
             if ($favourite->getUser() == $user)
@@ -312,6 +318,45 @@ class CarDetails
         }
 
         return false;
+    }
+    public function isScaledByUser(User $user): bool
+    {
+        foreach ($this->scales as $scale) {
+            if ($scale->getUser() == $user)
+                return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return Collection|Scale[]
+     */
+    public function getScales(): Collection
+    {
+        return $this->scales;
+    }
+
+    public function addScale(Scale $scale): self
+    {
+        if (!$this->scales->contains($scale)) {
+            $this->scales[] = $scale;
+            $scale->setCarDetails($this);
+        }
+
+        return $this;
+    }
+
+    public function removeScale(Scale $scale): self
+    {
+        if ($this->scales->removeElement($scale)) {
+            // set the owning side to null (unless already changed)
+            if ($scale->getCarDetails() === $this) {
+                $scale->setCarDetails(null);
+            }
+        }
+
+        return $this;
     }
 
 }

@@ -19,7 +19,7 @@ class TransmissionCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')
-            ->onlyOnIndex(),
+                ->onlyOnIndex(),
             TextField::new('name'),
         ];
     }

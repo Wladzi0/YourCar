@@ -61,11 +61,11 @@ class EngineCrudController extends AbstractCrudController
                 ),
             TextField::new('abbreviation'),
             NumberField::new('weight')
-            ->setLabel('Weight (kg)')
-            ->hideOnIndex(),
+                ->setLabel('Weight (kg)')
+                ->hideOnIndex(),
             TextField::new('powerIncrease')
-            ->setRequired(false)
-            ->setFormTypeOption('empty_data',''),
+                ->setRequired(false)
+                ->setFormTypeOption('empty_data', ''),
             AssociationField::new('models')
                 ->hideOnDetail()
                 ->setFormType(EntityType::class)

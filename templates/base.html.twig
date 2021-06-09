@@ -40,20 +40,29 @@
             YourCar
         </a>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% if app.request.attributes.get('_route') != 'main' %}
+            <div class="col-2 d-flex flex-row justify-content-between mt-3">
+                <a href="{{ path('favourite_cars_list') }}">
+                    <i class="fas fa-heart button-link"></i>
+                    <input type="button" readonly id="like-count" value={{  app.user.favourites|length }}>
+                </a>
+                <a href="{{ path('comparing_list') }}">
+                    <i class="fas fa-balance-scale button-link"></i>
+                    <input type="button" readonly id="compare-count" value={{  app.user.scales|length }}>
+                </a>
+            </div>
+            {% endif %}
             {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('admin') }}"  class="sign-in text-light ">
+                <a href="{{ path('admin') }}" class="sign-in text-light ">
                     <i class="fa fa-user-cog">
                     </i>
                 </a>
-                {% endif %}
-            <a id="account" class="sign-in text-light ">
+            {% endif %}
+            <a id="account" class="button-link btn text-light ">
                 <i class="fa fa-user">
                 </i>
             </a>
             <div id="dropdown" class="dropdown-content bg-dark">
-                {# <a href="{{ path('settings') }}">Personal data</a> #}
-                {# <a href="{{ path('my_advertisements') }}">My advertisements</a> #}
-                {# <a href="{{ path('favourite_advertisements') }}">Favourites</a> #}
                 <a href="{{ path('app_logout') }}">
                     Logout
                 </a>

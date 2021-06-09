@@ -90,6 +90,11 @@ class User implements UserInterface
      */
     private $favourites;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Scale::class, mappedBy="user")
+     */
+    private $scales;
+
 
 
     public function __construct()
@@ -98,6 +103,7 @@ class User implements UserInterface
         $this->faults = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->favourites = new ArrayCollection();
+        $this->scales = new ArrayCollection();
     }
 
 
@@ -355,6 +361,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($favourite->getUser() === $this) {
                 $favourite->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Scale[]
+     */
+    public function getScales(): Collection
+    {
+        return $this->scales;
+    }
+
+    public function addScale(Scale $scale): self
+    {
+        if (!$this->scales->contains($scale)) {
+            $this->scales[] = $scale;
+            $scale->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeScale(Scale $scale): self
+    {
+        if ($this->scales->removeElement($scale)) {
+            // set the owning side to null (unless already changed)
+            if ($scale->getUser() === $this) {
+                $scale->setUser(null);
             }
         }
 

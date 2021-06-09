@@ -21,9 +21,9 @@
             </h3>
             <div class="slider-inner">
                 {% if fault.images is null %}
-                {% for image in fault.images %}
-                    <img src="{{ asset('images/car_details/'~ image.image) }}" alt="">
-                {% endfor %}
+                    {% for image in fault.images %}
+                        <img src="{{ asset('images/car_details/'~ image.image) }}" alt="">
+                    {% endfor %}
                 {% else %}
                     <img src="{{ asset('images/car_details/default.jpg') }}" width="400" height="600" alt="">
                 {% endif %}
@@ -39,10 +39,10 @@
                     Comments ({{ fault.comments|length }})
                 </h3>
 
-                    {% include 'comment/form.html.twig' %}
+                {% include 'comment/form.html.twig' %}
 
-                <div class="comment pt-5 mb-5" id="commentFields" >
-                {% for comment in fault.comments|reverse %}
+                <div class="comment pt-5 mb-5" id="commentFields">
+                    {% for comment in fault.comments|reverse %}
                         <p>
                             <b>
                                 {{ comment.user.firstName }}
@@ -52,10 +52,10 @@
                                 {{ comment.createdAt|date }}
                             </small>
                             <br>
-                            {{ comment.content}}
+                            {{ comment.content }}
                         </p>
 
-                {% endfor %}
+                    {% endfor %}
                 </div>
             </div>
 
@@ -64,8 +64,6 @@
 
     {% block javasriptsblock %}
         <script src="{{ asset('js/comment.js') }}"></script>
-        <script src="{{ asset('js/slick.js') }}"></script>
-        <script src="{{ asset('js/fade.js') }}"></script>
-
+        {{ include('like_slider_compare.html.twig') }}
     {% endblock %}
 {% endblock %}

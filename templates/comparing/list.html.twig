@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ 'Comparing list'|trans }}
+{% endblock %}
+
+{% block body %}
+    {% for car in cars %}
+        <div class="border m-5 row " id="{{ loop.index }}">
+            <a href="{{ path('details_by_engine',
+                {
+                    'engine': car.carDetails.engine.id,
+                    'make': car.carDetails.subModel.model.make.id,
+                    'model': car.carDetails.subModel.model.id,
+                    'subModel': car.carDetails.subModel.id
+                }
+            ) }}" class="row">
+
+                <img src="
+            {{ asset('images/car_details/'~ car.carDetails.subModel.images|first) }}"
+                     width="460" height="300" alt="">
+                <h4>
+                    {{ car.carDetails.subModel.model.make }}
+                    {{ car.carDetails.subModel.model }}
+                    ({{ car.carDetails.subModel.bodyPlatform }})
+                </h4>
+            </a>
+            <div class="description col mt-4">
+                <p>
+                    {{ car.carDetails.engine }}
+                    ({{ car.carDetails.power }} HP)
+
+                </p>
+            </div >
+            <div class="d-flex align-items-start flex-column bd-highlight mb-3">
+                <a href="{{ path('comparing',{ 'id': car.carDetails.id }) }}"  id="js-compare"
+                   class="text-white mb-auto p-2 bd-highlight" data-car="{{ loop.index }}">
+
+                    {% if app.user and car.carDetails.isScaledByUser(app.user) %}
+                        <i class="fas fa-balance-scale-right "></i>
+                    {% else %}
+                        <i class="fas fa-balance-scale"></i>
+                    {% endif %}
+                </a>
+
+                <a href="{{ path('favourite',{'id':car.carDetails.id }) }}"
+                   id="js-favourite"  class=" like btn-link ">
+
+                    {% if app.user and car.carDetails.isFavouredByUser(app.user) %}
+                        <i class=" fas fa-heart"></i>
+                    {% else %}
+                        <i class="far fa-heart"></i>
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% block javasriptsblock %}
+        {{ include('like_slider_compare.html.twig') }}
+    {% endblock %}
+
+{% endblock %}
+

@@ -29,6 +29,7 @@ class SubModelCrudController extends AbstractCrudController
     {
         $this->translator = $translator;
     }
+
     public static function getEntityFqcn(): string
     {
         return SubModel::class;
@@ -39,11 +40,13 @@ class SubModelCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')
-            ->hideOnForm(),
+                ->hideOnForm(),
             CollectionField::new('images')
                 ->setRequired(true)
                 ->setFormTypeOption('by_reference', false)
-                ->setTranslationParameters(['form.label.delete' => ' Do your want to delete image?'])
+                ->setTranslationParameters([
+                    'form.label.delete' => ' Do your want to delete image?'
+                ])
                 ->setEntryType(ImageFormType::class)
                 ->onlyOnForms(),
             CollectionField::new('images')
@@ -52,8 +55,8 @@ class SubModelCrudController extends AbstractCrudController
             AssociationField::new('images')
                 ->onlyOnIndex(),
             AssociationField::new('model')
-            ->setRequired(true)
-            ->autocomplete(),
+                ->setRequired(true)
+                ->autocomplete(),
             ChoiceField::new('yearStart')
                 ->setLabel($this->translator->trans('Production start'))
                 ->autocomplete()
@@ -111,6 +114,7 @@ class SubModelCrudController extends AbstractCrudController
         ];
 
     }
+
     public function configureActions(Actions $actions): Actions
     {
 

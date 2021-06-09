@@ -45,7 +45,9 @@ class MainController extends AbstractController
     public function modelsList(Request $request, ModelRepository $modelRepository): Response
     {
         $make = $request->get('make');
-        $models = $modelRepository->findby(['make' => $make]);
+        $models = $modelRepository->findby([
+            'make' => $make
+        ]);
         return $this->render('car/catalog/model/list.html.twig', [
             'models' => $models,
             'make' => $make
@@ -68,17 +70,19 @@ class MainController extends AbstractController
             $subModel = null;
         }
 
-        if ($dataRequest['carDetails'][0] == true ) {
+        if ($dataRequest['carDetails'][0] == true) {
             $carDetails = $this->getDoctrine()
                 ->getRepository(CarDetails::class)
-                ->findBy(['subModel' => $dataRequest['subModel'],'engine'=>$dataRequest['carDetails']]);
-        }
-        elseif ($dataRequest['carDetails'][0] == false){
+                ->findBy([
+                    'subModel' => $dataRequest['subModel'],
+                    'engine' => $dataRequest['carDetails']
+                ]);
+        } elseif ($dataRequest['carDetails'][0] == false) {
             $carDetails = $this->getDoctrine()
                 ->getRepository(CarDetails::class)
-                ->findBy(['subModel' => $dataRequest['subModel']]);
-        }
-        else {
+                ->findBy([
+                    'subModel' => $dataRequest['subModel']]);
+        } else {
             $carDetails = null;
         }
         return [
@@ -98,7 +102,7 @@ class MainController extends AbstractController
             'make' => $request->get('make'),
             'model' => $request->get('model'),
             'subModel' => null,
-            'carDetails' => [null,null]
+            'carDetails' => [null, null]
         ];
         $foundedData[] = $this->searchByLink($dataRequest);
         return $this->render('car/catalog/model/details.html.twig', [
@@ -118,7 +122,7 @@ class MainController extends AbstractController
             'make' => $request->get('make'),
             'model' => $request->get('model'),
             'subModel' => $subModel,
-            'carDetails'=> [false,null]
+            'carDetails' => [false, null]
 
         ];
         $foundedData[] = $this->searchByLink($dataRequest);
@@ -139,29 +143,29 @@ class MainController extends AbstractController
             'make' => $request->get('make'),
             'model' => $request->get('model'),
             'subModel' => $request->get('subModel'),
-            'carDetails'=>[true,$request->get('engine')],
+            'carDetails' => [true, $request->get('engine')],
         ];
         $foundedData[] = $this->searchByLink($dataRequest);
         return $this->render('car/catalog/subModel/details_by_engine.html.twig', [
             'make' => $foundedData[0]['make'],
             'model' => $foundedData[0]['model'],
             'subModel' => $foundedData[0]['subModel'],
-            'carDetails' =>$foundedData[0]['carDetails']
+            'carDetails' => $foundedData[0]['carDetails']
         ]);
     }
 
     /**
      * @Route ("/make/{make}/model/{model}/submodel/{subModel}/fault/{fault}", name="subModel_fault")
      */
-    public function SubModelFault(Request $request,FaultRepository $faultRepository,MakeRepository $makeRepository ): Response
+    public function SubModelFault(Request $request, FaultRepository $faultRepository, MakeRepository $makeRepository): Response
     {
-        $make=$makeRepository->find($request->get('make'));
+        $make = $makeRepository->find($request->get('make'));
         $fault = $faultRepository->find($request->get('fault'));
         return $this->render('car/catalog/fault/details.html.twig', [
-            'make'=>$make,
-            'fault'=>$fault,
+            'make' => $make,
+            'fault' => $fault,
 
-            ]);
+        ]);
     }
 
 }

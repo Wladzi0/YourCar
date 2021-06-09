@@ -27,22 +27,22 @@
             <h4 class="mt-5">
                 {{ 'List of engines which were installed'|trans }}
             </h4>
-                {% for engine in subModel.engines %}
-            <div class="col">
+            {% for engine in subModel.engines %}
+                <div class="col">
                     {{ engine.capacity }}
                     {{ engine.fuel }}
                     {{ engine.abbreviation }}
-            </div>
-                {% endfor %}
+                </div>
+            {% endfor %}
             <h4 class="mt-5">
                 {{ 'List of transmissions which were installed'|trans }}
             </h4>
             <div class="mb-5">
-{#            {% for transmission in subModel.transmissions %}#}
-{#                <div class="col">#}
-{#                    {{ transmission.name }}#}
-{#                </div>#}
-{#            {% endfor %}#}
+                {# {% for transmission in subModel.transmissions %} #}
+                {# <div class="col"> #}
+                {# {{ transmission.name }} #}
+                {# </div> #}
+                {# {% endfor %} #}
             </div>
             {% if subModel.faults is not empty %}
             <h4 class="mt-5">
@@ -63,11 +63,8 @@
             </div>
         </div>
     </div>
+
     {% block javasriptsblock %}
-
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="{{ asset('js/slick.js') }}"></script>
-        <script src="{{ asset('js/fade.js') }}"></script>
-
+        {{ include('like_slider_compare.html.twig') }}
     {% endblock %}
 {% endblock %}

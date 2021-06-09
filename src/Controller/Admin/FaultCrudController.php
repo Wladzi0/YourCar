@@ -25,7 +25,7 @@ class FaultCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')
-            ->onlyOnIndex(),
+                ->onlyOnIndex(),
             CollectionField::new('images')
                 ->setFormTypeOption('by_reference', false)
                 ->setTranslationParameters(['form.label.delete' => ' Do your want to delete image?'])

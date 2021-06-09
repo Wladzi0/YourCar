@@ -46,8 +46,8 @@ class ModelCrudController extends AbstractCrudController
                 ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->setRequired(true),
             AssociationField::new('make')
-            ->setRequired(true)
-            ->autocomplete(),
+                ->setRequired(true)
+                ->autocomplete(),
             TextField::new('name'),
             ChoiceField::new('yearStart')
                 ->setLabel($this->translator->trans('Production start'))
@@ -65,7 +65,7 @@ class ModelCrudController extends AbstractCrudController
             ArrayField::new('engines')
                 ->onlyOnDetail(),
             ArrayField::new('bodyType')
-            ->hideOnForm(),
+                ->hideOnForm(),
             ChoiceField::new('bodyType')
                 ->onlyOnForms()
                 ->setChoices([
@@ -78,7 +78,7 @@ class ModelCrudController extends AbstractCrudController
                     'Van' => 'Van',
                     'Jeep' => 'Jeep'
                 ])
-            ->allowMultipleChoices(true),
+                ->allowMultipleChoices(true),
             AssociationField::new('transmissions')
                 ->hideOnDetail()
                 ->setFormType(EntityType::class)

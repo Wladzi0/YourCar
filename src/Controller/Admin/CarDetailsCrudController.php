@@ -23,16 +23,18 @@ class CarDetailsCrudController extends AbstractCrudController
     {
         $this->translator = $translator;
     }
+
     public static function getEntityFqcn(): string
     {
         return CarDetails::class;
     }
+
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
             ->setEntityLabelInSingular('Car')
             ->setEntityLabelInPlural('Car details');
-}
+    }
 
     public function configureFields(string $pageName): iterable
     {
@@ -40,16 +42,16 @@ class CarDetailsCrudController extends AbstractCrudController
             IdField::new('id')
                 ->onlyOnIndex(),
             AssociationField::new('subModel')
-                -> setRequired(true)
+                ->setRequired(true)
                 ->autocomplete(),
             AssociationField::new('engine')
-                -> setRequired(true)
+                ->setRequired(true)
                 ->autocomplete(),
             NumberField::new('power')
                 ->setLabel('Power (KM)')
                 ->setHelp('Must be only numbers'),
             ChoiceField::new('torque')
-            ->setLabel('Torque (Nm)')
+                ->setLabel('Torque (Nm)')
                 ->setChoices(
                     function () {
                         $capacities = range(70, 999, 1);
@@ -59,12 +61,12 @@ class CarDetailsCrudController extends AbstractCrudController
             ChoiceField::new('eco')
                 ->setChoices(
                     [
-                        'Euro I'=>'Euro I',
-                        'Euro II'=>'Euro II',
-                        'Euro III'=>'Euro III',
-                        'Euro IV'=>'Euro IV',
-                        'Euro V'=>'Euro V',
-                        'Euro VI'=>'Euro VI',
+                        'Euro I' => 'Euro I',
+                        'Euro II' => 'Euro II',
+                        'Euro III' => 'Euro III',
+                        'Euro IV' => 'Euro IV',
+                        'Euro V' => 'Euro V',
+                        'Euro VI' => 'Euro VI',
                     ]
                 ),
             ChoiceField::new('yearStart')
@@ -80,7 +82,7 @@ class CarDetailsCrudController extends AbstractCrudController
             ChoiceField::new('drive')
                 ->setRequired(true)
                 ->setChoices([
-                    '4-wheel drive' => '4-wheel drive',
+                        '4-wheel drive' => '4-wheel drive',
                         'Front drive' => 'Front drive',
                         'Rear drive' => 'Rear drive'
                     ]
@@ -113,6 +115,7 @@ class CarDetailsCrudController extends AbstractCrudController
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
+
     private function getYears($min, $max = 'current')
     {
         $years = range($min, ($max === 'current' ? date('Y') : $max));
