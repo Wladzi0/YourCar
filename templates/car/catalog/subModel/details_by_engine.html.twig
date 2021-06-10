@@ -14,7 +14,8 @@
                     {{ make.name }}
                 </a>
                 ->
-                <a class="" href="{{ path('model_details', {'make': make.id,'model': model.id}) }}">
+                <a class="" href="{{ path('model_details',
+                    {'make': make.id,'model': model.id}) }}">
                     {{ model.name }}
                 </a>
                 ->
@@ -27,17 +28,34 @@
 
                 {% endfor %}
             </div>
-            <span class="date-like">
+            {% if app.user %}
+            <div class="d-flex align-items-start flex-column bd-highlight mb-3">
+                <a href="{{ path('comparing',{ 'id': carDetails[0].id }) }}"  id="js-compare"
+                   class="text-white mb-auto p-2 bd-highlight">
 
-                <a href="{{ path('favourite',{'id':carDetails[0].id }) }}"
-                   id="js-favourite" class=" like btn-link ">
-                  {% if app.user and carDetails[0].isFavouredByUser(app.user) %}
-                      <i class=" fas fa-heart"></i>
-                  {% else %}
-                      <i class="far fa-heart"></i>
-                  {% endif %}
+                    {% if app.user and carDetails[0].isScaledByUser(app.user) %}
+                        <i class="fas fa-balance-scale-right "></i>
+                    {% else %}
+                        <i class="fas fa-balance-scale"></i>
+                    {% endif %}
                 </a>
-            </span>
+
+                <a href="{{ path('favourite',{'id': carDetails[0].id }) }}"
+                   id="js-favourite" class=" like btn-link ">
+
+                    {% if app.user and carDetails[0].isFavouredByUser(app.user) %}
+                        <i class=" fas fa-heart"></i>
+                    {% else %}
+                        <i class="far fa-heart"></i>
+                    {% endif %}
+                </a>
+            </div>
+                {% else %}
+                    {{ app.session.set('url',app.request.uri) }}
+                    <a href="{{ path('app_login') }}">
+                        For add to favourite or to comparing you need to login
+                    </a>
+            {% endif %}
             <div class="col">
                 <h4 class="mt-5">
                     {{ 'Technical data of engine '|trans }}

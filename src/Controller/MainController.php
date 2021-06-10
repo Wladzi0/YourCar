@@ -113,9 +113,11 @@ class MainController extends AbstractController
 
 
     /**
-     * @Route("/make/{make}/model/{model}/submodel/{subModel}", name="sub_model_details")
+     * @Route("/make/{make}/model/{model}/submodel/{subModel}",
+     *     name="sub_model_details"
+     * )
      */
-    public function subModelDetails(Request $request, CarDetailsRepository $detailsRepository): Response
+    public function subModelDetails(Request $request): Response
     {
         $subModel = $request->get('subModel');
         $dataRequest = [
@@ -135,9 +137,15 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/make/{make}/model/{model}/submodel/{subModel}/engine/{engine}/details", name="details_by_engine")
+     * @Route("/make/{make}/model/{model}/submodel/{subModel}/engine/{engine}/details",
+     *      name="details_by_engine"
+     * )
      */
-    public function DetailsByEngine(Request $request, EngineRepository $engineRepository, CarDetailsRepository $carDetailsRepository): Response
+    public function DetailsByEngine(
+        Request $request,
+        EngineRepository $engineRepository,
+        CarDetailsRepository $carDetailsRepository
+    ): Response
     {
         $dataRequest = [
             'make' => $request->get('make'),
@@ -155,9 +163,15 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route ("/make/{make}/model/{model}/submodel/{subModel}/fault/{fault}", name="subModel_fault")
+     * @Route ("/make/{make}/model/{model}/submodel/{subModel}/fault/{fault}",
+     *      name="subModel_fault"
+     * )
      */
-    public function SubModelFault(Request $request, FaultRepository $faultRepository, MakeRepository $makeRepository): Response
+    public function SubModelFault(
+        Request $request,
+        FaultRepository $faultRepository,
+        MakeRepository $makeRepository
+    ): Response
     {
         $make = $makeRepository->find($request->get('make'));
         $fault = $faultRepository->find($request->get('fault'));
