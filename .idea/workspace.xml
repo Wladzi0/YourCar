@@ -3,15 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="dba42223-c2af-46b5-8311-98c99b923efd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/comment.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/comment.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/CommentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CommentController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/FavouriteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FavouriteController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/MainController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Comment.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Comment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Engine.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Engine.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/car/catalog/engine/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car/catalog/engine/details.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/car/catalog/subModel/details_by_engine.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car/catalog/subModel/details_by_engine.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/comment/form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/comment/form.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ScaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ScaleController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -230,7 +225,7 @@
       <workItem from="1623061064935" duration="5573000" />
       <workItem from="1623149887154" duration="33219000" />
       <workItem from="1623336741257" duration="10688000" />
-      <workItem from="1623410374777" duration="6679000" />
+      <workItem from="1623410374777" duration="8309000" />
     </task>
     <servers />
   </component>

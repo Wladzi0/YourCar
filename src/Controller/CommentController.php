@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
-use App\Entity\Fault;
 use App\Repository\EngineRepository;
 use App\Repository\FaultRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -17,7 +16,9 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CommentController extends AbstractController
 {
-
+    private $result;
+    private $engine;
+    private $fault;
     /**
      * @Route("/comment/add", name="add_comment")
      */
@@ -36,15 +37,15 @@ class CommentController extends AbstractController
             $user = $this->get('security.token_storage')->getToken()->getUser();
             $comment->setUser($user);
             if ($isFault === "true") {
-                $fault = $faultRepository->findOneBy([
+                $this->fault = $faultRepository->findOneBy([
                     'id' => $objId
                 ]);
-                $comment->setFault($fault);
+                $comment->setFault($this->fault);
             } else {
-                $engine = $engineRepository->findOneBy([
+                $this->engine = $engineRepository->findOneBy([
                     'id' => $objId
                 ]);
-                $comment->setEngine($engine);
+                $comment->setEngine($this->engine);
             }
 
             $em = $this->getDoctrine()->getManager();
@@ -52,11 +53,11 @@ class CommentController extends AbstractController
             $em->flush();
 
             if ($isFault === "true") {
-                $count = $fault->getComments()->count();
+                $count = $this->fault->getComments()->count();
             } else {
-                $count = $engine->getComments()->count();
+                $count = $this->engine->getComments()->count();
             }
-            $result['comment'] = [
+            $this->result['comment'] = [
                 $count,
                 $comment->getUser()->getFirstName(),
                 $comment->getUser()->getLastName(),
@@ -64,6 +65,6 @@ class CommentController extends AbstractController
                 $comment->getContent()
             ];
         }
-        return new Response(json_encode($result));
+        return new Response(json_encode($this->result));
     }
 }

@@ -9,27 +9,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @IsGranted("ROLE_USER")
  */
 class ScaleController extends AbstractController
 {
-    private $user;
-
-    public function __construct(Security $security)
-    {
-        $this->user = $security->getToken()->getUser();
-    }
-
     /**
      * @Route("/cars/comparing", name="comparing_list")
      */
-    public function list(ScaleRepository $scaleRepository): Response
+    public function list(ScaleRepository $scaleRepository, UserInterface $user): Response
     {
+
         $compareCars = $scaleRepository->findBy([
-            'user' => $this->user
+            'user' => $user
         ]);
         return $this->render('comparing/list.html.twig', [
             'cars' => $compareCars
@@ -44,10 +38,11 @@ class ScaleController extends AbstractController
         ScaleRepository $scaleRepository
     ): Response
     {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
-        if ($car->isScaledByUser($this->user)) {
+        if ($car->isScaledByUser($user)) {
             $scaled = $scaleRepository->findOneBy([
-                'user' => $this->user,
+                'user' => $user,
                 'carDetails' => $car
             ]);
             $em->remove($scaled);
@@ -59,7 +54,7 @@ class ScaleController extends AbstractController
             ]);
         } else {
             $scale = new Scale();
-            $scale->setUser($this->user);
+            $scale->setUser($user);
             $scale->setCarDetails($car);
             $em->persist($scale);
             $em->flush();

@@ -142,11 +142,7 @@ class MainController extends AbstractController
      *      name="details_by_engine"
      * )
      */
-    public function DetailsByEngine(
-        Request $request,
-        EngineRepository $engineRepository,
-        CarDetailsRepository $carDetailsRepository
-    ): Response
+    public function DetailsByEngine(Request $request): Response
     {
         $dataRequest = [
             'make' => $request->get('make'),
@@ -188,7 +184,6 @@ class MainController extends AbstractController
      */
     public function engineDetails(Request $request, Engine $engine): Response
     {
-
         return $this->render('car/catalog/engine/details.html.twig', [
             'engine' => $engine,
 
