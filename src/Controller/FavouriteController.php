@@ -16,20 +16,15 @@ use Symfony\Component\Security\Core\Security;
  */
 class FavouriteController extends AbstractController
 {
-    private $user;
-
-    public function __construct(Security $security)
-    {
-        $this->user =$security->getToken()->getUser();
-    }
 
     /**
      * @Route("/cars/favourite/list", name="favourite_cars_list")
      */
     public function list(FavouriteRepository $favouriteRepository): Response
     {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         $bests = $favouriteRepository->findBy([
-            'user' => $this->user
+            'user' => $user
         ]);
         return $this->render('car/favourite/list.html.twig', [
             'bests' => $bests
@@ -41,16 +36,17 @@ class FavouriteController extends AbstractController
      */
     public function add(FavouriteRepository $favouriteRepository, CarDetails $car): Response
     {
-        if (!$this->user) {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        if (!$user) {
             return $this->json([
                 'code' => 403,
                 'message' => 'Unauthorized'
             ], 403);
         }
         $em = $this->getDoctrine()->getManager();
-        if ($car->isFavouredByUser($this->user)) {
+        if ($car->isFavouredByUser($user)) {
             $favoured = $favouriteRepository->findOneBy([
-                'user' => $this->user,
+                'user' => $user,
                 'carDetails' => $car
             ]);
 
@@ -64,7 +60,7 @@ class FavouriteController extends AbstractController
         } else {
             $favourite = new Favourite();
             $favourite->setCarDetails($car);
-            $favourite->setUser($this->user);
+            $favourite->setUser($user);
             $em->persist($favourite);
             $em->flush();
 

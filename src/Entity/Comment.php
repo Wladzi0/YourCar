@@ -47,6 +47,11 @@ class Comment
      */
     private $favourites;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Engine::class, inversedBy="comments")
+     */
+    private $engine;
+
     public function __construct()
     {
         $this->setCreatedAt(new \DateTime('now'));
@@ -132,6 +137,18 @@ class Comment
                 $favourite->setComment(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEngine(): ?Engine
+    {
+        return $this->engine;
+    }
+
+    public function setEngine(?Engine $engine): self
+    {
+        $this->engine = $engine;
 
         return $this;
     }

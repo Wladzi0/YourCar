@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Fault;
+use App\Repository\EngineRepository;
+use App\Repository\FaultRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,22 +19,45 @@ class CommentController extends AbstractController
 {
 
     /**
-     * @Route("/fault/{id}/comment/add", name="add_fault_comment")
+     * @Route("/comment/add", name="add_comment")
      */
-    public function add(Request $request, Fault $fault): Response
+    public function add(
+        Request $request,
+        FaultRepository $faultRepository,
+        EngineRepository $engineRepository
+    ): Response
     {
         $newComment = $request->get('comment');
+        $isFault = $request->get('isFault');
+        $objId = $request->get('id');
         if ($newComment) {
             $comment = new Comment();
             $comment->setContent($newComment);
             $user = $this->get('security.token_storage')->getToken()->getUser();
             $comment->setUser($user);
-            $comment->setFault($fault);
+            if ($isFault === "true") {
+                $fault = $faultRepository->findOneBy([
+                    'id' => $objId
+                ]);
+                $comment->setFault($fault);
+            } else {
+                $engine = $engineRepository->findOneBy([
+                    'id' => $objId
+                ]);
+                $comment->setEngine($engine);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();
+
+            if ($isFault === "true") {
+                $count = $fault->getComments()->count();
+            } else {
+                $count = $engine->getComments()->count();
+            }
             $result['comment'] = [
-                $fault->getComments()->count(),
+                $count,
                 $comment->getUser()->getFirstName(),
                 $comment->getUser()->getLastName(),
                 $comment->getCreatedAt()->format('Y-m-d'),

@@ -3,12 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="dba42223-c2af-46b5-8311-98c99b923efd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/comment.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/comment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/CommentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CommentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/FavouriteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FavouriteController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/MainController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security/LoginFormAuthAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/LoginFormAuthAuthenticator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Comment.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Comment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Engine.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Engine.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/car/catalog/engine/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car/catalog/engine/details.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/car/catalog/subModel/details_by_engine.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car/catalog/subModel/details_by_engine.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/comment/form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/comment/form.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +32,12 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="PhpDebugGeneral" listening_started="true" />
+  <component name="PhpServers">
+    <servers>
+      <server host="127.0.0.1" id="e7255086-411d-4757-86de-44d6b67e459d" name="127.0.0.1" port="8000" />
+    </servers>
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -220,7 +229,8 @@
       <workItem from="1622994026815" duration="19590000" />
       <workItem from="1623061064935" duration="5573000" />
       <workItem from="1623149887154" duration="33219000" />
-      <workItem from="1623336741257" duration="10387000" />
+      <workItem from="1623336741257" duration="10688000" />
+      <workItem from="1623410374777" duration="6679000" />
     </task>
     <servers />
   </component>

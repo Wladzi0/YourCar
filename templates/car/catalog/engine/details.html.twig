@@ -9,15 +9,9 @@
 {% block body %}
     <div class="  container top">
         <div class="col">
-            <h2>
-                <a class="" href="{{ path('models_list', {'make': make.id}) }}">
-                    {{ make.name }}
-                </a>
-                ->
-                {{ model.name }}
-            </h2>
+
             <div class="slider-inner">
-                {% for image in subModel.images %}
+                {% for image in engine.images %}
 
                     <img src="{{ asset('images/car_details/'~ image.image) }}" alt="">
 
@@ -25,46 +19,41 @@
             </div>
 
             <h4 class="mt-5">
-                {{ 'List of engines which were installed'|trans }}
+                {{ 'List of cars which it was installed'|trans }}
             </h4>
-            {% for engine in subModel.engines %}
-                <div class="col">
-                    {{ engine.capacity }}
-                    {{ engine.fuel }}
-                    {{ engine.abbreviation }}
-                </div>
-            {% endfor %}
-            <h4 class="mt-5">
-                {{ 'List of transmissions which were installed'|trans }}
-            </h4>
-            <div class="mb-5">
-                {# {% for transmission in subModel.transmissions %} #}
-                {# <div class="col"> #}
-                {# {{ transmission.name }} #}
-                {# </div> #}
-                {# {% endfor %} #}
+            <div class="col">
+                {{ engine.capacity }}
+                {{ engine.fuel }}
+                {{ engine.abbreviation }}
             </div>
-            {% if subModel.faults is not empty %}
-            <h4 class="mt-5">
-                {{ 'List of faults'|trans }}
-            </h4>
-            <div class="mb-5">
 
-                {% for fault in subModel.faults %}
-                    <div class="col">
-                        {{ fault.name }}
-                    </div>
-                {% endfor %}
-                {% else %}
-                    <h4 class="mt-5">
-                        {{ 'List of faults'|trans }} (0)
-                    </h4>
-                {% endif %}
+
+            <div class="comments mt-5">
+                <h3 id="commentsCount">
+                    Comments ({{ engine.comments|length }})
+                </h3>
+                {% include 'comment/form.html.twig' %}
+                <div class="comment pt-5 mb-5" id="commentFields">
+                    {% for comment in engine.comments|reverse %}
+                        <p>
+                            <b>
+                                {{ comment.user.firstName }}
+                                {{ comment.user.lastName }}
+                            </b>
+                            <small class="text-secondary ml-4">
+                                {{ comment.createdAt|date }}
+                            </small>
+                            <br>
+                            {{ comment.content }}
+                        </p>
+
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
-
     {% block javasriptsblock %}
+        <script src="{{ asset('js/comment.js') }}"></script>
         {{ include('like_slider_compare.html.twig') }}
     {% endblock %}
 {% endblock %}

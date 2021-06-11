@@ -61,9 +61,11 @@
                     {{ 'Technical data of engine '|trans }}
                 </h4>
                 <p>
+                    <a href="{{ path('engine_details',{'id': carDetails[0].engine.id}) }}">
                     {{ 'Engine'|trans }}: {{ carDetails[0].engine }}
                     ( <i class="fas fa-exclamation-triangle"></i>
                     {{ carDetails[0].engine.faults|length }})
+                    </a>
                 </p>
                 <p>
                     {{ 'Fuel'|trans }}: {{ carDetails[0].engine.fuel }}

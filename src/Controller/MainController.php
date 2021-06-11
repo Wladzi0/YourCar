@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\CarDetails;
+use App\Entity\Engine;
 use App\Entity\Make;
 use App\Entity\Model;
 use App\Entity\SubModel;
@@ -181,5 +182,18 @@ class MainController extends AbstractController
 
         ]);
     }
+
+    /**
+     * @Route ("/engine/{id}", name="engine_details")
+     */
+    public function engineDetails(Request $request, Engine $engine): Response
+    {
+
+        return $this->render('car/catalog/engine/details.html.twig', [
+            'engine' => $engine,
+
+        ]);
+    }
+
 
 }
