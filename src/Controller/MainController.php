@@ -8,10 +8,10 @@ use App\Entity\Make;
 use App\Entity\Model;
 use App\Entity\SubModel;
 use App\Repository\CarDetailsRepository;
-use App\Repository\EngineRepository;
 use App\Repository\FaultRepository;
 use App\Repository\MakeRepository;
 use App\Repository\ModelRepository;
+use App\Repository\SubModelRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +19,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
+    private $rating;
+    public function __construct(RatingController $rating)
+    {
+        $this->rating=$rating;
+    }
+
     /**
      * @Route("/", name="main")
      */
@@ -142,7 +148,7 @@ class MainController extends AbstractController
      *      name="details_by_engine"
      * )
      */
-    public function DetailsByEngine(Request $request): Response
+    public function detailsByEngine(Request $request, SubModelRepository $subModelRepository, CarDetailsRepository $carDetailsRepository): Response
     {
         $dataRequest = [
             'make' => $request->get('make'),
@@ -151,11 +157,17 @@ class MainController extends AbstractController
             'carDetails' => [true, $request->get('engine')],
         ];
         $foundedData[] = $this->searchByLink($dataRequest);
+        $car = $carDetailsRepository->findOneBy([
+            'engine' => $request->get('engine')
+        ]);
+
+        $result=$this->rating->averageRating($car,null);
         return $this->render('car/catalog/subModel/details_by_engine.html.twig', [
+            'result'=>$result,
             'make' => $foundedData[0]['make'],
             'model' => $foundedData[0]['model'],
             'subModel' => $foundedData[0]['subModel'],
-            'carDetails' => $foundedData[0]['carDetails']
+            'carDetails' => $foundedData[0]['carDetails'],
         ]);
     }
 
@@ -164,7 +176,7 @@ class MainController extends AbstractController
      *      name="subModel_fault"
      * )
      */
-    public function SubModelFault(
+    public function subModelFault(
         Request $request,
         FaultRepository $faultRepository,
         MakeRepository $makeRepository
@@ -180,15 +192,31 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route ("/engine/{id}", name="engine_details")
+     * @Route ("/engine/fault/{fault}", name="engine_fault")
      */
-    public function engineDetails(Request $request, Engine $engine): Response
+    public function engineFault(
+        Request $request,
+        FaultRepository $faultRepository
+    ): Response
     {
-        return $this->render('car/catalog/engine/details.html.twig', [
-            'engine' => $engine,
+        $fault = $faultRepository->find($request->get('fault'));
+        return $this->render('car/catalog/engine/fault.html.twig', [
+            'fault' => $fault,
 
         ]);
     }
 
+    /**
+     * @Route ("/engine/{id}", name="engine_details")
+     */
+    public function engineDetails(Request $request, Engine $engine): Response
+    {
+        $result=$this->rating->averageRating($engine, true);
+        return $this->render('car/catalog/engine/details.html.twig', [
+            'result'=>$result,
+            'engine' => $engine,
+
+        ]);
+    }
 
 }

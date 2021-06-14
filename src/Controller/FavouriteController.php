@@ -31,7 +31,7 @@ class FavouriteController extends AbstractController
     }
 
     /**
-     * @Route("/car/{id}/favourite", name="favourite")
+     * @Route("/car/{id}/favourite", name="add_favourite")
      */
     public function add(FavouriteRepository $favouriteRepository, CarDetails $car): Response
     {

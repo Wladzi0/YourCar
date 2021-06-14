@@ -7,9 +7,12 @@
     <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
 {% endblock %}
 {% block body %}
+
+
     <div class="  container top">
         <div class="col">
             <h2>
+
                 <a class="" href="{{ path('models_list', {'make': make.id}) }}">
                     {{ make.name }}
                 </a>
@@ -29,42 +32,66 @@
                 {% endfor %}
             </div>
             {% if app.user %}
-            <div class="d-flex align-items-start flex-column bd-highlight mb-3">
-                <a href="{{ path('comparing',{ 'id': carDetails[0].id }) }}"  id="js-compare"
-                   class="text-white mb-auto p-2 bd-highlight">
+                <div class="d-flex align-items-start flex-column bd-highlight mb-3">
+                    <a href="{{ path('comparing',{ 'id': carDetails[0].id }) }}" id="js-compare"
+                       class="text-white mb-auto p-2 bd-highlight">
 
-                    {% if app.user and carDetails[0].isScaledByUser(app.user) %}
-                        <i class="fas fa-balance-scale-right "></i>
-                    {% else %}
-                        <i class="fas fa-balance-scale"></i>
-                    {% endif %}
-                </a>
-
-                <a href="{{ path('favourite',{'id': carDetails[0].id }) }}"
-                   id="js-favourite" class=" like btn-link ">
-
-                    {% if app.user and carDetails[0].isFavouredByUser(app.user) %}
-                        <i class=" fas fa-heart"></i>
-                    {% else %}
-                        <i class="far fa-heart"></i>
-                    {% endif %}
-                </a>
-            </div>
-                {% else %}
-                    {{ app.session.set('url',app.request.uri) }}
-                    <a href="{{ path('app_login') }}">
-                        For add to favourite or to comparing you need to login
+                        {% if app.user and carDetails[0].isScaledByUser(app.user) %}
+                            <i class="fas fa-balance-scale-right "></i>
+                        {% else %}
+                            <i class="fas fa-balance-scale"></i>
+                        {% endif %}
                     </a>
+
+                    <a href="{{ path('add_favourite',{'id': carDetails[0].id }) }}"
+                       id="js-favourite" class=" like btn-link ">
+
+                        {% if app.user and carDetails[0].isFavouredByUser(app.user) %}
+                            <i class=" fas fa-heart"></i>
+                        {% else %}
+                            <i class="far fa-heart"></i>
+                        {% endif %}
+                    </a>
+                </div>
+            {% else %}
+                {{ app.session.set('url',app.request.uri) }}
+                <a href="{{ path('app_login') }}">
+                    For add to favourite or to comparing you need to login
+                </a>
             {% endif %}
+
+            <div class="rating" data-object="{{ carDetails[0].id }}">
+                <span class="mr-2">
+                    {{ 'Average rating'|trans }}:
+                </span>
+                {% if result is defined %}
+                {% for i in 1..5 %}
+                    <i class="
+                {% if i <= result['rating'] %}
+                fas
+                    {% else %}
+                   far
+                {% endif %}
+                fa-star" data-value="{{ i }}"></i>
+                {% endfor %}
+                <span id="count" class="ml-2">
+                        ({{ result['count'] }})
+                    </span>
+                {% endif %}
+                {% if result['userRated'] %}
+                    <span class="far fa-check-circle text-success "></span>
+                {% endif %}
+            </div>
+
             <div class="col">
                 <h4 class="mt-5">
                     {{ 'Technical data of engine '|trans }}
                 </h4>
                 <p>
                     <a href="{{ path('engine_details',{'id': carDetails[0].engine.id}) }}">
-                    {{ 'Engine'|trans }}: {{ carDetails[0].engine }}
-                    ( <i class="fas fa-exclamation-triangle"></i>
-                    {{ carDetails[0].engine.faults|length }})
+                        {{ 'Engine'|trans }}: {{ carDetails[0].engine }}
+                        ( <i class="fas fa-exclamation-triangle"></i>
+                        {{ carDetails[0].engine.faults|length }})
                     </a>
                 </p>
                 <p>
@@ -176,6 +203,7 @@
     </div>
 
     {% block javasriptsblock %}
+        <script src="{{ asset('js/rating.js') }}"></script>
         {{ include('like_slider_compare.html.twig') }}
     {% endblock %}
 {% endblock %}

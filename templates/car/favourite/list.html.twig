@@ -43,7 +43,7 @@
                 {% endif %}
             </a>
 
-            <a href="{{ path('favourite',{'id':best.carDetails.id }) }}"
+            <a href="{{ path('add_favourite',{'id':best.carDetails.id }) }}"
                id="js-favourite" data-car="{{ loop.index }}" class=" like btn-link ">
 
                 {% if app.user and best.carDetails.isFavouredByUser(app.user) %}

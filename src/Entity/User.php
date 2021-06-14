@@ -95,6 +95,11 @@ class User implements UserInterface
      */
     private $scales;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="user")
+     */
+    private $ratings;
+
 
 
     public function __construct()
@@ -104,6 +109,7 @@ class User implements UserInterface
         $this->comments = new ArrayCollection();
         $this->favourites = new ArrayCollection();
         $this->scales = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
 
@@ -391,6 +397,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($scale->getUser() === $this) {
                 $scale->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getUser() === $this) {
+                $rating->setUser(null);
             }
         }
 

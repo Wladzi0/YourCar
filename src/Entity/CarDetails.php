@@ -101,10 +101,16 @@ class CarDetails
      */
     private $scales;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="carDetails")
+     */
+    private $ratings;
+
     public function __construct()
     {
         $this->favourites = new ArrayCollection();
         $this->scales = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -292,7 +298,7 @@ class CarDetails
     {
         if (!$this->favourites->contains($favourite)) {
             $this->favourites[] = $favourite;
-            $favourite->setCarDetail($this);
+            $favourite->setCarDetails($this);
         }
 
         return $this;
@@ -302,8 +308,8 @@ class CarDetails
     {
         if ($this->favourites->removeElement($favourite)) {
             // set the owning side to null (unless already changed)
-            if ($favourite->getCarDetail() === $this) {
-                $favourite->setCarDetail(null);
+            if ($favourite->getCarDetails() === $this) {
+                $favourite->setCarDetails(null);
             }
         }
 
@@ -358,5 +364,36 @@ class CarDetails
 
         return $this;
     }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setCarDetails($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getCarDetails() === $this) {
+                $rating->setCarDetails(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 }

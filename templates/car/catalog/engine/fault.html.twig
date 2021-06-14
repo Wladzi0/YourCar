@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ 'Fault'|trans }}
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
+{% endblock %}
+{% block body %}
+    <div class=" border container top pt-4 pl-4">
+        <div class="col">
+            <h3>
+                {{ 'Title'|trans }}
+            </h3>
+            {{ fault.name }}
+            </h3>
+            <div class="slider-inner">
+                {% if fault.images is null %}
+                    {% for image in fault.images %}
+                        <img src="{{ asset('images/car_details/'~ image.image) }}" alt="">
+                    {% endfor %}
+                {% else %}
+                    <img src="{{ asset('images/car_details/default.jpg') }}" width="400" height="600" alt="">
+                {% endif %}
+            </div>
+            <h3 class="m-3">
+                {{ 'Description'|trans }}
+            </h3>
+            <p class="mb-5">
+                {{ fault.description }}
+            </p>
+            <div class="comments mt-5">
+                <h3 id="commentsCount">
+                    Comments ({{ fault.comments|length }})
+                </h3>
+
+                {% include 'comment/form.html.twig' %}
+
+                <div class="comment pt-5 mb-5" id="commentFields">
+                    {% for comment in fault.comments|reverse %}
+                        <p>
+                            <b>
+                                {{ comment.user.firstName }}
+                                {{ comment.user.lastName }}
+                            </b>
+                            <small class="text-secondary ml-4">
+                                {{ comment.createdAt|date }}
+                            </small>
+                            <br>
+                            {{ comment.content }}
+                        </p>
+
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {% block javasriptsblock %}
+        <script src="{{ asset('js/comment.js') }}"></script>
+        {{ include('like_slider_compare.html.twig') }}
+    {% endblock %}
+{% endblock %}

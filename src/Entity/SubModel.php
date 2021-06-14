@@ -352,5 +352,4 @@ class SubModel
         return $this;
     }
 
-
 }

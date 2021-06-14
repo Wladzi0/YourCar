@@ -17,17 +17,51 @@
 
                 {% endfor %}
             </div>
+            <div class="rating" data-object="{{ engine.id }}" data-engine="true">
+                <span class="mr-2">
+                    {{ 'Average rating'|trans }}:
+                </span>
+                {% if result is defined %}
+                    {% for i in 1..5 %}
+                        <i class="
+                {% if i <= result['rating'] %}
+                fas
+                    {% else %}
+                   far
+                {% endif %}
+                fa-star" data-value="{{ i }}"></i>
+                    {% endfor %}
+                <span class="mr-2">
 
+                    ({{ result['count'] }})
+                </span>
+                {% endif %}
+                {% if result['userRated'] %}
+                    <a class="far fa-check-circle text-success"></a>
+                {% endif %}
+            </div>
             <h4 class="mt-5">
                 {{ 'List of cars which it was installed'|trans }}
-            </h4>
-            <div class="col">
-                {{ engine.capacity }}
-                {{ engine.fuel }}
-                {{ engine.abbreviation }}
-            </div>
-
-
+            </h4> {% for subModel in engine.subModels %}
+                <div class="col">
+                    <a href="{{ path('sub_model_details',{
+                        'make': subModel.model.make.id,
+                        'model':subModel.model.id,
+                        'subModel':subModel.id
+                    }) }}">
+                        {{ subModel }}
+                    </a>
+                </div>
+            {% endfor %}
+            <h4 class="mt-5">
+                {{ 'List of faults which were detected'|trans }}
+            </h4> {% for fault in engine.faults %}
+                <div class="col">
+                    <a href="{{ path('engine_fault',{ 'fault': fault.id}) }}">
+                    {{ fault.name }}
+                    </a>
+                </div>
+            {% endfor %}
             <div class="comments mt-5">
                 <h3 id="commentsCount">
                     Comments ({{ engine.comments|length }})
@@ -53,6 +87,7 @@
         </div>
     </div>
     {% block javasriptsblock %}
+        <script src="{{ asset('js/rating.js') }}"></script>
         <script src="{{ asset('js/comment.js') }}"></script>
         {{ include('like_slider_compare.html.twig') }}
     {% endblock %}

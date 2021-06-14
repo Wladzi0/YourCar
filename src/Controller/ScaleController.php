@@ -9,7 +9,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @IsGranted("ROLE_USER")
@@ -19,9 +18,9 @@ class ScaleController extends AbstractController
     /**
      * @Route("/cars/comparing", name="comparing_list")
      */
-    public function list(ScaleRepository $scaleRepository, UserInterface $user): Response
+    public function list(ScaleRepository $scaleRepository): Response
     {
-
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         $compareCars = $scaleRepository->findBy([
             'user' => $user
         ]);

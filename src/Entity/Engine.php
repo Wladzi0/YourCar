@@ -91,6 +91,11 @@ class Engine
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="engine")
+     */
+    private $ratings;
+
     public function __construct()
     {
         $this->subModels = new ArrayCollection();
@@ -99,6 +104,7 @@ class Engine
         $this->faults = new ArrayCollection();
         $this->carDetails = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -358,4 +364,35 @@ class Engine
 
         return $this;
     }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setEngine($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getEngine() === $this) {
+                $rating->setEngine(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
