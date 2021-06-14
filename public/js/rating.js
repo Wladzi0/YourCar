@@ -12,7 +12,9 @@ $('.rating i').on('click', function (where, html) {
         },
         dataType: 'json',
         success: function (data) {
-            document.getElementById('count').innerHTML = "(" + data['count'] + ")";
+            if (data['count'] !== null) {
+                document.getElementById('count').innerHTML = "(" + data['count'] + ")";
+            }
             if (data['user'] === false) {
                 $(".rating").append('<span class="far fa-check-circle text-success"></span>');
             }
