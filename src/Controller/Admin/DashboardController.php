@@ -8,6 +8,7 @@ use App\Entity\Engine;
 use App\Entity\Fault;
 use App\Entity\Make;
 use App\Entity\Model;
+use App\Entity\Part;
 use App\Entity\Rim;
 use App\Entity\SubModel;
 use App\Entity\Tire;
@@ -47,6 +48,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linktoCrud('SubModels', 'fa fa-car', SubModel::class);
         yield MenuItem::linktoCrud('Engines', 'fa fa-cog', Engine::class);
         yield MenuItem::linktoCrud('Car Details', 'fas fa-puzzle-piece', CarDetails::class);
+        yield MenuItem::linktoCrud('Parts', 'fas fa-dolly-flatbed', Part::class);
         yield MenuItem::linktoCrud('Rims', 'fab fa-empire', Rim::class);
         yield MenuItem::linktoCrud('Tires', 'fa fa-life-ring', Tire::class);
         yield MenuItem::linktoCrud($this->newFaultCount(), 'fas fa-exclamation', Fault::class);

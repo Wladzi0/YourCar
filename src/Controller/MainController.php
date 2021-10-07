@@ -4,16 +4,15 @@ namespace App\Controller;
 
 use App\Entity\CarDetails;
 use App\Entity\Engine;
-use App\Entity\Fault;
 use App\Entity\Make;
 use App\Entity\Model;
+use App\Entity\Part;
 use App\Entity\SubModel;
 use App\Repository\CarDetailsRepository;
 use App\Repository\FaultRepository;
 use App\Repository\MakeRepository;
 use App\Repository\ModelRepository;
 use App\Repository\SubModelRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -121,7 +120,6 @@ class MainController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/make/{make}/model/{model}/submodel/{subModel}",
      *     name="sub_model_details"
@@ -159,6 +157,7 @@ class MainController extends AbstractController
             'subModel' => $request->get('subModel'),
             'carDetails' => [true, $request->get('engine')],
         ];
+        $foundParts = $this->searchedParts('car', $request->get('subModel'));
         $foundedData[] = $this->searchByLink($dataRequest);
         $car = $carDetailsRepository->findOneBy([
             'engine' => $request->get('engine')
@@ -171,6 +170,7 @@ class MainController extends AbstractController
             'model' => $foundedData[0]['model'],
             'subModel' => $foundedData[0]['subModel'],
             'carDetails' => $foundedData[0]['carDetails'],
+            'parts' => $foundParts
         ]);
     }
 
@@ -180,9 +180,9 @@ class MainController extends AbstractController
      * )
      */
     public function subModelFault(
-        Request $request,
+        Request         $request,
         FaultRepository $faultRepository,
-        MakeRepository $makeRepository
+        MakeRepository  $makeRepository
     ): Response
     {
         $make = $makeRepository->find($request->get('make'));
@@ -198,7 +198,7 @@ class MainController extends AbstractController
      * @Route ("/engine/fault/{fault}", name="engine_fault")
      */
     public function engineFault(
-        Request $request,
+        Request         $request,
         FaultRepository $faultRepository
     ): Response
     {
@@ -215,12 +215,27 @@ class MainController extends AbstractController
     public function engineDetails(Request $request, Engine $engine): Response
     {
         $result = $this->rating->averageRating($engine, true);
+        $foundParts = $this->searchedParts('engine', $engine);
         return $this->render('car/catalog/engine/details.html.twig', [
             'result' => $result,
             'engine' => $engine,
+            'parts' => $foundParts
 
         ]);
     }
 
+    public function searchedParts($type, $object): array
+    {
+        $em = $this->getDoctrine()->getManager();
+        if ($type === 'engine') {
+            return $em->getRepository(Part::class)->findBy([
+                'engine' => $object
+            ]);
+        } else {
+            return $em->getRepository(Part::class)->findBy([
+                'car' => $object
+            ]);
+        }
+    }
 
 }

@@ -45,7 +45,8 @@
             </div>
             <h4 class="mt-5">
                 {{ 'List of cars which it was installed'|trans }}
-            </h4> {% for subModel in engine.subModels %}
+            </h4>
+            {% for subModel in engine.subModels %}
                 <div class="col">
                     <a href="{{ path('sub_model_details',{
                         'make': subModel.model.make.id,
@@ -57,11 +58,25 @@
                 </div>
             {% endfor %}
             <h4 class="mt-5">
+                {{ 'List of parts which frequently wanted'|trans }}
+            </h4>
+
+            {% for part in parts %}
+                <div class="row border-bottom">
+                    <p>
+                        {{ part.name }} &nbsp;
+                        {{ part.catalogNumber }}
+                    </p>
+
+                </div>
+            {% endfor %}
+            <h4 class="mt-5">
                 {{ 'List of faults which were detected'|trans }}
                 <a  id="btnAdd" href="{{ path('fault_add', { 'engine': engine.id}) }}">
                     <i class="fas fa-plus-circle"></i>
                 </a>
-            </h4> {% for fault in engine.faults %}
+            </h4>
+            {% for fault in engine.faults %}
                 <div class="col">
                     <a href="{{ path('engine_fault',{ 'fault': fault.id}) }}">
                     {{ fault.name }}

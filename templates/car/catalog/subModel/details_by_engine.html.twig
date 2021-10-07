@@ -80,7 +80,19 @@
                     <span class="far fa-check-circle text-success "></span>
                 {% endif %}
             </div>
+            <h4 class="mt-5">
+                {{ 'List of parts which frequently wanted'|trans }}
+            </h4>
 
+            {% for part in parts %}
+                <div class="row border-bottom">
+                    <p>
+                        {{ part.name }} &nbsp;
+                        {{ part.catalogNumber }}
+                    </p>
+
+                </div>
+            {% endfor %}
             <div class="col">
                 <h4 class="mt-5">
                     {{ 'Technical data of engine '|trans }}
