@@ -56,9 +56,14 @@ class Fault
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="fault")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="fault",cascade={"persist", "remove"})
      */
     private $comments;
+
+    /**
+     * @ORM\Column(type="boolean" )
+     */
+    private $published = false;
 
     public function __construct()
     {
@@ -216,6 +221,18 @@ class Fault
                 $comment->setFault(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPublished(): ?bool
+    {
+        return $this->published;
+    }
+
+    public function setPublished(bool $published): self
+    {
+        $this->published = $published;
 
         return $this;
     }

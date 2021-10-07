@@ -4,8 +4,10 @@
 {% endblock %}
 
 {% block body %}
+    <div class="row">
     {% for car in cars %}
-        <div class="border m-5 row " id="{{ loop.index }}">
+
+        <div class="border m-5 col-3 " id="{{ loop.index }}">
             <a href="{{ path('details_by_engine',
                 {
                     'engine': car.carDetails.engine.id,
@@ -53,8 +55,9 @@
                 </a>
             </div>
         </div>
-    {% endfor %}
 
+    {% endfor %}
+    </div>
     {% block javasriptsblock %}
         {{ include('like_slider_compare.html.twig') }}
     {% endblock %}

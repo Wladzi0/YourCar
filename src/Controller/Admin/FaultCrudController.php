@@ -9,10 +9,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class FaultCrudController extends AbstractCrudController
 {
@@ -26,6 +29,7 @@ class FaultCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->onlyOnIndex(),
+            BooleanField::new('published'),
             CollectionField::new('images')
                 ->setFormTypeOption('by_reference', false)
                 ->setTranslationParameters(['form.label.delete' => ' Do your want to delete image?'])
@@ -40,10 +44,12 @@ class FaultCrudController extends AbstractCrudController
             AssociationField::new('subModel'),
             AssociationField::new('engine'),
             TextareaField::new('description'),
-            AssociationField::new('user')
-                ->setRequired(true)
-                ->autocomplete()
-                ->setFormTypeOption('by_reference', false)
+            AssociationField::new('comments')
+//            AssociationField::new('user')
+//                ->setRequired(true)
+//                ->autocomplete()
+//                ->setFormTypeOption('by_reference', false),
+
         ];
     }
 

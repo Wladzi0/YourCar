@@ -61,7 +61,7 @@ class SubModel
      * @ORM\ManyToMany(
      *     targetEntity=Fault::class,
      *     mappedBy="subModel",
-     *     cascade={"persist","remove"}
+     *     cascade={"persist"}
      *     )
      */
     private $faults;
@@ -92,9 +92,14 @@ class SubModel
     private $width;
 
     /**
-     * @ORM\OneToMany(targetEntity=CarDetails::class, mappedBy="subModel", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=CarDetails::class, mappedBy="subModel", cascade={"persist", "remove"})
      */
     private $details;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Part::class, mappedBy="car")
+     */
+    private $parts;
 
     public function __construct()
     {
@@ -104,6 +109,7 @@ class SubModel
         $this->rims = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->details = new ArrayCollection();
+        $this->parts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -179,7 +185,7 @@ class SubModel
     }
     public function __toString()
     {
-        return $this->model.'('.$this->bodyPlatform.')';
+        return $this->model.' ('.$this->bodyPlatform.')';
     }
 
     /**
@@ -346,6 +352,36 @@ class SubModel
             // set the owning side to null (unless already changed)
             if ($detail->getSubModel() === $this) {
                 $detail->setSubModel(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Part[]
+     */
+    public function getParts(): Collection
+    {
+        return $this->parts;
+    }
+
+    public function addPart(Part $part): self
+    {
+        if (!$this->parts->contains($part)) {
+            $this->parts[] = $part;
+            $part->setCar($this);
+        }
+
+        return $this;
+    }
+
+    public function removePart(Part $part): self
+    {
+        if ($this->parts->removeElement($part)) {
+            // set the owning side to null (unless already changed)
+            if ($part->getCar() === $this) {
+                $part->setCar(null);
             }
         }
 

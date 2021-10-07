@@ -18,7 +18,7 @@ class Favourite
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=CarDetails::class, inversedBy="favourites")
+     * @ORM\ManyToOne(targetEntity=CarDetails::class, inversedBy="favourites", cascade={"persist", "remove"})
      */
     private $carDetails;
 

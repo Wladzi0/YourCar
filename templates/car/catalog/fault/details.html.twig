@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-    {{ 'SubModel details'|trans }}
+    {{ 'Fault details'|trans }}
 {% endblock %}
 {% block stylesheets %}
     {{ parent() }}
@@ -9,25 +9,25 @@
 {% block body %}
     <div class=" border container top pt-4 pl-4">
         <div class="col">
+            {% if fault.subModel is not empty %}
             <h2>
                 <a class="" href="{{ path('models_list', {'make': make.id}) }}">
                     {{ make.name }}
                 </a>
             </h2>
+            {% endif %}
             <h3>
                 {{ 'Title'|trans }}
             </h3>
             {{ fault.name }}
             </h3>
+            {% if fault.images is not empty %}
             <div class="slider-inner">
-                {% if fault.images is null %}
                     {% for image in fault.images %}
                         <img src="{{ asset('images/car_details/'~ image.image) }}" alt="">
                     {% endfor %}
-                {% else %}
-                    <img src="{{ asset('images/car_details/default.jpg') }}" width="400" height="600" alt="">
-                {% endif %}
             </div>
+            {% endif %}
             <h3 class="m-3">
                 {{ 'Description'|trans }}
             </h3>

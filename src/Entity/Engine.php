@@ -96,6 +96,11 @@ class Engine
      */
     private $ratings;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Part::class, mappedBy="engine")
+     */
+    private $parts;
+
     public function __construct()
     {
         $this->subModels = new ArrayCollection();
@@ -105,6 +110,7 @@ class Engine
         $this->carDetails = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->ratings = new ArrayCollection();
+        $this->parts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -389,6 +395,36 @@ class Engine
             // set the owning side to null (unless already changed)
             if ($rating->getEngine() === $this) {
                 $rating->setEngine(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Part[]
+     */
+    public function getParts(): Collection
+    {
+        return $this->parts;
+    }
+
+    public function addPart(Part $part): self
+    {
+        if (!$this->parts->contains($part)) {
+            $this->parts[] = $part;
+            $part->setEngine($this);
+        }
+
+        return $this;
+    }
+
+    public function removePart(Part $part): self
+    {
+        if ($this->parts->removeElement($part)) {
+            // set the owning side to null (unless already changed)
+            if ($part->getEngine() === $this) {
+                $part->setEngine(null);
             }
         }
 

@@ -13,6 +13,7 @@ use App\Entity\SubModel;
 use App\Entity\Tire;
 use App\Entity\Transmission;
 use App\Entity\User;
+use App\Repository\FaultRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -48,7 +49,18 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linktoCrud('Car Details', 'fas fa-puzzle-piece', CarDetails::class);
         yield MenuItem::linktoCrud('Rims', 'fab fa-empire', Rim::class);
         yield MenuItem::linktoCrud('Tires', 'fa fa-life-ring', Tire::class);
-        yield MenuItem::linktoCrud('Faults', 'fas fa-exclamation', Fault::class);
+        yield MenuItem::linktoCrud($this->newFaultCount(), 'fas fa-exclamation', Fault::class);
         yield MenuItem::linktoCrud('Transmissions', 'fa fa-cogs', Transmission::class);
+    }
+
+
+    public function newFaultCount(): string
+    {
+        $em = $this->getDoctrine()->getManager();
+        $newFaults=$em->getRepository(Fault::class)
+            ->findBy([
+                'published' => false
+            ]);
+        return 'Faults (<span id="counter" style="color: red;">'.count($newFaults). ' NEW</span>)';
     }
 }

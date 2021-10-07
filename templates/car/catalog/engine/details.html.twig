@@ -7,15 +7,18 @@
     <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
 {% endblock %}
 {% block body %}
-    <div class="  container top">
+    <div class="container top">
         <div class="col">
-
             <div class="slider-inner">
+                {% if engine.images is not empty %}
                 {% for image in engine.images %}
 
                     <img src="{{ asset('images/car_details/'~ image.image) }}" alt="">
 
                 {% endfor %}
+                {% else %}
+                    <img src="{{ asset('images/car_details/default.jpg') }}" alt="">
+                {% endif %}
             </div>
             <div class="rating" data-object="{{ engine.id }}" data-engine="true">
                 <span class="mr-2">
@@ -55,6 +58,9 @@
             {% endfor %}
             <h4 class="mt-5">
                 {{ 'List of faults which were detected'|trans }}
+                <a  id="btnAdd" href="{{ path('fault_add', { 'engine': engine.id}) }}">
+                    <i class="fas fa-plus-circle"></i>
+                </a>
             </h4> {% for fault in engine.faults %}
                 <div class="col">
                     <a href="{{ path('engine_fault',{ 'fault': fault.id}) }}">
@@ -85,10 +91,12 @@
                 </div>
             </div>
         </div>
+        {% block javasriptsblock %}
+            <script src="{{ asset('js/rating.js') }}"></script>
+            <script src="{{ asset('js/clickButton.js') }}"></script>
+            <script src="{{ asset('js/comment.js') }}"></script>
+            {{ include('like_slider_compare.html.twig') }}
+        {% endblock %}
     </div>
-    {% block javasriptsblock %}
-        <script src="{{ asset('js/rating.js') }}"></script>
-        <script src="{{ asset('js/comment.js') }}"></script>
-        {{ include('like_slider_compare.html.twig') }}
-    {% endblock %}
+
 {% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ 'Fault form'|trans }}
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
+{% endblock %}
+{% block body %}
+    <div class="container">
+        {{ form_start(faultForm, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_label(faultForm.images) }}
+        <br>
+        {{ form_widget(faultForm.images,
+            {'attr':
+                {'class': 'form-control', 'required': 'true'}
+            }) }}
+        <br>
+        {{ form_label(faultForm.name) }}
+        <br>
+        {{ form_widget(faultForm.name,
+            {'attr':
+                {'class': 'form-control', 'required': 'true'}
+            }) }}
+        <br>
+        {{ form_label(faultForm.description) }}
+        <br>
+        {{ form_widget(faultForm.description,
+            {'attr':
+                {'class': 'form-control', 'required': 'true'}
+            }) }}
+        <br>
+        <button class="btn btn-success w-25 " type="submit">
+            {{ 'Add'|trans }}
+        </button>
+        {{ form_end(faultForm) }}
+    </div>
+{% endblock %}

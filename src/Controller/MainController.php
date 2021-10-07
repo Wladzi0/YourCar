@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\CarDetails;
 use App\Entity\Engine;
+use App\Entity\Fault;
 use App\Entity\Make;
 use App\Entity\Model;
 use App\Entity\SubModel;
@@ -12,6 +13,7 @@ use App\Repository\FaultRepository;
 use App\Repository\MakeRepository;
 use App\Repository\ModelRepository;
 use App\Repository\SubModelRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,9 +22,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends AbstractController
 {
     private $rating;
+
     public function __construct(RatingController $rating)
     {
-        $this->rating=$rating;
+        $this->rating = $rating;
     }
 
     /**
@@ -161,9 +164,9 @@ class MainController extends AbstractController
             'engine' => $request->get('engine')
         ]);
 
-        $result=$this->rating->averageRating($car,null);
+        $result = $this->rating->averageRating($car, null);
         return $this->render('car/catalog/subModel/details_by_engine.html.twig', [
-            'result'=>$result,
+            'result' => $result,
             'make' => $foundedData[0]['make'],
             'model' => $foundedData[0]['model'],
             'subModel' => $foundedData[0]['subModel'],
@@ -200,7 +203,7 @@ class MainController extends AbstractController
     ): Response
     {
         $fault = $faultRepository->find($request->get('fault'));
-        return $this->render('car/catalog/engine/fault.html.twig', [
+        return $this->render('car/catalog/fault/details.html.twig', [
             'fault' => $fault,
 
         ]);
@@ -211,12 +214,13 @@ class MainController extends AbstractController
      */
     public function engineDetails(Request $request, Engine $engine): Response
     {
-        $result=$this->rating->averageRating($engine, true);
+        $result = $this->rating->averageRating($engine, true);
         return $this->render('car/catalog/engine/details.html.twig', [
-            'result'=>$result,
+            'result' => $result,
             'engine' => $engine,
 
         ]);
     }
+
 
 }

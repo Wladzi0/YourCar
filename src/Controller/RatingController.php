@@ -83,7 +83,7 @@ class RatingController extends AbstractController
             'user' => $this->userRated,
             'rating' => $ratingNum
         ];
-        dump($response);
+
         return $this->json($response);
     }
 

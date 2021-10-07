@@ -64,7 +64,7 @@ class CarDetails
     private $fuelConsumptionExtra;
 
     /**
-     * @ORM\ManyToOne(targetEntity=SubModel::class, inversedBy="details",cascade={"persist","remove"})
+     * @ORM\ManyToOne(targetEntity=SubModel::class, inversedBy="details", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $subModel;
@@ -92,17 +92,17 @@ class CarDetails
     private $transmission;
 
     /**
-     * @ORM\OneToMany(targetEntity=Favourite::class, mappedBy="carDetails")
+     * @ORM\OneToMany(targetEntity=Favourite::class, mappedBy="carDetails", cascade={"persist", "remove"})
      */
     private $favourites;
 
     /**
-     * @ORM\OneToMany(targetEntity=Scale::class, mappedBy="carDetails")
+     * @ORM\OneToMany(targetEntity=Scale::class, mappedBy="carDetails", cascade={"persist", "remove"})
      */
     private $scales;
 
     /**
-     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="carDetails")
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="carDetails", cascade={"persist", "remove"})
      */
     private $ratings;
 

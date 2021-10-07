@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
 {% endblock %}
 {% block body %}
-
-
     <div class="  container top">
         <div class="col">
             <h2>
@@ -65,16 +63,16 @@
                     {{ 'Average rating'|trans }}:
                 </span>
                 {% if result is defined %}
-                {% for i in 1..5 %}
-                    <i class="
+                    {% for i in 1..5 %}
+                        <i class="
                 {% if i <= result['rating'] %}
                 fas
                     {% else %}
                    far
                 {% endif %}
                 fa-star" data-value="{{ i }}"></i>
-                {% endfor %}
-                <span id="count" class="ml-2">
+                    {% endfor %}
+                    <span id="count" class="ml-2">
                         ({{ result['count'] }})
                     </span>
                 {% endif %}
@@ -167,6 +165,9 @@
             {% if subModel.faults is not empty %}
             <h4 class="mt-5">
                 {{ 'List of faults'|trans }} ({{ subModel.faults|length }})
+                <a id="btnAdd" href="{{ path('fault_add', { 'subModel': subModel.id}) }}">
+                    <i class="fas fa-plus-circle"></i>
+                </a>
             </h4>
             <div class="">
                 {% for fault in subModel.faults %}
@@ -180,12 +181,15 @@
                 {% else %}
                     <h4 class="mt-5">
                         {{ 'List of faults'|trans }} (0)
+
                     </h4>
                 {% endif %}
+
             </div>
             {% if subModel.rims is not empty %}
             <h4 class="mt-5">
-                {{ 'List of rims which installed'|trans }} ({{ subModel.rims|length }})
+                {{ 'List of rims which were installed'|trans }}
+                ({{ subModel.rims|length }})
             </h4>
             <div class="">
                 {% for rim in subModel.rims %}
@@ -204,6 +208,7 @@
 
     {% block javasriptsblock %}
         <script src="{{ asset('js/rating.js') }}"></script>
+        <script src="{{ asset('js/clickButton.js') }}"></script>
         {{ include('like_slider_compare.html.twig') }}
     {% endblock %}
 {% endblock %}
