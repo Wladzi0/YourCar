@@ -54,15 +54,6 @@ class User implements UserInterface
      */
     private $lastName;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $preferPrice;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $preferColor;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -99,6 +90,21 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="user")
      */
     private $ratings;
+
+    /**
+     * @ORM\Column(type="string", length=30, nullable=true)
+     */
+    private $carType;
+
+    /**
+     * @ORM\Column(type="string", length=30, nullable=true)
+     */
+    private $tuning;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $fuelConsumption;
 
 
 
@@ -137,7 +143,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string) $this->firstName;
     }
 
     /**
@@ -229,30 +235,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPreferPrice(): ?int
-    {
-        return $this->preferPrice;
-    }
-
-    public function setPreferPrice(?int $preferPrice): self
-    {
-        $this->preferPrice = $preferPrice;
-
-        return $this;
-    }
-
-    public function getPreferColor(): ?string
-    {
-        return $this->preferColor;
-    }
-
-    public function setPreferColor(?string $preferColor): self
-    {
-        $this->preferColor = $preferColor;
-
-        return $this;
-    }
-
     public function getPreferLanguage(): ?string
     {
         return $this->preferLanguage;
@@ -264,7 +246,6 @@ class User implements UserInterface
 
         return $this;
     }
-
 
     public function __toString(): string
     {
@@ -429,6 +410,42 @@ class User implements UserInterface
                 $rating->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCarType(): ?string
+    {
+        return $this->carType;
+    }
+
+    public function setCarType(?string $carType): self
+    {
+        $this->carType = $carType;
+
+        return $this;
+    }
+
+    public function getTuning(): ?string
+    {
+        return $this->tuning;
+    }
+
+    public function setTuning(?string $tuning): self
+    {
+        $this->tuning = $tuning;
+
+        return $this;
+    }
+
+    public function getFuelConsumption(): ?string
+    {
+        return $this->fuelConsumption;
+    }
+
+    public function setFuelConsumption(?string $fuelConsumption): self
+    {
+        $this->fuelConsumption = $fuelConsumption;
 
         return $this;
     }

@@ -62,10 +62,15 @@
                 <i class="fa fa-user">
                 </i>
             </a>
-            <div id="dropdown" class="dropdown-content bg-dark">
+            <div id="dropdown" class="dropdown-content bg-dark ">
+                <div class="col-3">
+                <a href="{{ path('userPreferences') }}">
+                    Preferences
+                </a>
                 <a href="{{ path('app_logout') }}">
                     Logout
                 </a>
+                </div>
             </div>
         {% else %}
             <a class="button-link text-light " href="{{ path('app_login') }}">

@@ -86,9 +86,13 @@
 
             {% for part in parts %}
                 <div class="row border-bottom">
+
                     <p>
-                        {{ part.name }} &nbsp;
-                        {{ part.catalogNumber }}
+                        <a href="https://google.com/search?q={{ part.name }} {{ part.catalogNumber }}"
+                           target="_blank" rel="noopener noreferrer">
+                            {{ part.name }} &nbsp;
+                            {{ part.catalogNumber }}
+                        </a>
                     </p>
 
                 </div>

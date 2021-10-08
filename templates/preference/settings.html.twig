@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ 'User`s settings'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="container"><br>
+        {% set formErrors = settingsForm.vars.errors.form.getErrors(true) %}
+        {% if formErrors | length %}
+            <ul class="col-5 alert-danger">
+                {% for error in formErrors %}
+                    <li>{{ error.message|trans }}</li>
+                {% endfor %}
+            </ul>
+
+        {% endif %}
+    </div>
+    <div class="container row">
+        <div class="container col-5">
+            {{ form_start(settingsForm, {'attr': {'class': 'form-horizontal','id': 'settingsForm'}}) }}
+            {{ form_label(settingsForm.preferLanguage) }}
+            {{ form_widget(settingsForm.preferLanguage,
+                {'attr': {'class': 'form-control','required': 'true', 'autocomplete':'off'}}
+            ) }}
+            <br>
+            {{ form_label(settingsForm.carType) }}<br>
+            {{ form_widget(settingsForm.carType,
+                {'attr': {'class': 'form-control', 'required': 'true'}}
+            ) }}
+            <br>
+            {{ form_label(settingsForm.tuning) }}<br>
+            {{ form_widget(settingsForm.tuning,
+                {'attr': {'class': 'form-control', 'required': 'true'}}
+            ) }}
+            <br>
+            {{ form_label(settingsForm.fuelConsumption) }}<br>
+            {{ form_widget(settingsForm.fuelConsumption,
+                {'attr': {'class': 'form-control', 'required': 'true'}}
+            ) }}
+            <br>
+            {{ form_end(settingsForm) }}
+
+            <a  id="js-reset" class="btn btn-danger">
+                    {{ 'Reset all settings'|trans }}
+
+                </a>
+
+{#            <a id="reset" style="position: absolute ;margin-top: 50px; padding: 5px;" href="{{ path('deletePreferences') }}"#}
+{#               class=" btn-danger">{{ 'Reset all settings'|trans }}#}
+{#            </a>#}
+        </div>
+    </div>
+    {% block javasriptsblock %}
+        <script src="{{ asset('js/settings.js') }}"></script>
+    {% endblock %}
+{% endblock %}
+
