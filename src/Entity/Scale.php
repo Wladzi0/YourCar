@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\ScaleRepository;
+use App\Repository\ComparingRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

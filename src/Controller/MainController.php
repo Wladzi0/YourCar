@@ -162,7 +162,6 @@ class MainController extends AbstractController
         $car = $carDetailsRepository->findOneBy([
             'engine' => $request->get('engine')
         ]);
-
         $result = $this->rating->averageRating($car, null);
         return $this->render('car/catalog/subModel/details_by_engine.html.twig', [
             'result' => $result,

@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use App\Form\UserSettingsFormType;
 use App\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @IsGranted("ROLE_USER")
+ */
 class PreferenceController extends AbstractController
 {
     /**
@@ -50,7 +53,8 @@ class PreferenceController extends AbstractController
             'code'=>200,
             'message'=> 'settings have been reset'],
             200);
-
     }
+
+
 
 }

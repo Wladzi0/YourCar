@@ -180,19 +180,29 @@
             </h4>
             {% if subModel.faults is not empty %}
             <h4 class="mt-5">
-                {{ 'List of faults'|trans }} ({{ subModel.faults|length }})
+                {{ 'List of faults'|trans }}
+                {% set faultCount = "" %}
+                {% for fault in subModel.faults %}
+                {% if fault.published == true %}
+                {% set faultCount =+ 1 %}
+                {% endif %}
+                {% endfor %}
+                ({{ faultCount|length }})
                 <a id="btnAdd" href="{{ path('fault_add', { 'subModel': subModel.id}) }}">
                     <i class="fas fa-plus-circle"></i>
                 </a>
             </h4>
             <div class="">
+
                 {% for fault in subModel.faults %}
+                    {% if fault.published == true %}
 
                     <div class="col">
                         <a href="{{ path('subModel_fault', {'make': make.id, 'model': model.id, 'subModel': subModel.id, 'fault':fault.id}) }}">
                             {{ fault.name }}
                         </a>
                     </div>
+                {% endif %}
                 {% endfor %}
                 {% else %}
                     <h4 class="mt-5">

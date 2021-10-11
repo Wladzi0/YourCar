@@ -19,9 +19,6 @@ class ScaleRepository extends ServiceEntityRepository
         parent::__construct($registry, Scale::class);
     }
 
-    // /**
-    //  * @return Scale[] Returns an array of Scale objects
-    //  */
     /*
     public function findByExampleField($value)
     {
